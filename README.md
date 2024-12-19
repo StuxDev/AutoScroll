@@ -1,5 +1,6 @@
 # AutoScroll
 A simple auto scroller for Reddit image threads.
+Made by StuxieDev
 
 
 ### Motivation
