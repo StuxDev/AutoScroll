@@ -86,6 +86,11 @@
       "src": "img/icons/mstile-150x150.png",
       "sizes": "150x150",
       "type": "image/png"
+    },
+    {
+      "src": "img/icons/icon.png",
+      "sizes": "512x512",
+      "type": "image/png"
     }
   ],
   "splash_pages": null
