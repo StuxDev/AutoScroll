@@ -1,8 +1,8 @@
 {
   "name": "AutoScroll",
   "short_name": "AutoScroll",
-  "theme_color": "#f32121",
-  "background_color": "#2187d7",
+  "theme_color": "#ff5252",
+  "background_color": "#121212",
   "display": "minimal-ui",
   "scope": "/",
   "start_url": "/",
@@ -43,7 +43,7 @@
       "type": "image/png"
     },
     {
-      "src": "assets/icon.png",
+      "src": "img/icons/android-chrome-512x512.png",
       "sizes": "512x512",
       "type": "image/png"
     },
@@ -85,11 +85,6 @@
     {
       "src": "img/icons/mstile-150x150.png",
       "sizes": "150x150",
-      "type": "image/png"
-    }
-    {
-      "src": "img/icons/icon.png",
-      "sizes": "512x512",
       "type": "image/png"
     }
   ],
