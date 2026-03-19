@@ -1,5 +1,8 @@
 <template>
-  <v-footer app height="40">
+  <v-footer
+    app
+    height="40"
+  >
     <a
       v-for="item in items"
       :key="item.title"
@@ -19,15 +22,15 @@
       class="text-caption text-disabled"
       style="position: absolute; right: 16px;"
     >
-      &copy; 2024-{{ (new Date()).getFullYear() }} <span class="d-none d-sm-inline-block">stuxiedev</span>
+      &copy; 2020-{{ (new Date()).getFullYear() }} <span class="d-none d-sm-inline-block">StuxieDev</span>
       —
       <a
         class="text-decoration-none on-surface"
-        href="https://github.com/stuxiedev/autoscroll/blob/master/LICENSE"
+        href="https://labs.stux.dev"
         rel="noopener noreferrer"
         target="_blank"
       >
-        MIT License
+        A Stux.Dev Labs Project
       </a>
     </div>
   </v-footer>
@@ -38,13 +41,8 @@
     {
       title: 'AutoScroll GitHub',
       icon: `mdi-github`,
-      href: 'https://github.com/stuxiedev/autoscroll',
-    },
-    {
-      title: 'Discord',
-      icon: `mdi-discord`,
-      href: 'https://stux.ie/discord',
-    },
+      href: 'https://github.com/StuxieDev/AutoScroll',
+    }
   ]
 </script>
 
