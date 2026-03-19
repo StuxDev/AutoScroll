@@ -17,9 +17,9 @@
 import {defineStore} from 'pinia';
 import {useSettingsStore} from './settings';
 
-const PROXY_URL = 'https://europe-west4-scrollit-f3849.cloudfunctions.net/redditProxy';
-const SEARCH_PROXY_URL = 'https://europe-west4-scrollit-f3849.cloudfunctions.net/searchSubredditsProxy';
-const PROXY_STATUS_URL = 'https://europe-west4-scrollit-f3849.cloudfunctions.net/proxyStatus';
+const PROXY_URL = 'https://us-central1-autoscroll-dce73.cloudfunctions.net/redditProxy';
+const SEARCH_PROXY_URL = 'https://us-central1-autoscroll-dce73.cloudfunctions.net/searchSubredditsProxy';
+const PROXY_STATUS_URL = 'https://us-central1-autoscroll-dce73.cloudfunctions.net/proxyStatus';
 
 // Set this to your localhost secret for local testing (optional)
 // In production, leave as empty string
@@ -39,7 +39,7 @@ function getFetchOptions(url: string): RequestInit {
   let isProxyRequest = false;
   try {
     const urlObj = new URL(url, window.location.origin);
-    isProxyRequest = urlObj.hostname === 'scrollit-f3849.cloudfunctions.net';
+    isProxyRequest = urlObj.hostname === 'autoscroll-dce73.cloudfunctions.net';
   } catch (e) {
     // If parsing fails, treat as non-proxy request
     isProxyRequest = false;
