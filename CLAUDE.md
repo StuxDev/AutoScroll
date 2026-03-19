@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-AutoScroll is a Reddit image slideshow application built as a learning project during the 2020 lockdown. It provides auto-scrolling functionality for viewing images from Reddit subreddits in a slideshow format. The application handles albums, images, videos, and embedded content with NSFW filtering and infinite scrolling.
+AutoScroll is a Reddit image slideshow application built as a learning project during 2024. It provides auto-scrolling functionality for viewing images from Reddit subreddits in a slideshow format. The application handles albums, images, videos, and embedded content with NSFW filtering and infinite scrolling.
 
 ## Architecture
 
