@@ -22,13 +22,13 @@ export default createVuetify({
         colors: {
           background: '#121212', // Standard dark background
           surface: '#1E1E1E',    // Slightly lighter dark for cards/dialogs
-          primary: '#FF5252',    // Vibrant red that works well on dark
+          primary: '#FF1F1F',    // Vibrant red that works well on dark
           secondary: '#B71C1C',  // Deep blood red
           error: '#CF6679',      // Desaturated red for accessibility
           info: '#2196F3',
           success: '#4CAF50',
           warning: '#FB8C00',
-          anchor: '#FF5252',   // Same as primary for consistency
+          anchor: '#FF1F1F',   // Same as primary for consistency
         },
       },
     },
