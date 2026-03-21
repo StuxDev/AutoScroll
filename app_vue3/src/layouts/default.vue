@@ -59,10 +59,10 @@
               <v-icon>mdi-emoticon-happy</v-icon>
 
               <br><br>
-              You can find me on <a
-                href="https://www.linkedin.com/in/ahristozov/"
+              You can find me on my links page <a
+                href="https://links.stuxie.dev"
                 target="_blank"
-              >LinkedIn</a> for any further questions or inquiries. Stay safe!
+              >here</a> for any further questions or inquiries. Stay safe!
 
               <br><br>
               All content belongs to Reddit and the users that uploaded it. I take no responsibility for what is displayed or searched.
