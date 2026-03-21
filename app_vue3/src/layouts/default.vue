@@ -54,7 +54,7 @@
               This is a small side project made during 2024. I wanted to take the time to learn more about Vue.js and Vuetify. I was inspired by <a
                 href="http://www.imagoid.com/"
                 target="_blank"
-                style="color: #FF5252"
+                style="color:red"
               >Imagoid</a>
               and so created a very simple auto scroller for Reddit image posts. I hope you enjoy, and if you find any issues you can leave an issue in the source code repository!
               <v-icon>mdi-emoticon-happy</v-icon>
@@ -63,7 +63,7 @@
               You can find me on my links page <a
                 href="https://links.stuxie.dev"
                 target="_blank"
-                style="color: #FF5252"
+                style="color:red"
               >here</a> for any further questions or inquiries. Stay safe!
 
               <br><br>
