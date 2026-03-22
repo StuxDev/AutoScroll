@@ -58,13 +58,10 @@
               I hope you enjoy, and if you find any issues, you can contact me at <a 
                 href="mailto:contact@stuxie.dev"
                 target="_blank"
-              >contact@stuxie.dev</a>!
-
-              <br><br>
-              You can find my socials on my <a
+              >contact@stuxie.dev</a> or find me on <a
                 href="https://links.stuxie.dev"
                 target="_blank"
-              >links page</a> for any further questions or inquiries.
+              >Social Media</a>!
             </v-card-text>
             
             <v-divider />
