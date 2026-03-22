@@ -10,7 +10,7 @@
         <p>It seems we're having trouble fetching content from Reddit. This can sometimes be caused by network restrictions or silly age verification requirements set by your country.</p>
         <p>Would you like to try again using our proxy? This may help bypass the issue.</p>
 
-        <v-divider class="my-4" />
+        <v-divider/>
 
         <div class="d-flex align-center justify-space-between mb-2">
           <span class="text-subtitle-1">Proxy Status:</span>
@@ -39,6 +39,9 @@
         >
           Proxy is partially available. Some features may not work correctly.
         </v-alert>
+        
+        <v-divider/>
+        
       </v-card-text>
       <v-card-actions>
         <v-spacer />
