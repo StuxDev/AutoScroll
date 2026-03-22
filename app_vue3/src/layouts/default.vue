@@ -71,8 +71,9 @@
 
             <v-divider />
             <br>
+            Boring Legal Stuff:
             <v-card-text>
-              <p>
+              <p style="font-size: 12px;">
                 Privacy policy: This site collects no analytics or any other identifiable data.
                 <br>
                 Cookie policy: This site sets no cookies.
