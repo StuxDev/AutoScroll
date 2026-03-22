@@ -103,13 +103,15 @@
               <span class="text-subtitle-1">Boring Legal Stuff:</span>
               <div style="font-size: 12px;" class="text-caption text-medium-emphasis ml-4">
                 <span class="text-subtitle-2">• Privacy policy:</span> 
-                This site collects no analytics or any other identifiable data.
+                This service does not collect any analytical or any other identifiable data. 
                 <br>
                 <span class="text-subtitle-2">• Cookie policy:</span> 
-                This site does not use any cookies. Only local storage is used to save user preferences, which is stored on the user's browser and not shared with any third parties.
+                This service does not set or use any cookies.
                 <br>
                 <span class="text-subtitle-2">• Disclaimer:</span> 
-                This project is not affiliated with Reddit in any way. All content is sourced from Reddit's public API. The developer is not responsible for any content displayed through this application.
+                This project is not affiliated with Reddit in any way. 
+                All data is from Reddit's API. 
+                I hold no responsibility for any content displayed through this service.
               </div>
             </v-card-text>
 
