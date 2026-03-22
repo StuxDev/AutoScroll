@@ -32,7 +32,7 @@
         </v-icon>
       </v-btn>
 
-      <v-dialog max-width="500">
+      <v-dialog v-model="infoDialog" max-width="500">
         <template #activator="{ props: activatorProps }">
           <v-btn v-bind="activatorProps">
             <v-icon size="large">
@@ -41,8 +41,7 @@
           </v-btn>
         </template>
 
-        <template #default="{ isActive }">
-          <v-card>
+        <v-card>
             <v-card-title
               class="text-h5 bg-grey-lighten-2"
               primary-title
@@ -67,6 +66,32 @@
                 target="_blank"
               >links page</a> for any further questions or inquiries.
             </v-card-text>
+
+            <br><br>
+            Proxy Status: 
+            <v-chip
+              :color="statusColor"
+              :prepend-icon="statusIcon"
+              size="small"
+            >
+              {{ statusText }}
+            </v-chip>
+            <div
+              v-if="galleryStore.proxyStatusDetails"
+              class="text-caption text-medium-emphasis ml-4"
+            >
+              <div>• Rate Limiting: {{ galleryStore.proxyStatusDetails.firestore === 'available' ? '✓ Active' : '✗ Unavailable' }}</div>
+              <div>• Reddit API: {{ galleryStore.proxyStatusDetails.reddit === 'available' ? '✓ Reachable' : '✗ Unreachable' }}</div>
+            </div>
+
+            <v-alert
+              v-if="galleryStore.proxyStatus === 'degraded'"
+              type="warning"
+              density="compact"
+              class="mt-3"
+            >
+              Proxy is partially available. Some features may not work correctly.
+            </v-alert>
 
             <v-divider />
             <br>
@@ -94,13 +119,12 @@
               </v-btn>
               <v-btn
                 color="primary"
-                @click="isActive.value = false"
+                @click="infoDialog = false"
               >
                 Close
               </v-btn>
             </v-card-actions>
           </v-card>
-        </template>
       </v-dialog>
     </v-app-bar>
     <v-main>
@@ -112,10 +136,50 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref } from 'vue'
+  import { ref, computed, watch } from 'vue'
   import SettingsDialog from '@/components/SettingsDialog.vue'
+  import { useGalleryStore } from '@/stores/gallery'
 
   const settingsDialog = ref(false)
+  const infoDialog = ref(false)
+
+  const galleryStore = useGalleryStore()
+
+  const statusColor = computed(() => {
+    switch (galleryStore.proxyStatus) {
+      case 'operational': return 'success'
+      case 'degraded': return 'warning'
+      case 'unavailable': return 'error'
+      case 'checking': return 'info'
+      default: return 'grey'
+    }
+  })
+
+  const statusIcon = computed(() => {
+    switch (galleryStore.proxyStatus) {
+      case 'operational': return 'mdi-check-circle'
+      case 'degraded': return 'mdi-alert-circle'
+      case 'unavailable': return 'mdi-close-circle'
+      case 'checking': return 'mdi-loading mdi-spin'
+      default: return 'mdi-help-circle'
+    }
+  })
+
+  const statusText = computed(() => {
+    switch (galleryStore.proxyStatus) {
+      case 'operational': return 'Fully Operational'
+      case 'degraded': return 'Partially Available'
+      case 'unavailable': return 'Unavailable'
+      case 'checking': return 'Checking...'
+      default: return 'Unknown'
+    }
+  })
+
+  watch(infoDialog, (isOpen) => {
+    if (isOpen) {
+      galleryStore.checkProxyStatus()
+    }
+  })
 </script>
 <style lang="sass">
 .v-card-title
