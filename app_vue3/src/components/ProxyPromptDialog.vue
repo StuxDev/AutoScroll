@@ -6,12 +6,14 @@
   >
     <v-card>
       <v-card-title>Having Trouble Fetching Content?</v-card-title>
-      <v-card-text>
+      <v-card-text style="font-size: 14px;">
         <p>It seems we're having trouble fetching content from Reddit. This can sometimes be caused by network restrictions or silly age verification requirements set by your country.</p>
         <p>Would you like to try again using our proxy? This may help bypass the issue.</p>
+      </v-card-text>
 
-        <v-divider/>
+      <v-divider/>
 
+      <v-card-text>
         <div class="d-flex align-center justify-space-between mb-2">
           <span class="text-subtitle-1">Proxy Status:</span>
           <v-chip
@@ -39,10 +41,10 @@
         >
           Proxy is partially available. Some features may not work correctly.
         </v-alert>
-        
-        <v-divider/>
-        
       </v-card-text>
+
+      <v-divider/>
+      
       <v-card-actions>
         <v-spacer />
         <v-btn
