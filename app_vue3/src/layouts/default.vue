@@ -75,9 +75,9 @@
               <p style="font-size: 12px;">
                 Privacy policy: This site collects no analytics or any other identifiable data.
                 <br>
-                Cookie policy: This site sets no cookies. The only data stored is in local storage, which is used to save user preferences such as theme and subreddit filters.
+                Cookie policy: This site does not use any cookies. Only local storage is used to save user preferences, which is stored on the user's browser and not shared with any third parties.
                 <br>
-                Disclaimer: All content belongs to Reddit and the users that uploaded it. I take no responsibility for what is displayed or searched. This is a personal project and is not affiliated with Reddit in any way.
+                Disclaimer: This project is not affiliated with Reddit in any way. All content is sourced from Reddit's public API. The developer is not responsible for any content displayed through this application.
               </p>
             </v-card-text>
 
