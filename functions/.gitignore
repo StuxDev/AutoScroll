@@ -8,6 +8,8 @@ typings/
 # Node.js dependency directory
 node_modules/
 *.local.env
+*.env
+.env
 
 # GeoLite2 database file (download from MaxMind)
 GeoLite2-Country.mmdb
