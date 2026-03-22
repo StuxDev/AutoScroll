@@ -49,13 +49,13 @@
               What is this?
             </v-card-title>
 
-            <v-card-text>
+            <v-card-text style="font-size: 14px;">
               This is a small side project made during 2024. 
               I was inspired by <a
                 href="http://www.imagoid.com/"
                 target="_blank"
               >Imagoid</a>
-              and so created a very simple auto scroller for Reddit image posts. 
+              and so created a very simple auto scroller for Reddit image posts.
               I hope you enjoy, and if you find any issues, you can contact me at <a 
                 href="mailto:contact@stuxie.dev"
                 target="_blank"
@@ -197,10 +197,10 @@
   color: white !important;
 
 .v-card-text
-  padding: 24px;
+  padding: 24px !important;
 .v-card-text a
-  color: #FF1F1F;
+  color: #FF1F1F !important;
 
 .v-card-actions
-  padding: .7rem .5rem .5rem;
+  padding: .7rem .5rem .5rem !important;
 </style>
