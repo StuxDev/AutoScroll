@@ -5,13 +5,17 @@
     persistent
   >
     <v-card>
-      <v-card-title>Having Trouble Fetching Content?</v-card-title>
+      <v-card-title>
+        Having Trouble Fetching Content?
+      </v-card-title>
       <v-card-text style="font-size: 14px;">
-        <p>It seems we're having trouble fetching content from Reddit. This can sometimes be caused by network restrictions or silly age verification requirements set by your country.</p>
+        <p>It seems we're having trouble fetching content from Reddit.</p>
+        <p>This can sometimes be caused by network restrictions or silly age verification requirements set by your country.</p>
         <p>Would you like to try again using our proxy? This may help bypass the issue.</p>
       </v-card-text>
 
-      <v-divider/>
+      <v-divider />
+      <br>
 
       <v-card-text>
         <div class="d-flex align-center justify-space-between mb-2">
@@ -43,7 +47,7 @@
         </v-alert>
       </v-card-text>
 
-      <v-divider/>
+      <v-divider />
       
       <v-card-actions>
         <v-spacer />
@@ -112,3 +116,16 @@ const statusText = computed(() => {
   }
 })
 </script>
+<style lang="sass">
+  .v-card-title
+    background-color: #FF1F1F !important;
+    color: white !important;
+
+  .v-card-text
+    padding: 24px !important;
+  .v-card-text a
+    color: #FF1F1F !important;
+
+  .v-card-actions
+    padding: .7rem .5rem .5rem !important;
+</style>

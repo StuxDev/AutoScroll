@@ -43,7 +43,6 @@
 
         <v-card>
             <v-card-title
-              class="text-h5 bg-grey-lighten-2"
               primary-title
             >
               What is this?
@@ -192,15 +191,15 @@
   })
 </script>
 <style lang="sass">
-.v-card-title
-  background-color: #FF1F1F !important;
-  color: white !important;
+  .v-card-title
+    background-color: #FF1F1F !important;
+    color: white !important;
 
-.v-card-text
-  padding: 24px !important;
-.v-card-text a
-  color: #FF1F1F !important;
+  .v-card-text
+    padding: 24px !important;
+  .v-card-text a
+    color: #FF1F1F !important;
 
-.v-card-actions
-  padding: .7rem .5rem .5rem !important;
+  .v-card-actions
+    padding: .7rem .5rem .5rem !important;
 </style>
