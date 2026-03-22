@@ -16,6 +16,13 @@
         :icon="item.icon"
         :size="item.icon === '$vuetify' ? 24 : 16"
       />
+    </a>
+
+    <div
+      class="text-caption text-disabled"
+      style="position: absolute; right: 16px;"
+    >
+      &copy; 2024-{{ (new Date()).getFullYear() }} <span class="d-none d-sm-inline-block">StuxieDev</span>
       -
       <a
         class="text-decoration-none on-surface"
@@ -25,13 +32,7 @@
       >
         A Stux.Dev Labs Project
       </a>
-    </a>
 
-    <div
-      class="text-caption text-disabled"
-      style="position: absolute; right: 16px;"
-    >
-      &copy; 2024-{{ (new Date()).getFullYear() }} <span class="d-none d-sm-inline-block">StuxieDev</span>
     </div>
   </v-footer>
 </template>
