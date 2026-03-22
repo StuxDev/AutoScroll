@@ -65,33 +65,33 @@
                 href="https://links.stuxie.dev"
                 target="_blank"
               >links page</a> for any further questions or inquiries.
+
+              <br><br>
+              Proxy Status: 
+              <v-chip
+                :color="statusColor"
+                :prepend-icon="statusIcon"
+                size="small"
+              >
+                {{ statusText }}
+              </v-chip>
+              <div
+                v-if="galleryStore.proxyStatusDetails"
+                class="text-caption text-medium-emphasis ml-4"
+              >
+                <div>• Rate Limiting: {{ galleryStore.proxyStatusDetails.firestore === 'available' ? '✓ Active' : '✗ Unavailable' }}</div>
+                <div>• Reddit API: {{ galleryStore.proxyStatusDetails.reddit === 'available' ? '✓ Reachable' : '✗ Unreachable' }}</div>
+              </div>
+
+              <v-alert
+                v-if="galleryStore.proxyStatus === 'degraded'"
+                type="warning"
+                density="compact"
+                class="mt-3"
+              >
+                Proxy is partially available. Some features may not work correctly.
+              </v-alert>
             </v-card-text>
-
-            <br><br>
-            Proxy Status: 
-            <v-chip
-              :color="statusColor"
-              :prepend-icon="statusIcon"
-              size="small"
-            >
-              {{ statusText }}
-            </v-chip>
-            <div
-              v-if="galleryStore.proxyStatusDetails"
-              class="text-caption text-medium-emphasis ml-4"
-            >
-              <div>• Rate Limiting: {{ galleryStore.proxyStatusDetails.firestore === 'available' ? '✓ Active' : '✗ Unavailable' }}</div>
-              <div>• Reddit API: {{ galleryStore.proxyStatusDetails.reddit === 'available' ? '✓ Reachable' : '✗ Unreachable' }}</div>
-            </div>
-
-            <v-alert
-              v-if="galleryStore.proxyStatus === 'degraded'"
-              type="warning"
-              density="compact"
-              class="mt-3"
-            >
-              Proxy is partially available. Some features may not work correctly.
-            </v-alert>
 
             <v-divider />
             <br>
