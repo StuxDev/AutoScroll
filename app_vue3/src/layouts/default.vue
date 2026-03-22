@@ -98,7 +98,6 @@
             </v-card-text>
 
             <v-divider />
-            <br>
 
             <v-card-text>
               <span class="text-subtitle-1">Boring Legal Stuff:</span>
