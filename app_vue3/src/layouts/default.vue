@@ -129,5 +129,5 @@
   color: #FF1F1F;
 
 .v-card-actions
-  padding: 1rem 0.5rem 0.5rem 0.5rem;
+  padding: .7rem .5rem .5rem;
 </style>
