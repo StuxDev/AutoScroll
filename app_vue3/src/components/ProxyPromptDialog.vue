@@ -13,7 +13,7 @@
         <v-divider class="my-4" />
 
         <div class="d-flex align-center justify-space-between mb-2">
-          <span class="text-subtitle-2">Proxy Status:</span>
+          <span class="text-subtitle-1">Proxy Status:</span>
           <v-chip
             :color="statusColor"
             :prepend-icon="statusIcon"
@@ -27,8 +27,8 @@
           v-if="galleryStore.proxyStatusDetails"
           class="text-caption text-medium-emphasis ml-4"
         >
-          <div>• Rate Limiting: {{ galleryStore.proxyStatusDetails.firestore === 'available' ? '✓ Active' : '✗ Unavailable' }}</div>
-          <div>• Reddit API: {{ galleryStore.proxyStatusDetails.reddit === 'available' ? '✓ Reachable' : '✗ Unreachable' }}</div>
+          <div><span class="text-subtitle-2">• Rate Limiting:</span> {{ galleryStore.proxyStatusDetails.firestore === 'available' ? '✓ Active' : '✗ Unavailable' }}</div>
+          <div><span class="text-subtitle-2">• Reddit API:</span> {{ galleryStore.proxyStatusDetails.reddit === 'available' ? '✓ Reachable' : '✗ Unreachable' }}</div>
         </div>
 
         <v-alert
