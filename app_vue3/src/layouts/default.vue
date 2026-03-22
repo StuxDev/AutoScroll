@@ -103,11 +103,14 @@
             <v-card-text>
               <span class="text-subtitle-1">Boring Legal Stuff:</span>
               <div style="font-size: 12px;" class="text-caption text-medium-emphasis ml-4">
-                • Privacy policy: This site collects no analytics or any other identifiable data.
+                <span class="text-subtitle-2">• Privacy policy:</span> 
+                This site collects no analytics or any other identifiable data.
                 <br>
-                • Cookie policy: This site does not use any cookies. Only local storage is used to save user preferences, which is stored on the user's browser and not shared with any third parties.
+                <span class="text-subtitle-2">• Cookie policy:</span> 
+                This site does not use any cookies. Only local storage is used to save user preferences, which is stored on the user's browser and not shared with any third parties.
                 <br>
-                • Disclaimer: This project is not affiliated with Reddit in any way. All content is sourced from Reddit's public API. The developer is not responsible for any content displayed through this application.
+                <span class="text-subtitle-2">• Disclaimer:</span> 
+                This project is not affiliated with Reddit in any way. All content is sourced from Reddit's public API. The developer is not responsible for any content displayed through this application.
               </div>
             </v-card-text>
 
