@@ -59,11 +59,11 @@
               and so created a very simple auto scroller for Reddit image posts. I hope you enjoy, and if you find any issues, you can contact me at <a style="color: #FF1F1F;" href="mailto:contact@stuxie.dev">contact@stuxie.dev</a>!
 
               <br><br>
-              You can find me on my links page <a
+              You can find my socials on my <a
                 href="https://links.stuxie.dev"
                 target="_blank"
                 style="color:#FF1F1F"
-              >here</a> for any further questions or inquiries. Stay safe!
+              >links page</a> for any further questions or inquiries.
 
               <br><br>
               All content belongs to Reddit and the users that uploaded it. I take no responsibility for what is displayed or searched.
@@ -72,9 +72,11 @@
             <v-divider />
             <br>
             <v-card-text>
-              Privacy policy: This site collects no analytics or any other identifiable data.
-              <br>
-              Cookie policy: This site sets no cookies.
+              <p>
+                Privacy policy: This site collects no analytics or any other identifiable data.
+                <br>
+                Cookie policy: This site sets no cookies.
+              </p>
             </v-card-text>
 
             <v-divider />
