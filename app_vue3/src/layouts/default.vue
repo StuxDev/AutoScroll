@@ -61,7 +61,7 @@
               >contact@stuxie.dev</a> or find me on <a
                 href="https://links.stuxie.dev"
                 target="_blank"
-              >Social Media</a>!
+              >social media</a>!
             </v-card-text>
             
             <v-divider />
