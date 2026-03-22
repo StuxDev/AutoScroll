@@ -57,7 +57,6 @@
                 style="color:#FF1F1F"
               >Imagoid</a>
               and so created a very simple auto scroller for Reddit image posts. I hope you enjoy, and if you find any issues, you can contact me at <a style="color: #FF1F1F;" href="mailto:contact@stuxie.dev">contact@stuxie.dev</a>!
-              <v-icon>mdi-emoticon-happy</v-icon>
 
               <br><br>
               You can find me on my links page <a
