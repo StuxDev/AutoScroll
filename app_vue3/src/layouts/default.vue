@@ -66,9 +66,6 @@
                 href="https://links.stuxie.dev"
                 target="_blank"
               >links page</a> for any further questions or inquiries.
-
-              <br><br>
-              All content belongs to Reddit and the users that uploaded it. I take no responsibility for what is displayed or searched.
             </v-card-text>
 
             <v-divider />
@@ -79,6 +76,8 @@
                 Privacy policy: This site collects no analytics or any other identifiable data.
                 <br>
                 Cookie policy: This site sets no cookies.
+                <br>
+                Disclaimer: All content belongs to Reddit and the users that uploaded it. I take no responsibility for what is displayed or searched. This is a personal project and is not affiliated with Reddit in any way.
               </p>
             </v-card-text>
 
