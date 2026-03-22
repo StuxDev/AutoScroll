@@ -54,15 +54,17 @@
               This is a small side project made during 2024. I wanted to take the time to learn more about Vue.js and Vuetify. I was inspired by <a
                 href="http://www.imagoid.com/"
                 target="_blank"
-                style="color:#FF1F1F"
               >Imagoid</a>
-              and so created a very simple auto scroller for Reddit image posts. I hope you enjoy, and if you find any issues, you can contact me at <a style="color: #FF1F1F;" href="mailto:contact@stuxie.dev">contact@stuxie.dev</a>!
+              and so created a very simple auto scroller for Reddit image posts. 
+              I hope you enjoy, and if you find any issues, you can contact me at <a 
+                href="mailto:contact@stuxie.dev"
+                target="_blank"
+              >contact@stuxie.dev</a>!
 
               <br><br>
               You can find my socials on my <a
                 href="https://links.stuxie.dev"
                 target="_blank"
-                style="color:#FF1F1F"
               >links page</a> for any further questions or inquiries.
 
               <br><br>
@@ -71,8 +73,8 @@
 
             <v-divider />
             <br>
-            Boring Legal Stuff:
             <v-card-text>
+              Boring Legal Stuff:
               <p style="font-size: 12px;">
                 Privacy policy: This site collects no analytics or any other identifiable data.
                 <br>
