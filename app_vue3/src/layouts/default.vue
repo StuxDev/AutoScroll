@@ -50,7 +50,8 @@
             </v-card-title>
 
             <v-card-text>
-              This is a small side project made during 2024. I wanted to take the time to learn more about Vue.js and Vuetify. I was inspired by <a
+              This is a small side project made during 2024. 
+              I was inspired by <a
                 href="http://www.imagoid.com/"
                 target="_blank"
               >Imagoid</a>
