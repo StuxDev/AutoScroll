@@ -116,3 +116,13 @@
 
   const settingsDialog = ref(false)
 </script>
+<style lang="sass">
+.v-card-text
+  padding: 24px;
+
+.v-card-text a
+  color: #FF1F1F;
+
+.v-card-actions
+  padding: 1rem 0.5rem 0.5rem 0.5rem;
+</style>
