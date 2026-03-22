@@ -53,5 +53,6 @@
     transition: .2s ease-in-out
 
     &:hover
-      color: rgba(25, 118, 210, 1)
+      color: #FF1F1F;
+    
 </style>
