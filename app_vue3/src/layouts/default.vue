@@ -75,7 +75,7 @@
               <p style="font-size: 12px;">
                 Privacy policy: This site collects no analytics or any other identifiable data.
                 <br>
-                Cookie policy: This site sets no cookies.
+                Cookie policy: This site sets no cookies. The only data stored is in local storage, which is used to save user preferences such as theme and subreddit filters.
                 <br>
                 Disclaimer: All content belongs to Reddit and the users that uploaded it. I take no responsibility for what is displayed or searched. This is a personal project and is not affiliated with Reddit in any way.
               </p>
