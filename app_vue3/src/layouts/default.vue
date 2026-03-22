@@ -68,14 +68,17 @@
             <br>
 
             <v-card-text>
-              Proxy Status: 
-              <v-chip
-                :color="statusColor"
-                :prepend-icon="statusIcon"
-                size="small"
-              >
-                {{ statusText }}
-              </v-chip>
+              <div class="d-flex align-center justify-space-between mb-2">
+                <span class="text-subtitle-2">Proxy Status:</span>
+                <v-chip
+                  :color="statusColor"
+                  :prepend-icon="statusIcon"
+                  size="small"
+                >
+                  {{ statusText }}
+                </v-chip>
+              </div>
+
               <div
                 v-if="galleryStore.proxyStatusDetails"
                 class="text-caption text-medium-emphasis ml-4"
