@@ -119,9 +119,12 @@
   const settingsDialog = ref(false)
 </script>
 <style lang="sass">
+.v-card-title
+  background-color: #FF1F1F !important;
+  color: white !important;
+
 .v-card-text
   padding: 24px;
-
 .v-card-text a
   color: #FF1F1F;
 
