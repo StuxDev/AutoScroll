@@ -65,8 +65,12 @@
                 href="https://links.stuxie.dev"
                 target="_blank"
               >links page</a> for any further questions or inquiries.
+            </v-card-text>
+            
+            <v-divider />
+            <br>
 
-              <br><br>
+            <v-card-text>
               Proxy Status: 
               <v-chip
                 :color="statusColor"
@@ -95,6 +99,7 @@
 
             <v-divider />
             <br>
+
             <v-card-text>
               Boring Legal Stuff:
               <p style="font-size: 12px;">
