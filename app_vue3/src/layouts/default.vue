@@ -56,7 +56,7 @@
                 target="_blank"
                 style="color:#FF1F1F"
               >Imagoid</a>
-              and so created a very simple auto scroller for Reddit image posts. I hope you enjoy, and if you find any issues you can leave an issue in the source code repository!
+              and so created a very simple auto scroller for Reddit image posts. I hope you enjoy, and if you find any issues, you can contact me at <a style="color: #FF1F1F;" href="mailto:contact@stuxie.dev">contact@stuxie.dev</a>!
               <v-icon>mdi-emoticon-happy</v-icon>
 
               <br><br>
@@ -84,10 +84,10 @@
               <v-spacer />
               <v-btn
                 color="primary"
-                href="https://github.com/StuxieDev/AutoScroll"
+                href="https://labs.stux.dev"
                 target="_blank"
               >
-                See source code
+                See more labs
               </v-btn>
               <v-btn
                 color="primary"
