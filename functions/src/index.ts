@@ -128,30 +128,22 @@ export const proxyStatus = onRequest({region: "europe-west4"}, async (request, r
         status.status = "unavailable";
       }
 
-      // Check Reddit API accessibility via OAuth
+      // Check Apify API accessibility
       try {
         const axios = await import("axios");
-        const {getRedditAccessToken, getRedditUserAgent} = await import("./config.js");
-        const token = await getRedditAccessToken();
-        const redditResponse = await axios.default.get(
-          "https://oauth.reddit.com/r/test?limit=1",
-          {
-            timeout: 5000,
-            headers: {
-              "Authorization": `Bearer ${token}`,
-              "User-Agent": getRedditUserAgent(),
-            },
-          }
+        const {getApifyToken} = await import("./config.js");
+        const apifyResponse = await axios.default.get(
+          `https://api.apify.com/v2/acts/spry_wholemeal~reddit-scraper?token=${getApifyToken()}`,
+          {timeout: 5000}
         );
-        status.services.reddit = redditResponse.status === 200 ?
+        status.services.reddit = apifyResponse.status === 200 ?
           "available" : "unavailable";
       } catch (error: any) {
-        logger.error("Reddit health check failed:", {
+        logger.error("Apify health check failed:", {
           status: error.response?.status,
           message: error.message,
         });
         status.services.reddit = "unavailable";
-        // Reddit being down is degraded, not fully unavailable
         if (status.status === "operational") {
           status.status = "degraded";
         }

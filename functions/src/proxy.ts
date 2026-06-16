@@ -3,34 +3,33 @@ import * as logger from "firebase-functions/logger";
 import axios from "axios";
 import cors from "cors";
 import {rateLimit} from "./rateLimiter";
-import {getAllowedOrigins, getLocalhostSecret, getRedditAccessToken, getRedditUserAgent} from "./config";
+import {getAllowedOrigins, getLocalhostSecret, getApifyToken} from "./config";
 import {checkMonthlyLimit} from "./monthlyLimit";
 import {initializeGeoIP, getCountryFromIP, trackAnonymousRequest} from "./anonymousAnalytics";
+
+const APIFY_ACTOR_ID = "spry_wholemeal~reddit-scraper";
+const APIFY_RUN_URL = `https://api.apify.com/v2/acts/${APIFY_ACTOR_ID}/run-sync-get-dataset-items`;
 
 // CORS handler with origin validation
 const corsHandler = cors({
   origin: (origin, callback) => {
     const allowedOrigins = getAllowedOrigins();
 
-    // Check if origin is localhost
     const isLocalhost = origin && (
       origin.startsWith("http://localhost:") ||
       origin.startsWith("http://127.0.0.1:")
     );
 
-    // Allow requests with no origin (like mobile apps or curl)
     if (!origin) {
       callback(null, true);
       return;
     }
 
-    // Allow if in allowed origins list
     if (allowedOrigins.includes(origin)) {
       callback(null, true);
       return;
     }
 
-    // Allow localhost
     if (isLocalhost) {
       callback(null, true);
       return;
@@ -53,19 +52,16 @@ function validateLocalhostSecret(
   const origin = req.headers.origin;
   const localhostSecret = getLocalhostSecret();
 
-  // Skip validation if no localhost secret is configured
   if (!localhostSecret) {
     next();
     return;
   }
 
-  // Check if request is from localhost
   const isLocalhost = origin && (
     origin.startsWith("http://localhost:") ||
     origin.startsWith("http://127.0.0.1:")
   );
 
-  // If from localhost and secret is configured, validate the secret
   if (isLocalhost) {
     const providedSecret = req.headers["x-localhost-secret"];
 
@@ -84,24 +80,48 @@ function validateLocalhostSecret(
 
 // Rate limit: 5 requests per minute per IP
 const redditRateLimiter = rateLimit({
-  windowMs: 60 * 1000, // 1 minute
+  windowMs: 60 * 1000,
   maxRequests: 5,
 });
 
 // Rate limit: 10 requests per minute per IP for search
 const searchRateLimiter = rateLimit({
-  windowMs: 60 * 1000, // 1 minute
+  windowMs: 60 * 1000,
   maxRequests: 10,
 });
 
 // Initialize GeoIP database (lazy-loaded on first request)
 let geoIPLookup: any = null;
 
-export const redditProxy = onRequest({region: "europe-west4"}, (request, response) => {
+async function ensureGeoIP() {
+  if (!geoIPLookup) {
+    try {
+      geoIPLookup = await initializeGeoIP();
+    } catch (error) {
+      logger.error("Failed to initialize GeoIP:", error);
+    }
+  }
+}
+
+async function trackRequest(request: any, endpoint: string) {
+  await ensureGeoIP();
+  if (geoIPLookup) {
+    try {
+      const ip = (request.headers["x-forwarded-for"] as string) || (request as any).ip || "unknown";
+      const country = getCountryFromIP(ip, geoIPLookup);
+      trackAnonymousRequest(country, endpoint).catch((err) =>
+        logger.debug("Analytics tracking error:", err)
+      );
+    } catch (error) {
+      logger.debug("Could not track analytics:", error);
+    }
+  }
+}
+
+export const redditProxy = onRequest({region: "europe-west4", timeoutSeconds: 120}, (request, response) => {
   corsHandler(request, response, () => {
     validateLocalhostSecret(request, response, () => {
       redditRateLimiter(request, response, async () => {
-        // Check monthly invocation limit
         const withinLimit = await checkMonthlyLimit();
         if (!withinLimit) {
           response.status(429).json({
@@ -111,32 +131,11 @@ export const redditProxy = onRequest({region: "europe-west4"}, (request, respons
           return;
         }
 
-        // Initialize GeoIP database if not already done
-        if (!geoIPLookup) {
-          try {
-            geoIPLookup = await initializeGeoIP();
-          } catch (error) {
-            logger.error("Failed to initialize GeoIP:", error);
-            // Continue without analytics on error
-          }
-        }
-
-        // Track country analytics (privacy-compliant, no IP storage)
-        if (geoIPLookup) {
-          try {
-            const ip = (request.headers["x-forwarded-for"] as string) || (request as any).ip || "unknown";
-            const country = getCountryFromIP(ip, geoIPLookup);
-            // Fire and forget - don't wait for analytics
-            trackAnonymousRequest(country, "redditProxy").catch((err) =>
-              logger.debug("Analytics tracking error:", err)
-            );
-          } catch (error) {
-            logger.debug("Could not track analytics:", error);
-          }
-        }
+        await trackRequest(request, "redditProxy");
 
         const subreddit = request.query.subreddit as string;
-        const after = request.query.after as string;
+        const sort = (request.query.sort as string) || "hot";
+        const limit = parseInt((request.query.limit as string) || "100", 10);
 
         if (!subreddit) {
           response.status(400).json({
@@ -155,34 +154,53 @@ export const redditProxy = onRequest({region: "europe-west4"}, (request, respons
           return;
         }
 
-        // Validate after token if provided (Reddit pagination tokens format: t[0-9]_[alphanumeric])
-        if (after && !/^t[0-9]_[a-zA-Z0-9_-]+$/.test(after)) {
-          response.status(400).json({
-            error: "Bad Request",
-            message: "Invalid pagination token format",
-          });
-          return;
-        }
-
-        // Use OAuth endpoint with authentication
-        const token = await getRedditAccessToken();
-        const url = `https://oauth.reddit.com/r/${subreddit}/${after ? `?after=${after}` : ""}`;
+        const validSorts = ["hot", "new", "top", "rising", "controversial"];
+        const resolvedSort = validSorts.includes(sort) ? sort : "hot";
 
         try {
-          const redditResponse = await axios.get(url, {
-            headers: {
-              "Authorization": `Bearer ${token}`,
-              "User-Agent": getRedditUserAgent(),
+          const apifyResponse = await axios.post(
+            `${APIFY_RUN_URL}?token=${getApifyToken()}`,
+            {
+              mode: "scrape",
+              sort: resolvedSort,
+              maxPosts: Math.min(limit, 100),
+              includeRaw: true,
+              includeCommentsMode: "none",
+              listings: [{subreddit}],
+              proxyConfiguration: {
+                useApifyProxy: true,
+                apifyProxyGroups: ["RESIDENTIAL"],
+              },
             },
-            timeout: 10000,
+            {
+              timeout: 110000,
+              headers: {"Content-Type": "application/json"},
+            }
+          );
+
+          const items: any[] = apifyResponse.data;
+
+          // Reshape Apify output to Reddit JSON API format.
+          // includeRaw: true embeds the original Reddit post object in each item's `raw` field.
+          const children = items
+            .filter((item) => item.raw)
+            .map((item) => ({kind: "t3", data: item.raw}));
+
+          response.status(200).json({
+            data: {
+              children,
+              after: null,
+            },
           });
-          response.status(200).send(redditResponse.data);
         } catch (error) {
-          logger.error("Error fetching from Reddit API:", error);
+          logger.error("Error fetching from Apify:", error);
           if (axios.isAxiosError(error) && error.response) {
-            response.status(error.response.status).send(error.response.data);
+            response.status(error.response.status).json({
+              error: "Apify Error",
+              message: error.response.data,
+            });
           } else {
-            response.status(500).send("Error fetching from Reddit API");
+            response.status(500).json({error: "Failed to fetch posts from Apify"});
           }
         }
       });
@@ -194,7 +212,6 @@ export const searchSubredditsProxy = onRequest({region: "europe-west4"}, (reques
   corsHandler(request, response, () => {
     validateLocalhostSecret(request, response, () => {
       searchRateLimiter(request, response, async () => {
-        // Check monthly invocation limit
         const withinLimit = await checkMonthlyLimit();
         if (!withinLimit) {
           response.status(429).json({
@@ -204,29 +221,7 @@ export const searchSubredditsProxy = onRequest({region: "europe-west4"}, (reques
           return;
         }
 
-        // Initialize GeoIP database if not already done
-        if (!geoIPLookup) {
-          try {
-            geoIPLookup = await initializeGeoIP();
-          } catch (error) {
-            logger.error("Failed to initialize GeoIP:", error);
-            // Continue without analytics on error
-          }
-        }
-
-        // Track country analytics (privacy-compliant, no IP storage)
-        if (geoIPLookup) {
-          try {
-            const ip = (request.headers["x-forwarded-for"] as string) || (request as any).ip || "unknown";
-            const country = getCountryFromIP(ip, geoIPLookup);
-            // Fire and forget - don't wait for analytics
-            trackAnonymousRequest(country, "searchSubredditsProxy").catch((err) =>
-              logger.debug("Analytics tracking error:", err)
-            );
-          } catch (error) {
-            logger.debug("Could not track analytics:", error);
-          }
-        }
+        await trackRequest(request, "searchSubredditsProxy");
 
         const query = request.query.query as string;
 
@@ -235,27 +230,21 @@ export const searchSubredditsProxy = onRequest({region: "europe-west4"}, (reques
           return;
         }
 
-        // Use OAuth endpoint with authentication
-        const token = await getRedditAccessToken();
-        const url = `https://oauth.reddit.com/api/search_reddit_names?query=${encodeURIComponent(query)}&include_over_18=true`;
-
-        logger.info(`Proxying subreddit search request to: ${url}`);
+        // Reddit's public search endpoint works without OAuth from server-side
+        const url = `https://www.reddit.com/api/search_reddit_names.json?query=${encodeURIComponent(query)}&include_over_18=true`;
 
         try {
           const redditResponse = await axios.get(url, {
-            headers: {
-              "Authorization": `Bearer ${token}`,
-              "User-Agent": getRedditUserAgent(),
-            },
+            headers: {"User-Agent": "AutoScroll/1.0"},
             timeout: 10000,
           });
           response.status(200).send(redditResponse.data);
         } catch (error) {
-          logger.error("Error fetching from Reddit API:", error);
+          logger.error("Error fetching subreddit names from Reddit:", error);
           if (axios.isAxiosError(error) && error.response) {
             response.status(error.response.status).send(error.response.data);
           } else {
-            response.status(500).send("Error fetching from Reddit API");
+            response.status(500).send("Error fetching subreddit names");
           }
         }
       });
