@@ -16,7 +16,7 @@ The frontend is a Vue 3 app built with Vite. It runs on **Node.js 18+** and uses
 ## 1. Install dependencies
 
 ```bash
-cd app_vue3
+cd frontend
 pnpm install
 ```
 
@@ -24,13 +24,13 @@ pnpm install
 
 ## 2. Configure environment variables
 
-Create a `.env.local` file inside `app_vue3/`:
+Create a `.env.local` file inside `frontend/`:
 
 ```bash
-cp .env.example .env.local 2>/dev/null || touch app_vue3/.env.local
+cp .env.example .env.local 2>/dev/null || touch frontend/.env.local
 ```
 
-Open `app_vue3/.env.local` and set:
+Open `frontend/.env.local` and set:
 
 ```env
 # Optional — only needed for local testing against the Firebase proxy.
@@ -58,7 +58,7 @@ The app will be available at **http://localhost:3000**.
 pnpm build
 ```
 
-Output is written to `app_vue3/dist/`. Deploy the contents of that folder to any static host (Netlify, Vercel, Cloudflare Pages, etc.).
+Output is written to `frontend/dist/`. Deploy the contents of that folder to any static host (Netlify, Vercel, Cloudflare Pages, etc.).
 
 ### Preview the production build locally
 
@@ -82,16 +82,16 @@ ESLint runs with auto-fix enabled.
 
 The project is pre-configured for Netlify. Push to your connected branch and Netlify will:
 
-1. Run `pnpm build` inside `app_vue3/`
+1. Run `pnpm build` inside `frontend/`
 2. Serve the `dist/` folder as the publish directory
 
 If setting up from scratch, use these Netlify build settings:
 
 | Setting | Value |
 |---------|-------|
-| Base directory | `app_vue3` |
+| Base directory | `frontend` |
 | Build command | `pnpm build` |
-| Publish directory | `app_vue3/dist` |
+| Publish directory | `frontend/dist` |
 
 Set `VITE_LOCALHOST_SECRET` as a Netlify environment variable if you use the localhost secret feature.
 

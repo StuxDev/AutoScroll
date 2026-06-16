@@ -18,7 +18,7 @@ The backend is a set of Firebase Cloud Functions (Node.js 22) that proxy Reddit 
 ## 1. Install dependencies
 
 ```bash
-cd functions
+cd backend
 npm install
 ```
 
@@ -52,13 +52,13 @@ Select your Firebase project from the list.
 
 ### For local development
 
-Create `functions/.env` from the example:
+Create `backend/.env` from the example:
 
 ```bash
-cp functions/.env.example functions/.env
+cp backend/.env.example backend/.env
 ```
 
-Edit `functions/.env`:
+Edit `backend/.env`:
 
 ```env
 # Comma-separated list of allowed CORS origins
@@ -71,11 +71,11 @@ LOCALHOST_SECRET=
 APIFY_TOKEN=your_apify_token_here
 ```
 
-> `functions/.env` is gitignored. Never commit it.
+> `backend/.env` is gitignored. Never commit it.
 
 ### For production (Firebase Params)
 
-Firebase Functions v2 uses [Firebase Params](https://firebase.google.com/docs/functions/config-env) for environment configuration. Set each value before deploying:
+Firebase Functions v2 uses [Firebase Params](https://firebase.google.com/docs/backend/config-env) for environment configuration. Set each value before deploying:
 
 ```bash
 firebase functions:params:set APIFY_TOKEN="your_apify_token_here"
@@ -90,11 +90,11 @@ You will also be prompted for any unset params the first time you run `firebase 
 ## 5. Build TypeScript
 
 ```bash
-cd functions
+cd backend
 npm run build
 ```
 
-Output is compiled to `functions/lib/`.
+Output is compiled to `backend/lib/`.
 
 ### Watch mode (auto-recompile on save)
 
@@ -118,7 +118,7 @@ http://localhost:5001/<project-id>/europe-west4/searchSubredditsProxy
 http://localhost:5001/<project-id>/europe-west4/proxyStatus
 ```
 
-To use these from the frontend dev server, set `VITE_LOCALHOST_SECRET` in `app_vue3/.env.local` to the same value as `LOCALHOST_SECRET` in `functions/.env`, and enable proxy mode in the app's settings.
+To use these from the frontend dev server, set `VITE_LOCALHOST_SECRET` in `frontend/.env.local` to the same value as `LOCALHOST_SECRET` in `backend/.env`, and enable proxy mode in the app's settings.
 
 ---
 
