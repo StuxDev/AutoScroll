@@ -7,20 +7,52 @@
     @after-leave="close"
     @keydown.esc="close"
   >
-    <v-card
-      class="full-size-card"
-      color="black"
-    >
-      <v-icon
-        class="close-button"
+    <v-card class="overlay-card" color="black">
+      <!-- Top info bar -->
+      <div v-if="currentPost" class="top-bar">
+        <div class="top-bar-info">
+          <p class="post-title">{{ currentPost.postData?.title }}</p>
+          <div class="post-meta">
+            <span>
+              <v-icon size="13">mdi-arrow-up</v-icon>
+              {{ formatScore(currentPost.postData?.score) }}
+            </span>
+            <span class="ms-3">
+              <v-icon size="13">mdi-comment-outline</v-icon>
+              {{ formatScore(currentPost.postData?.num_comments) }}
+            </span>
+            <span v-if="currentPost.isAlbum" class="ms-3">
+              <v-icon size="13">mdi-image-multiple</v-icon>
+              {{ currentImageIndex + 1 }} / {{ currentPost.images.length }}
+            </span>
+          </div>
+        </div>
+        <v-btn
+          icon
+          variant="plain"
+          color="white"
+          size="small"
+          title="View on Reddit"
+          @click="$emit('goToLink')"
+        >
+          <v-icon>mdi-open-in-new</v-icon>
+        </v-btn>
+      </div>
+
+      <!-- Close button -->
+      <v-btn
+        class="close-btn"
+        icon
+        variant="plain"
         color="white"
-        title="Close"
+        size="small"
         @click="close"
       >
-        mdi-close
-      </v-icon>
-      
-      <v-card-text class="full-size-card-text">
+        <v-icon>mdi-close</v-icon>
+      </v-btn>
+
+      <!-- Media area -->
+      <div class="media-area">
         <v-progress-circular
           v-if="mediaLoading"
           class="loader"
@@ -28,16 +60,14 @@
           indeterminate
           size="64"
         />
-        
-        <div
-          v-if="currentPost"
-          class="media-wrapper"
-        >
+
+        <div v-if="currentPost" class="media-wrapper">
           <v-img
             v-if="currentPost.mediaType === 'image' || currentPost.mediaType === 'album'"
             :key="currentPost.images[currentImageIndex]"
             class="full-size-media"
             :src="currentPost.images[currentImageIndex]"
+            contain
             @load="mediaLoading = false"
           />
           <video
@@ -61,179 +91,198 @@
             v-html="currentPost.images[0]"
           />
         </div>
-      </v-card-text>
-      
-      <v-card-actions class="actions-bar">
-        <div
-          v-if="showTooltip"
-          class="tooltip"
+      </div>
+
+      <!-- Bottom action bar -->
+      <div class="bottom-bar">
+        <v-btn
+          icon
+          variant="plain"
+          color="white"
+          size="large"
+          :disabled="!hasPrevious"
+          title="Previous (←)"
+          @click="$emit('prevImage')"
         >
-          Use <kbd>←</kbd>, <kbd>→</kbd> to navigate, <kbd>Space</kbd> to toggle slideshow, and <kbd>Esc</kbd> to close
-        </div>
-        <v-row
-          align="center"
-          class="flex-wrap"
-          justify="center"
+          <v-icon>mdi-arrow-left</v-icon>
+        </v-btn>
+
+        <v-btn
+          icon
+          variant="plain"
+          color="white"
+          size="large"
+          title="Toggle slideshow (Space)"
+          @click="$emit('toggleSlideshow')"
         >
-          <v-btn
-            color="primary"
-            @click="$emit('goToLink')"
-          >
-            <v-icon>mdi-open-in-new</v-icon> Reddit
-          </v-btn>
-          <v-btn
-            :disabled="!hasPrevious"
-            @click="$emit('prevImage')"
-            @keydown.left.prevent="$emit('prevImage')"
-          >
-            <v-icon>mdi-arrow-left</v-icon>Previous
-          </v-btn>
-          <v-btn
-            :disabled="!hasNext"
-            @click="$emit('nextImage')"
-            @keydown.right.prevent="$emit('nextImage')"
-          >
-            Next<v-icon>mdi-arrow-right</v-icon>
-          </v-btn>
-          <v-btn @click="$emit('skipPost')">
-            Skip Post<v-icon>mdi-fast-forward</v-icon>
-          </v-btn>
-          <v-btn
-            @click="$emit('toggleSlideshow')"
-            @keydown.space.prevent="$emit('toggleSlideshow')"
-          >
-            {{ isPlaying ? 'Pause Slideshow' : 'Start Slideshow' }} <v-icon v-if="isPlaying">
-              mdi-pause
-            </v-icon> <v-icon v-else>
-              mdi-play
-            </v-icon>
-          </v-btn>
-        </v-row>
-      </v-card-actions>
+          <v-icon>{{ isPlaying ? 'mdi-pause' : 'mdi-play' }}</v-icon>
+        </v-btn>
+
+        <v-btn
+          icon
+          variant="plain"
+          color="white"
+          size="large"
+          title="Skip post"
+          @click="$emit('skipPost')"
+        >
+          <v-icon>mdi-skip-next</v-icon>
+        </v-btn>
+
+        <v-btn
+          icon
+          variant="plain"
+          color="white"
+          size="large"
+          :disabled="!hasNext"
+          title="Next (→)"
+          @click="$emit('nextImage')"
+        >
+          <v-icon>mdi-arrow-right</v-icon>
+        </v-btn>
+      </div>
     </v-card>
   </v-dialog>
 </template>
 
 <script setup>
-  import { ref, watch, nextTick, onMounted, onUnmounted } from 'vue'
+import { ref, watch, nextTick, onMounted, onUnmounted } from 'vue'
 
-  const props = defineProps({
-    modelValue: Boolean,
-    currentPost: {
-      type: Object,
-      default: () => ({}),
-    },
-    currentImageIndex: {
-      type: Number,
-      default: 0,
-    },
-    hasPrevious: Boolean,
-    hasNext: Boolean,
-    isPlaying: Boolean,
-  })
+const props = defineProps({
+  modelValue: Boolean,
+  currentPost: { type: Object, default: () => ({}) },
+  currentImageIndex: { type: Number, default: 0 },
+  hasPrevious: Boolean,
+  hasNext: Boolean,
+  isPlaying: Boolean,
+})
 
-  const emit = defineEmits(['update:modelValue', 'goToLink', 'prevImage', 'nextImage', 'toggleSlideshow', 'stopSlideshow', 'skipPost', 'mediaEnded'])
+const emit = defineEmits([
+  'update:modelValue', 'goToLink', 'prevImage', 'nextImage',
+  'toggleSlideshow', 'stopSlideshow', 'skipPost', 'mediaEnded',
+])
 
-  const dialog = ref(props.modelValue)
-  const mediaLoading = ref(true)
-  const showTooltip = ref(false)
+const dialog = ref(props.modelValue)
+const mediaLoading = ref(true)
 
-  watch(() => props.modelValue, async (newValue) => {
-    dialog.value = newValue
-    if (newValue) {
-      mediaLoading.value = true
-      showShortcutTooltip()
-      // Handle embeds when dialog opens
-      if (props.currentPost && props.currentPost.mediaType === 'embed') {
-        await nextTick()
-        setTimeout(() => {
-          mediaLoading.value = false
-        }, 1000)
-      }
-    }
-  })
+const formatScore = (n) => {
+  if (!n && n !== 0) return '0'
+  if (n >= 1000) return (n / 1000).toFixed(1) + 'k'
+  return n.toString()
+}
 
-  watch(dialog, newValue => {
-    emit('update:modelValue', newValue)
-  })
-  
-  watch(() => props.currentPost, async (newPost) => {
+watch(() => props.modelValue, async (newValue) => {
+  dialog.value = newValue
+  if (newValue) {
     mediaLoading.value = true
-    if (newPost && newPost.mediaType === 'embed') {
+    if (props.currentPost?.mediaType === 'embed') {
       await nextTick()
-      // The iframe doesn't have a reliable load event we can capture here.
-      // We'll assume it loads reasonably quickly and hide the loader.
-      setTimeout(() => {
-        mediaLoading.value = false
-      }, 1000)
-    }
-  })
-
-  const close = () => {
-    emit('stopSlideshow')
-    dialog.value = false
-  }
-
-  // Function to show the tooltip
-  const showShortcutTooltip = () => {
-    showTooltip.value = true
-    setTimeout(() => {
-      showTooltip.value = false // Auto-hide after 3 seconds
-    }, 5000)
-  }
-
-  // Global keydown handler
-  const handleKeydown = (event) => {
-    if (!dialog.value) return // Only handle keys if the dialog is open
-
-    switch (event.key) {
-      case 'ArrowLeft':
-        if (props.hasPrevious) {
-          event.preventDefault()
-          emit('prevImage')
-        }
-        break
-      case 'ArrowRight':
-        if (props.hasNext) {
-          event.preventDefault()
-          emit('nextImage')
-        }
-        break
-      case ' ':
-        event.preventDefault() // Prevent space from scrolling the page
-        emit('toggleSlideshow')
-        break
-      case 'Escape':
-        close()
-        break
+      setTimeout(() => { mediaLoading.value = false }, 1000)
     }
   }
+})
 
-  // Attach and detach global keydown listeners
-  onMounted(() => {
-    window.addEventListener('keydown', handleKeydown)
-  })
+watch(dialog, (newValue) => emit('update:modelValue', newValue))
 
-  onUnmounted(() => {
-    window.removeEventListener('keydown', handleKeydown)
-  })
+watch(() => props.currentPost, async (newPost) => {
+  mediaLoading.value = true
+  if (newPost?.mediaType === 'embed') {
+    await nextTick()
+    setTimeout(() => { mediaLoading.value = false }, 1000)
+  }
+})
+
+const close = () => {
+  emit('stopSlideshow')
+  dialog.value = false
+}
+
+const handleKeydown = (event) => {
+  if (!dialog.value) return
+  switch (event.key) {
+    case 'ArrowLeft':
+      if (props.hasPrevious) { event.preventDefault(); emit('prevImage') }
+      break
+    case 'ArrowRight':
+      if (props.hasNext) { event.preventDefault(); emit('nextImage') }
+      break
+    case ' ':
+      event.preventDefault()
+      emit('toggleSlideshow')
+      break
+    case 'Escape':
+      close()
+      break
+  }
+}
+
+onMounted(() => window.addEventListener('keydown', handleKeydown))
+onUnmounted(() => window.removeEventListener('keydown', handleKeydown))
 </script>
 
 <style scoped>
-.full-size-card {
+.overlay-card {
   height: 100vh;
   width: 100vw;
   display: flex;
   flex-direction: column;
+  position: relative;
 }
-.full-size-card-text {
-  flex-grow: 1;
+
+.top-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 20;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.85) 0%, transparent 100%);
+  padding: 16px 56px 32px 16px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.top-bar-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.post-title {
+  font-size: 14px;
+  font-weight: 500;
+  color: #fff;
+  margin: 0 0 4px;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.post-meta {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.7);
+  display: flex;
+  align-items: center;
+}
+
+.close-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 30;
+}
+
+.media-area {
+  flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
   overflow: hidden;
-  padding: 0 !important;
+  position: relative;
 }
+
 .media-wrapper {
   width: 100%;
   height: 100%;
@@ -241,21 +290,25 @@
   justify-content: center;
   align-items: center;
 }
+
 .full-size-media {
   max-width: 100%;
   max-height: 100%;
   object-fit: contain;
 }
+
 .embed-container {
   width: 100%;
-  max-width: 90vw; /* Limit width of embed */
-  aspect-ratio: 16 / 9; /* Common video aspect ratio */
+  max-width: 90vw;
+  aspect-ratio: 16 / 9;
   background: black;
 }
+
 .embed-container ::v-deep(iframe) {
   width: 100%;
   height: 100%;
 }
+
 .loader {
   position: absolute;
   top: 50%;
@@ -263,57 +316,14 @@
   transform: translate(-50%, -50%);
   z-index: 10;
 }
-.close-button {
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  z-index: 20;
-  cursor: pointer;
-}
-.actions-bar {
-  flex-shrink: 0; /* Prevent the actions bar from shrinking */
-  background-color: rgba(0, 0, 0, 0.5);
-  position: relative; /* Needed for tooltip positioning */
-}
-.tooltip {
-  position: absolute;
-  bottom: 100%; /* Position above the actions bar */
-  left: 50%;
-  transform: translateX(-50%);
-  margin-bottom: 8px;
-  background-color: #333;
-  color: #fff;
-  padding: 10px;
-  border-radius: 4px;
-  font-size: 14px;
-  text-align: center;
-  z-index: 10;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  transition: opacity 0.3s ease;
-}
-.tooltip::after {
-  content: '';
-  position: absolute;
-  top: 100%; /* Arrow points down */
-  left: 50%;
-  transform: translateX(-50%);
-  border-width: 8px;
-  border-style: solid;
-  border-color: #333 transparent transparent transparent;
-}
-kbd {
-  background-color: #eee;
-  border: 1px solid #ccc;
-  padding: 2px 4px;
-  font-size: 12px;
-  border-radius: 3px;
-  font-family: 'Courier New', Courier, monospace;
-  color: #333;
-}
-/* Hide tooltip on small screens */
-@media (max-width: 768px) {
-  .tooltip {
-    display: none;
-  }
+
+.bottom-bar {
+  flex-shrink: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  padding: 20px 16px 24px;
 }
 </style>

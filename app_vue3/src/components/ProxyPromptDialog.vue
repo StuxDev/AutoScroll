@@ -1,63 +1,48 @@
 <template>
-  <v-dialog
-    :model-value="galleryStore.isProxyPromptOpen"
-    max-width="500px"
-    persistent
-  >
+  <v-dialog :model-value="galleryStore.isProxyPromptOpen" max-width="500px" persistent>
     <v-card>
-      <v-card-title>
+      <div class="dialog-header">
+        <v-icon class="me-2">mdi-server-network</v-icon>
         Having Trouble Fetching Content?
-      </v-card-title>
-      <v-card-text style="font-size: 14px;">
-        <p>It seems we're having trouble fetching content from Reddit.</p>
-        <p>This can sometimes be caused by network restrictions or silly age verification requirements set by your country.</p>
-        <p>Would you like to try again using our proxy? This may help bypass the issue.</p>
+      </div>
+
+      <v-card-text>
+        <p>It seems we're having trouble loading content for this subreddit.</p>
+        <p>This can happen due to network restrictions or regional access requirements.</p>
+        <p>Would you like to try again using our proxy? This routes the request through our server to bypass the issue.</p>
       </v-card-text>
 
       <v-divider />
-      <br>
 
       <v-card-text>
         <div class="d-flex align-center justify-space-between mb-2">
           <span class="text-subtitle-1">Proxy Status:</span>
-          <v-chip
-            :color="statusColor"
-            :prepend-icon="statusIcon"
-            size="small"
-          >
+          <v-chip :color="statusColor" :prepend-icon="statusIcon" size="small">
             {{ statusText }}
           </v-chip>
         </div>
 
-        <div
-          v-if="galleryStore.proxyStatusDetails"
-          class="text-caption text-medium-emphasis ml-4"
-        >
-          <div><span class="text-subtitle-2">• Rate Limiting:</span> {{ galleryStore.proxyStatusDetails.firestore === 'available' ? '✓ Active' : '✗ Unavailable' }}</div>
-          <div><span class="text-subtitle-2">• Reddit API:</span> {{ galleryStore.proxyStatusDetails.reddit === 'available' ? '✓ Reachable' : '✗ Unreachable' }}</div>
+        <div v-if="galleryStore.proxyStatusDetails" class="text-caption text-medium-emphasis ml-4">
+          <div>
+            <span class="text-subtitle-2">• Rate Limiting:</span>
+            {{ galleryStore.proxyStatusDetails.firestore === 'available' ? '✓ Active' : '✗ Unavailable' }}
+          </div>
+          <div>
+            <span class="text-subtitle-2">• Content API (Apify):</span>
+            {{ galleryStore.proxyStatusDetails.reddit === 'available' ? '✓ Reachable' : '✗ Unreachable' }}
+          </div>
         </div>
 
-        <v-alert
-          v-if="galleryStore.proxyStatus === 'degraded'"
-          type="warning"
-          density="compact"
-          class="mt-3"
-        >
+        <v-alert v-if="galleryStore.proxyStatus === 'degraded'" type="warning" density="compact" class="mt-3">
           Proxy is partially available. Some features may not work correctly.
         </v-alert>
       </v-card-text>
 
       <v-divider />
-      
+
       <v-card-actions>
         <v-spacer />
-        <v-btn
-          color="primary"
-          variant="text"
-          @click="galleryStore.declineProxy"
-        >
-          No, Thanks
-        </v-btn>
+        <v-btn color="primary" variant="text" @click="galleryStore.declineProxy">No, Thanks</v-btn>
         <v-btn
           color="primary"
           variant="flat"
@@ -77,13 +62,8 @@ import { useGalleryStore } from '@/stores/gallery'
 
 const galleryStore = useGalleryStore()
 
-// Check proxy status when dialog opens
 watch(() => galleryStore.isProxyPromptOpen, (isOpen) => {
-  console.log('ProxyPromptDialog watch triggered, isOpen:', isOpen)
-  if (isOpen) {
-    console.log('Checking proxy status...')
-    galleryStore.checkProxyStatus()
-  }
+  if (isOpen) galleryStore.checkProxyStatus()
 })
 
 const statusColor = computed(() => {
@@ -116,16 +96,15 @@ const statusText = computed(() => {
   }
 })
 </script>
-<style lang="sass">
-  .v-card-title
-    background-color: #FF1F1F !important;
-    color: white !important;
 
-  .v-card-text
-    padding: 24px !important;
-  .v-card-text a
-    color: #FF1F1F !important;
-
-  .v-card-actions
-    padding: .7rem .5rem .5rem !important;
+<style scoped>
+.dialog-header {
+  background-color: rgb(var(--v-theme-primary));
+  color: white;
+  padding: 16px 24px;
+  font-size: 16px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+}
 </style>

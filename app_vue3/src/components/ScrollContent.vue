@@ -1,24 +1,5 @@
-<!--
-  - Copyright 2025 Clidey, Inc.
-  -
-  - Licensed under the Apache License, Version 2.0 (the "License");
-  - you may not use this file except in compliance with the License.
-  - You may obtain a copy of the License at
-  -
-  -     http://www.apache.org/licenses/LICENSE-2.0
-  -
-  - Unless required by applicable law or agreed to in writing, software
-  - distributed under the License is distributed on an "AS IS" BASIS,
-  - WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  - See the License for the specific language governing permissions and
-  - limitations under the License.
-  -->
-
 <template>
-  <v-container
-    fluid
-    class="px-md-4 align-content"
-  >
+  <v-container fluid class="px-md-4">
     <SearchBar
       v-model:sort-option="galleryStore.sortOption"
       v-model:subreddit="galleryStore.subreddit"
@@ -32,58 +13,22 @@
       @decline="galleryStore.declineNSFW"
     />
 
-    <v-container
-      v-if="galleryStore.infoBannerVisible && galleryStore.visiblePosts.length > 0 && !galleryStore.isNSFWDialogOpen"
-      fluid
-    >
-      <v-row
-        align="center"
-        justify="center"
-      >
-        <v-banner
-          icon="mdi-information"
-          lines="one"
-          rounded
-          :stacked="false"
-          text="Click on an image to enlarge it"
-        >
-          <template #actions>
-            <v-btn
-              icon="mdi-close"
-              @click="galleryStore.infoBannerVisible = false"
-            />
-          </template>
-        </v-banner>
-      </v-row>
-    </v-container>
-
-    <v-container
-      v-if="galleryStore.visiblePosts.length > 0 && !galleryStore.isNSFWDialogOpen"
-      fluid
-    >
-      <v-row
-        align="center"
-        justify="center"
-      >
-        <v-btn @click="galleryStore.startSlideshow(0)">
-          Start slideshow
-        </v-btn>
-      </v-row>
-    </v-container>
-
-    <v-container
+    <v-alert
       v-if="galleryStore.error"
-      fluid
-    >
-      <v-alert
-        type="error"
-        :text="galleryStore.error"
-      />
-    </v-container>
+      type="error"
+      :text="galleryStore.error"
+      class="mt-3"
+    />
+
+    <EmptyState
+      v-if="showEmptyState"
+      @select="selectSuggestion"
+    />
 
     <ImageGridSkeleton v-if="galleryStore.fetchingImages && galleryStore.posts.length === 0" />
+
     <ImageGrid
-      v-else
+      v-if="!showEmptyState"
       :agreed-to-n-s-f-w="galleryStore.agreedToNSFW"
       :fetching-images="galleryStore.fetchingImages"
       :posts="galleryStore.visiblePosts"
@@ -106,36 +51,46 @@
       @toggle-slideshow="galleryStore.toggleSlideshow"
       @media-ended="galleryStore.handleMediaEnded"
     />
+
+    <ProxyPromptDialog />
   </v-container>
 </template>
 
 <script setup>
-import {useGalleryStore} from '@/stores/gallery';
-import {useRoute} from 'vue-router';
-import {watch} from 'vue';
+import { computed } from 'vue'
+import { useGalleryStore } from '@/stores/gallery'
+import { useRoute } from 'vue-router'
+import { watch } from 'vue'
 
-const galleryStore = useGalleryStore();
-  const route = useRoute();
+const galleryStore = useGalleryStore()
+const route = useRoute()
 
-  // Set initial subreddit from route params
-  if (route.params.subreddit) {
-    galleryStore.subreddit = route.params.subreddit;
+if (route.params.subreddit) {
+  galleryStore.subreddit = route.params.subreddit
+}
+if (route.query.type) {
+  galleryStore.sortOption = route.query.type
+}
+
+const showEmptyState = computed(() =>
+  !galleryStore.subreddit &&
+  galleryStore.visiblePosts.length === 0 &&
+  !galleryStore.fetchingImages
+)
+
+const selectSuggestion = (sub) => {
+  galleryStore.subreddit = sub
+  galleryStore.fetchRedditImages(true)
+}
+
+watch(() => galleryStore.currentIndex, (newValue) => {
+  if (
+    galleryStore.visiblePosts.length > 0 &&
+    newValue >= galleryStore.visiblePosts.length - 6 &&
+    !galleryStore.fetchingImages &&
+    !galleryStore.error
+  ) {
+    galleryStore.fetchRedditImages()
   }
-  if (route.query.type) {
-    galleryStore.sortOption = route.query.type;
-  }
-
-  watch(() => galleryStore.currentIndex, (newValue) => {
-    // Only fetch more if:
-    // 1. We have posts already (avoid infinite loop when empty)
-    // 2. We're near the end of current posts
-    // 3. Not already fetching
-    // 4. No error state
-    if (galleryStore.visiblePosts.length > 0 &&
-      newValue >= galleryStore.visiblePosts.length - 6 &&
-      !galleryStore.fetchingImages &&
-      !galleryStore.error) {
-      galleryStore.fetchRedditImages();
-    }
-  });
+})
 </script>

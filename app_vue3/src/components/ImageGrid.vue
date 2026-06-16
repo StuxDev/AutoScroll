@@ -1,101 +1,58 @@
-<!--
-  - Copyright 2025 Clidey, Inc.
-  -
-  - Licensed under the Apache License, Version 2.0 (the "License");
-  - you may not use this file except in compliance with the License.
-  - You may obtain a copy of the License at
-  -
-  -     http://www.apache.org/licenses/LICENSE-2.0
-  -
-  - Unless required by applicable law or agreed to in writing, software
-  - distributed under the License is distributed on an "AS IS" BASIS,
-  - WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  - See the License for the specific language governing permissions and
-  - limitations under the License.
-  -->
-
 <template>
-  <v-container fluid>
-    <div
-      v-if="posts.length > 0"
-      v-bind="containerProps"
-      class="virtual-scroll-container"
-    >
-      <div v-bind="wrapperProps">
-        <v-row
-          v-for="{ data: postRow } in list"
-          :key="postRow[0] ? postRow[0].postData.id : ''"
+  <div class="image-grid-wrap">
+    <div v-if="posts.length > 0" class="image-grid">
+      <div
+        v-for="post in postsWithIndex"
+        :key="post.postData.id"
+        class="grid-card"
+        @click="$emit('selectImage', post.originalIndex)"
+      >
+        <v-img
+          :aspect-ratio="1"
+          :src="getThumbnail(post)"
+          cover
+          class="grid-img"
         >
-          <v-col
-            v-for="post in postRow"
-            :key="post.postData.id"
-            cols="12"
-            md="3"
-          >
-            <v-card v-if="!post.postData.over_18 || agreedToNSFW">
-              <div class="image-container">
-                <v-icon
-                  v-if="post.mediaType === 'album'"
-                  class="album-icon"
-                >
-                  mdi-image-multiple
-                </v-icon>
-                <v-icon
-                  v-if="post.mediaType === 'video' || post.mediaType === 'embed'"
-                  class="video-icon"
-                >
-                  mdi-play-circle
-                </v-icon>
-                <v-img
-                  :aspect-ratio="1"
-                  class="link-cursor"
-                  :src="getThumbnail(post)"
-                  cover
-                  @click="$emit('selectImage', post.originalIndex)"
-                >
-                  <template #error>
-                    <v-img
-                      :src="logo"
-                      class="placeholder-image"
-                    />
-                  </template>
-                </v-img>
-              </div>
-              <v-card-title>{{ post.postData.title }}</v-card-title>
-              <v-card-actions>
-                <v-btn
-                  color="primary"
-                  :href="`https://reddit.com${post.postData.permalink}`"
-                  target="_blank"
-                  variant="text"
-                >
-                  View Post On Reddit
-                </v-btn>
-              </v-card-actions>
-            </v-card>
-          </v-col>
-        </v-row>
+          <template #error>
+            <div class="img-error">
+              <v-icon size="36" color="grey-darken-1">mdi-image-broken-variant</v-icon>
+            </div>
+          </template>
+        </v-img>
+
+        <!-- Media type badge (top-right) -->
+        <div v-if="post.mediaType === 'album'" class="media-badge">
+          <v-icon size="12" color="white">mdi-image-multiple</v-icon>
+          <span>{{ post.images.length }}</span>
+        </div>
+        <div v-else-if="post.mediaType === 'video'" class="media-badge">
+          <v-icon size="12" color="white">mdi-play</v-icon>
+        </div>
+        <div v-else-if="post.mediaType === 'embed'" class="media-badge">
+          <v-icon size="12" color="white">mdi-youtube</v-icon>
+        </div>
+
+        <!-- Hover overlay -->
+        <div class="card-overlay">
+          <p class="overlay-title">{{ post.postData.title }}</p>
+          <div class="overlay-meta">
+            <span>
+              <v-icon size="12">mdi-arrow-up</v-icon>
+              {{ formatScore(post.postData.score) }}
+            </span>
+            <span class="ms-2">
+              <v-icon size="12">mdi-comment-outline</v-icon>
+              {{ formatScore(post.postData.num_comments) }}
+            </span>
+          </div>
+        </div>
       </div>
     </div>
 
-    <!-- Loading indicator for infinite scroll -->
-    <v-row
-      v-if="fetchingImages && posts.length > 0"
-      class="mt-4 mb-8"
-      justify="center"
-    >
-      <v-col class="text-center" cols="12">
-        <v-progress-circular
-          :size="40"
-          :width="4"
-          color="primary"
-          indeterminate
-        />
-        <div class="text-h6 mt-2 text-medium-emphasis">
-          Loading more images...
-        </div>
-      </v-col>
-    </v-row>
+    <!-- Loading spinner for infinite scroll -->
+    <div v-if="fetchingImages && posts.length > 0" class="load-more-spinner">
+      <v-progress-circular :size="36" :width="3" color="primary" indeterminate />
+    </div>
 
     <v-fab
       v-if="showBackToTop"
@@ -105,128 +62,153 @@
       fixed
       @click="scrollToTop"
     />
-  </v-container>
+  </div>
 </template>
 
 <script setup>
-import {computed, onMounted, onUnmounted, ref} from "vue";
-import {useVirtualList} from "@vueuse/core";
-import logo from "@/assets/logo-white.png";
+import { computed, onMounted, onUnmounted, ref } from 'vue'
 
 const props = defineProps({
-  posts: {
-    type: Array,
-    default: () => [],
-  },
+  posts: { type: Array, default: () => [] },
   agreedToNSFW: Boolean,
   fetchingImages: Boolean,
-});
+})
 
-const emit = defineEmits(["selectImage", "loadMore"]);
+const emit = defineEmits(['selectImage', 'loadMore'])
 
-const showBackToTop = ref(false);
+const showBackToTop = ref(false)
 
-const handleScroll = () => {
-  const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-  const clientHeight = window.innerHeight;
-  const scrollHeight = document.documentElement.scrollHeight;
-
-  // Only load more if we have posts and not already fetching
-  if (props.posts.length > 0 &&
-    scrollTop + clientHeight >= scrollHeight - 500 &&
-    !props.fetchingImages) { // 500px threshold
-    emit("loadMore");
-  }
-  showBackToTop.value = scrollTop > 200;
-};
-
-const scrollToTop = () => {
-  window.scrollTo({
-    top: 0,
-    behavior: 'smooth',
-  });
-};
-
-// Add originalIndex to each post for the click handler
-const postsWithIndex = computed(() =>
-  props.posts.map((post, index) => ({ ...post, originalIndex: index }))
-);
-
-// Chunk posts into rows for the grid layout
-const postRows = computed(() => {
-  const rows = [];
-  for (let i = 0; i < postsWithIndex.value.length; i += 4) { // 4 items per row
-    rows.push(postsWithIndex.value.slice(i, i + 4));
-  }
-  return rows;
-});
-
-const { list, containerProps, wrapperProps } = useVirtualList(postRows, {
-  itemHeight: 450, // Estimate the height of a card row
-  overscan: 1, // Render 1 extra row top and bottom
-});
+const formatScore = (n) => {
+  if (!n && n !== 0) return '0'
+  if (n >= 1000) return (n / 1000).toFixed(1) + 'k'
+  return n.toString()
+}
 
 const getThumbnail = (post) => {
-  // Use the thumbnail from post data if it's a valid URL
   if (post.postData.thumbnail && post.postData.thumbnail.startsWith('http')) {
-    return post.postData.thumbnail;
+    return post.postData.thumbnail
   }
-  // Fallback for videos/embeds to a higher quality preview if available
-  if ((post.mediaType === 'video' || post.mediaType === 'embed') && post.postData.preview?.images[0]?.source?.url) {
-    return post.postData.preview.images[0].source.url.replace(/&amp;/g, '&');
+  if ((post.mediaType === 'video' || post.mediaType === 'embed') && post.postData.preview?.images?.[0]?.source?.url) {
+    return post.postData.preview.images[0].source.url.replace(/&amp;/g, '&')
   }
-  // Fallback for albums to the first image
-  if (post.mediaType === 'album') {
-    return post.images[0];
-  }
-  // Fallback for single images to the direct URL
-  if (post.mediaType === 'image') {
-    return post.postData.url;
-  }
-  // If all else fails, return empty to trigger the error slot
-  return '';
-};
+  if (post.mediaType === 'album') return post.images[0]
+  if (post.mediaType === 'image') return post.postData.url
+  return ''
+}
 
-// Add window scroll event listener
-onMounted(() => {
-  window.addEventListener('scroll', handleScroll, {passive: true});
-  // Check initial scroll position
-  handleScroll();
-});
+const postsWithIndex = computed(() =>
+  props.posts.map((post, index) => ({ ...post, originalIndex: index }))
+)
 
-onUnmounted(() => {
-  window.removeEventListener('scroll', handleScroll);
-});
+const handleScroll = () => {
+  const scrollTop = window.pageYOffset || document.documentElement.scrollTop
+  const clientHeight = window.innerHeight
+  const scrollHeight = document.documentElement.scrollHeight
+
+  if (props.posts.length > 0 && scrollTop + clientHeight >= scrollHeight - 600 && !props.fetchingImages) {
+    emit('loadMore')
+  }
+  showBackToTop.value = scrollTop > 300
+}
+
+const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' })
+
+onMounted(() => window.addEventListener('scroll', handleScroll, { passive: true }))
+onUnmounted(() => window.removeEventListener('scroll', handleScroll))
 </script>
 
 <style scoped>
-.virtual-scroll-container {
-  height: auto !important;
-  max-height: none !important;
-  overflow: visible !important;
+.image-grid-wrap {
+  padding: 8px;
 }
 
-.image-container {
+.image-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 10px;
+}
+
+.grid-card {
   position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+  background: #1e1e1e;
 }
 
-.album-icon,
-.video-icon {
+.grid-card:hover .card-overlay {
+  opacity: 1;
+}
+
+.grid-img {
+  display: block;
+  width: 100%;
+  transition: transform 0.2s ease;
+}
+
+.grid-card:hover .grid-img {
+  transform: scale(1.03);
+}
+
+.img-error {
+  width: 100%;
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #2a2a2a;
+}
+
+.media-badge {
   position: absolute;
   top: 8px;
   right: 8px;
-  z-index: 1;
-  background: rgba(0, 0, 0, 0.7);
+  background: rgba(0, 0, 0, 0.75);
+  border-radius: 12px;
+  padding: 3px 7px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
   color: white;
-  border-radius: 50%;
-  padding: 4px;
+  font-weight: 600;
+  line-height: 1;
 }
 
-.link-cursor {
-  cursor: pointer;
+.card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.88) 0%, transparent 55%);
+  opacity: 0;
+  transition: opacity 0.18s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 12px;
 }
 
-.placeholder-image {
-  opacity: 0.3;
+.overlay-title {
+  font-size: 12px;
+  font-weight: 500;
+  color: #fff;
+  line-height: 1.4;
+  margin: 0 0 4px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.overlay-meta {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.75);
+  display: flex;
+  align-items: center;
+}
+
+.load-more-spinner {
+  display: flex;
+  justify-content: center;
+  padding: 32px 0;
 }
 </style>
