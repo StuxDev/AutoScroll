@@ -10,12 +10,12 @@ AutoScroll is a Reddit image slideshow application built as a learning project d
 
 This is a **monorepo** with two main parts:
 
-### 1. Frontend: Vue 3 Application (`app_vue3/`)
+### 1. Frontend: Vue 3 Application (`frontend/`)
 - **Framework**: Vue 3 with Composition API and `<script setup>` syntax
 - **Build Tool**: Vite (dev server runs on port 3000)
 - **UI Framework**: Vuetify 3 (Material Design components)
-- **State Management**: Pinia stores (see `app_vue3/src/stores/`)
-- **Routing**: Auto-generated from files in `app_vue3/src/pages/` via unplugin-vue-router
+- **State Management**: Pinia stores (see `frontend/src/stores/`)
+- **Routing**: Auto-generated from files in `frontend/src/pages/` via unplugin-vue-router
 - **Component Loading**: Auto-imported via unplugin-vue-components (no manual imports needed)
 - **Package Manager**: pnpm (enforced via packageManager field)
 
@@ -25,7 +25,7 @@ Key conventions:
 - Routes are file-based in `src/pages/`
 - Layouts managed via vite-plugin-vue-layouts in `src/layouts/`
 
-### 2. Backend: Firebase Cloud Functions (`functions/`)
+### 2. Backend: Firebase Cloud Functions (`backend/`)
 - **Runtime**: Node.js 22
 - **Functions Framework**: Firebase Functions v2
 - **Build**: TypeScript compiled to `lib/` directory
@@ -39,17 +39,17 @@ Key functions:
 - `cleanupRateLimits`: Scheduled function (runs hourly) to clean up expired rate limit entries
 
 Infrastructure:
-- **Rate Limiting**: Firestore-based, IP-tracked (see `functions/src/rateLimiter.ts`)
+- **Rate Limiting**: Firestore-based, IP-tracked (see `backend/src/rateLimiter.ts`)
 - **CORS**: Configured with allowed origins + localhost support with optional secret validation
-- **OAuth**: Reddit API access via application-only OAuth with token caching (see `functions/src/config.ts`)
-- **Analytics**: Privacy-compliant, GeoIP-based country tracking without storing IPs (see `functions/src/anonymousAnalytics.ts`)
-- **Monthly Limits**: Firestore-based tracking to prevent quota exhaustion (see `functions/src/monthlyLimit.ts`)
+- **OAuth**: Reddit API access via application-only OAuth with token caching (see `backend/src/config.ts`)
+- **Analytics**: Privacy-compliant, GeoIP-based country tracking without storing IPs (see `backend/src/anonymousAnalytics.ts`)
+- **Monthly Limits**: Firestore-based tracking to prevent quota exhaustion (see `backend/src/monthlyLimit.ts`)
 
 ## Development Commands
 
-### Frontend (app_vue3/)
+### Frontend (frontend/)
 ```bash
-cd app_vue3
+cd frontend
 
 # Install dependencies
 pnpm install
@@ -67,9 +67,9 @@ pnpm lint
 pnpm preview
 ```
 
-### Backend (functions/)
+### Backend (backend/)
 ```bash
-cd functions
+cd backend
 
 # Install dependencies
 npm install
@@ -108,24 +108,24 @@ firebase emulators:start
 ## Environment Configuration
 
 ### Frontend Environment Variables
-Create `app_vue3/.env.local`:
+Create `frontend/.env.local`:
 ```
 VITE_LOCALHOST_SECRET=your_secret_here
 ```
 
 ### Backend Environment Variables
-Firebase Functions uses Firebase Params (defined in `functions/src/config.ts`):
+Firebase Functions uses Firebase Params (defined in `backend/src/config.ts`):
 - `ALLOWED_ORIGINS`: Comma-separated CORS origins
 - `LOCALHOST_SECRET`: Optional secret for localhost access
 - `REDDIT_USERNAME`: Reddit username for User-Agent
 - `REDDIT_CLIENT_ID`: OAuth client ID from https://www.reddit.com/prefs/apps
 - `REDDIT_CLIENT_SECRET`: OAuth client secret
 
-See `functions/.env.example` for reference.
+See `backend/.env.example` for reference.
 
 ## State Management
 
-The application uses Pinia with three stores in `app_vue3/src/stores/`:
+The application uses Pinia with three stores in `frontend/src/stores/`:
 
 1. **gallery.ts**: Core application state
    - Posts, images, and slideshow management

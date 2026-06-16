@@ -18,7 +18,7 @@ import {cleanupExpiredRateLimits} from "./rateLimiter";
 import {getAllowedOrigins, getLocalhostSecret} from "./config";
 import {getAnalyticsStats} from "./anonymousAnalytics";
 // eslint-disable-next-line @typescript-eslint/no-require-imports
-const {version: BACKEND_VERSION} = require("../../package.json") as {version: string};
+const {version: BACKEND_VERSION} = require("../package.json") as {version: string};
 
 // Initialize Firebase Admin
 initializeApp();
