@@ -1,59 +1,92 @@
 <template>
-  <v-footer
-    app
-    height="40"
-  >
-    <a
-      v-for="item in items"
-      :key="item.title"
-      class="d-inline-block mx-2 social-link"
-      :href="item.href"
-      rel="noopener noreferrer"
-      target="_blank"
-      :title="item.title"
-    >
-      <v-icon
-        :icon="item.icon"
-        :size="item.icon === '$vuetify' ? 24 : 16"
-      />
-    </a>
+  <v-footer app height="auto" class="footer-wrap">
+    <div class="footer-content">
+      <div class="footer-links">
+        <a
+          v-for="item in items"
+          :key="item.title"
+          class="footer-link"
+          :href="item.href"
+          rel="noopener noreferrer"
+          target="_blank"
+          :title="item.title"
+        >
+          <v-icon :icon="item.icon" size="16" />
+          <span>{{ item.title }}</span>
+        </a>
+      </div>
 
-    <div
-      class="text-caption text-disabled"
-      style="position: absolute; right: 16px;"
-    >
-      &copy; 2024-{{ (new Date()).getFullYear() }} <span class="d-none d-sm-inline-block">StuxieDev</span>
-      -
-      <a
-        class="text-decoration-none on-surface"
-        href="https://labs.stux.dev"
-        rel="noopener noreferrer"
-        target="_blank"
-      >
-        A Stux.Dev Labs Project
-      </a>
-
+      <div class="footer-legal">
+        Not affiliated with Reddit Inc. &nbsp;·&nbsp;
+        Content sourced from Reddit's public data. &nbsp;·&nbsp;
+        For users 18+. &nbsp;·&nbsp;
+        &copy; 2024–{{ new Date().getFullYear() }}
+        <a href="https://labs.stux.dev" target="_blank" rel="noopener noreferrer">
+          Stux.Dev Labs
+        </a>
+      </div>
     </div>
   </v-footer>
 </template>
 
 <script setup lang="ts">
-  const items = [
-    {
-      title: 'A Stux.Dev Labs Project',
-      icon: `mdi-test-tube`,
-      href: 'https://labs.stux.dev',
-    }
-  ]
+const items = [
+  {
+    title: 'Stux.Dev Labs',
+    icon: 'mdi-test-tube',
+    href: 'https://labs.stux.dev',
+  },
+]
 </script>
 
-<style scoped lang="sass">
-  .social-link :deep(.v-icon)
-    color: rgba(var(--v-theme-on-background), var(--v-disabled-opacity))
-    text-decoration: none
-    transition: .2s ease-in-out
+<style scoped>
+.footer-wrap {
+  background-color: rgb(var(--v-theme-surface)) !important;
+  border-top: 1px solid rgba(var(--v-theme-on-surface), 0.08);
+  padding: 10px 16px;
+}
 
-    &:hover
-      color: #FF1F1F;
-    
+.footer-content {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.footer-links {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.footer-link {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  color: rgba(var(--v-theme-on-surface), 0.45);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+
+.footer-link:hover {
+  color: rgb(var(--v-theme-primary));
+}
+
+.footer-legal {
+  font-size: 11px;
+  color: rgba(var(--v-theme-on-surface), 0.35);
+  text-align: right;
+}
+
+.footer-legal a {
+  color: rgba(var(--v-theme-on-surface), 0.45);
+  text-decoration: none;
+}
+
+.footer-legal a:hover {
+  color: rgb(var(--v-theme-primary));
+}
 </style>
