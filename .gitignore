@@ -1,7 +1,12 @@
 .idea/
-app/dist/*
-app/node_modules/*
-app/.env
-functions/.env
-functions/.env.local
-functions/node_modules/*
+
+# Frontend
+frontend/dist/*
+frontend/node_modules/*
+frontend/.env
+frontend/.env.local
+
+# Backend
+backend/.env
+backend/.env.local
+backend/node_modules/*
