@@ -15,7 +15,7 @@
         >
           <template #error>
             <div class="img-error">
-              <v-icon size="28" color="grey-darken-1" class="mb-2">mdi-image-off-outline</v-icon>
+              <img src="@/assets/icon.png" class="fallback-icon" alt="" />
               <p class="img-error-title">{{ post.postData.title }}</p>
             </div>
           </template>
@@ -180,6 +180,14 @@ onUnmounted(() => window.removeEventListener('scroll', handleScroll))
   justify-content: center;
   background: #2a2a2a;
   padding: 12px;
+}
+
+.fallback-icon {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  opacity: 0.35;
+  margin-bottom: 8px;
 }
 
 .img-error-title {
