@@ -11,33 +11,12 @@
           AutoScroll displays publicly available media from Reddit. By continuing you confirm:
         </p>
 
-        <v-list density="compact" class="disclaimer-list mb-4">
-          <v-list-item prepend-icon="mdi-check-circle-outline" color="primary">
-            <v-list-item-title class="text-body-2">
-              You are <strong>18 years of age or older</strong>
-            </v-list-item-title>
-          </v-list-item>
-          <v-list-item prepend-icon="mdi-check-circle-outline" color="primary">
-            <v-list-item-title class="text-body-2">
-              You understand this service may display <strong>adult (NSFW) content</strong>
-            </v-list-item-title>
-          </v-list-item>
-          <v-list-item prepend-icon="mdi-check-circle-outline" color="primary">
-            <v-list-item-title class="text-body-2">
-              This service is <strong>not affiliated with Reddit Inc.</strong> in any way
-            </v-list-item-title>
-          </v-list-item>
-          <v-list-item prepend-icon="mdi-check-circle-outline" color="primary">
-            <v-list-item-title class="text-body-2">
-              All content is sourced from Reddit's publicly available data
-            </v-list-item-title>
-          </v-list-item>
-          <v-list-item prepend-icon="mdi-check-circle-outline" color="primary">
-            <v-list-item-title class="text-body-2">
-              The operator accepts <strong>no liability</strong> for content displayed through this service
-            </v-list-item-title>
-          </v-list-item>
-        </v-list>
+        <div class="disclaimer-list mb-4">
+          <div v-for="item in items" :key="item" class="disclaimer-item">
+            <v-icon color="primary" size="20" class="me-3 mt-1 flex-shrink-0">mdi-check-circle-outline</v-icon>
+            <span class="text-body-2" v-html="item" />
+          </div>
+        </div>
 
         <v-alert type="warning" variant="tonal" density="compact" icon="mdi-alert">
           NSFW content is hidden by default. You will be asked separately before any adult content is shown.
@@ -72,6 +51,14 @@ import { ref, onMounted } from 'vue'
 
 const STORAGE_KEY = 'autoscroll_legal_accepted'
 
+const items = [
+  'You are <strong>18 years of age or older</strong>',
+  'You understand this service may display <strong>adult (NSFW) content</strong>',
+  'This service is <strong>not affiliated with Reddit Inc.</strong> in any way',
+  "All content is sourced from Reddit's publicly available data",
+  'The operator accepts <strong>no liability</strong> for content displayed through this service',
+]
+
 const show = ref(false)
 
 onMounted(() => {
@@ -102,6 +89,14 @@ const decline = () => {
 }
 
 .disclaimer-list {
-  background: transparent;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.disclaimer-item {
+  display: flex;
+  align-items: flex-start;
+  line-height: 1.5;
 }
 </style>
