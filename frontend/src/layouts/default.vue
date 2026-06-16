@@ -8,7 +8,7 @@
             class="shrink mr-2"
             cover
             max-width="32"
-            src="@/assets/logo-white.png"
+            src="https://media.stux.group/global/icon.png"
             transition="scale-transition"
           />
           <span class="brand-name">AutoScroll</span>
