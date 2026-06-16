@@ -18,18 +18,21 @@
 
       <div class="footer-legal">
         Not affiliated with Reddit Inc. &nbsp;·&nbsp;
-        Content sourced from Reddit's public data. &nbsp;·&nbsp;
         For users 18+. &nbsp;·&nbsp;
         &copy; 2024–{{ new Date().getFullYear() }}
         <a href="https://labs.stux.dev" target="_blank" rel="noopener noreferrer">
           Stux.Dev Labs
         </a>
+        &nbsp;·&nbsp;
+        <span class="version-tag">v{{ appVersion }}</span>
       </div>
     </div>
   </v-footer>
 </template>
 
 <script setup lang="ts">
+const appVersion = __APP_VERSION__
+
 const items = [
   {
     title: 'Stux.Dev Labs',
@@ -88,5 +91,10 @@ const items = [
 
 .footer-legal a:hover {
   color: rgb(var(--v-theme-primary));
+}
+
+.version-tag {
+  font-family: monospace;
+  opacity: 0.5;
 }
 </style>

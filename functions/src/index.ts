@@ -17,6 +17,8 @@ import {redditProxy, searchSubredditsProxy} from "./proxy";
 import {cleanupExpiredRateLimits} from "./rateLimiter";
 import {getAllowedOrigins, getLocalhostSecret} from "./config";
 import {getAnalyticsStats} from "./anonymousAnalytics";
+// eslint-disable-next-line @typescript-eslint/no-require-imports
+const {version: BACKEND_VERSION} = require("../../package.json") as {version: string};
 
 // Initialize Firebase Admin
 initializeApp();
@@ -108,6 +110,7 @@ export const proxyStatus = onRequest({region: "europe-west4"}, async (request, r
 
       const status = {
         status: "operational" as "operational" | "degraded" | "unavailable",
+        version: BACKEND_VERSION,
         services: {
           firestore: "unknown" as "available" | "unavailable" | "unknown",
           reddit: "unknown" as "available" | "unavailable" | "unknown",
