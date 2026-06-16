@@ -103,6 +103,23 @@
 
           <v-divider />
 
+          <v-divider />
+
+          <v-card-text class="py-3">
+            <div class="version-row">
+              <span class="version-item">
+                <v-icon size="14" class="me-1">mdi-monitor</v-icon>
+                Frontend <code>v{{ appVersion }}</code>
+              </span>
+              <span class="version-item">
+                <v-icon size="14" class="me-1">mdi-server</v-icon>
+                Backend
+                <code v-if="galleryStore.backendVersion">v{{ galleryStore.backendVersion }}</code>
+                <span v-else class="text-disabled">—</span>
+              </span>
+            </div>
+          </v-card-text>
+
           <v-card-actions>
             <v-spacer />
             <v-btn color="primary" href="https://labs.stux.dev" target="_blank" variant="text">
@@ -129,6 +146,8 @@ import { ref, computed, watch } from 'vue'
 import SettingsDialog from '@/components/SettingsDialog.vue'
 import LegalDisclaimer from '@/components/LegalDisclaimer.vue'
 import { useGalleryStore } from '@/stores/gallery'
+
+const appVersion = __APP_VERSION__
 
 const settingsDialog = ref(false)
 const infoDialog = ref(false)
@@ -210,5 +229,26 @@ watch(infoDialog, (isOpen) => {
   font-weight: 600;
   display: flex;
   align-items: center;
+}
+
+.version-row {
+  display: flex;
+  gap: 24px;
+  font-size: 12px;
+  color: rgba(var(--v-theme-on-surface), 0.6);
+}
+
+.version-item {
+  display: flex;
+  align-items: center;
+}
+
+.version-item code {
+  font-family: monospace;
+  font-size: 11px;
+  background: rgba(var(--v-theme-on-surface), 0.07);
+  border-radius: 4px;
+  padding: 1px 5px;
+  margin-left: 4px;
 }
 </style>

@@ -87,6 +87,7 @@ interface GalleryState {
     firestore: string;
     reddit: string;
   } | null;
+  backendVersion: string | null;
   error: string | null;
   slideshowInterval: number | null;
 }
@@ -110,6 +111,7 @@ export const useGalleryStore = defineStore('gallery', {
       isProxyPromptOpen: false,
       proxyStatus: 'checking',
       proxyStatusDetails: null,
+      backendVersion: null,
       error: null,
       slideshowInterval: null,
     };
@@ -286,6 +288,7 @@ export const useGalleryStore = defineStore('gallery', {
             firestore: data.services.firestore,
             reddit: data.services.reddit,
           };
+          this.backendVersion = data.version ?? null;
         } else {
           this.proxyStatus = 'unavailable';
         }
