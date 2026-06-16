@@ -16,9 +16,8 @@
     <v-alert
       v-if="galleryStore.error"
       type="error"
-      :text="galleryStore.error"
       class="mt-3"
-    />
+    >{{ galleryStore.error }}</v-alert>
 
     <EmptyState
       v-if="showEmptyState"

@@ -51,7 +51,7 @@
           <v-card-text>
             <div class="d-flex align-center justify-space-between mb-2">
               <span class="text-subtitle-2">Proxy Status</span>
-              <v-chip :color="statusColor" :prepend-icon="statusIcon" size="small">
+              <v-chip :color="statusColor" :prepend-icon="statusIcon" style="white-space: normal; height: auto; min-height: 24px;">
                 {{ statusText }}
               </v-chip>
             </div>
@@ -196,6 +196,12 @@ watch(infoDialog, (isOpen) => {
 .v-card-text a:hover {
   text-decoration: underline;
 }
+
+/* Prevent Vuetify app bar title from clipping brand text */
+.v-app-bar-title__content {
+  overflow: visible !important;
+  white-space: nowrap;
+}
 </style>
 
 <style scoped>
@@ -219,6 +225,7 @@ watch(infoDialog, (isOpen) => {
   color: rgba(var(--v-theme-on-surface), 0.45);
   margin-left: 6px;
   margin-top: 2px;
+  white-space: nowrap;
 }
 
 .dialog-header {
