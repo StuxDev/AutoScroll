@@ -21,6 +21,10 @@
         </v-chip>
       </div>
     </div>
+
+    <p class="text-caption text-disabled mt-8">
+      Not affiliated with Reddit Inc. &nbsp;·&nbsp; Content is sourced from Reddit's public data. &nbsp;·&nbsp; For users 18+.
+    </p>
   </div>
 </template>
 

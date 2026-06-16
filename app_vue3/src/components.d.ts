@@ -15,6 +15,7 @@ declare module 'vue' {
     EmptyState: typeof import('./components/EmptyState.vue')['default']
     ImageGrid: typeof import('./components/ImageGrid.vue')['default']
     ImageGridSkeleton: typeof import('./components/ImageGridSkeleton.vue')['default']
+    LegalDisclaimer: typeof import('./components/LegalDisclaimer.vue')['default']
     Main: typeof import('./components/Main.vue')['default']
     MediaOverlay: typeof import('./components/MediaOverlay.vue')['default']
     NSFWAlert: typeof import('./components/NSFWAlert.vue')['default']

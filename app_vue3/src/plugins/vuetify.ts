@@ -11,24 +11,25 @@ import 'vuetify/styles'
 // Composables
 import { createVuetify } from 'vuetify'
 
-// https://vuetifyjs.com/en/introduction/why-vuetify/#feature-guides
 export default createVuetify({
   ssr: true,
   theme: {
-    defaultTheme: 'darkRed',
+    defaultTheme: 'redditDark',
     themes: {
-      darkRed: {
-        dark: true, // This enables dark mode for this specific theme
+      redditDark: {
+        dark: true,
         colors: {
-          background: '#121212', // Standard dark background
-          surface: '#1E1E1E',    // Slightly lighter dark for cards/dialogs
-          primary: '#FF1F1F',    // Vibrant red that works well on dark
-          secondary: '#B71C1C',  // Deep blood red
-          error: '#CF6679',      // Desaturated red for accessibility
-          info: '#2196F3',
-          success: '#4CAF50',
-          warning: '#FB8C00',
-          anchor: '#FF1F1F',   // Same as primary for consistency
+          background: '#1A1A1B',
+          surface: '#272729',
+          'surface-variant': '#1A1A1B',
+          'on-surface-variant': '#D7DADC',
+          primary: '#FF4500',    // Reddit orangered
+          secondary: '#0DD3BB',  // Reddit teal
+          error: '#FF585B',
+          info: '#24A0ED',
+          success: '#46D160',
+          warning: '#FFB000',
+          anchor: '#FF4500',
         },
       },
     },

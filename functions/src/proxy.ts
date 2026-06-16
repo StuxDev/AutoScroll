@@ -166,6 +166,7 @@ export const redditProxy = onRequest({region: "europe-west4", timeoutSeconds: 12
               maxPosts: Math.min(limit, 100),
               includeRaw: true,
               includeCommentsMode: "none",
+              includeNsfw: true,
               listings: [{subreddit}],
               proxyConfiguration: {
                 useApifyProxy: true,

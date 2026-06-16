@@ -20,6 +20,9 @@
           </template>
         </v-img>
 
+        <!-- NSFW badge (top-left) -->
+        <div v-if="post.postData.over_18" class="nsfw-badge">NSFW</div>
+
         <!-- Media type badge (top-right) -->
         <div v-if="post.mediaType === 'album'" class="media-badge">
           <v-icon size="12" color="white">mdi-image-multiple</v-icon>
@@ -43,6 +46,9 @@
             <span class="ms-2">
               <v-icon size="12">mdi-comment-outline</v-icon>
               {{ formatScore(post.postData.num_comments) }}
+            </span>
+            <span v-if="post.postData.author" class="ms-2 overlay-author">
+              u/{{ post.postData.author }}
             </span>
           </div>
         </div>
@@ -204,6 +210,30 @@ onUnmounted(() => window.removeEventListener('scroll', handleScroll))
   color: rgba(255, 255, 255, 0.75);
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
+  gap: 2px;
+}
+
+.overlay-author {
+  opacity: 0.6;
+  max-width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.nsfw-badge {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  background: #FF4500;
+  border-radius: 4px;
+  padding: 2px 6px;
+  font-size: 10px;
+  font-weight: 700;
+  color: white;
+  letter-spacing: 0.5px;
+  z-index: 2;
 }
 
 .load-more-spinner {
