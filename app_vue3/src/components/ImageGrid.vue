@@ -15,7 +15,8 @@
         >
           <template #error>
             <div class="img-error">
-              <v-icon size="36" color="grey-darken-1">mdi-image-broken-variant</v-icon>
+              <v-icon size="28" color="grey-darken-1" class="mb-2">mdi-image-off-outline</v-icon>
+              <p class="img-error-title">{{ post.postData.title }}</p>
             </div>
           </template>
         </v-img>
@@ -91,14 +92,28 @@ const formatScore = (n) => {
 }
 
 const getThumbnail = (post) => {
-  if (post.postData.thumbnail && post.postData.thumbnail.startsWith('http')) {
+  // Prefer Reddit's sized preview images — these are CDN URLs at a reasonable
+  // resolution (320–640px), load fast, and exist for all media types.
+  const previewImg = post.postData.preview?.images?.[0]
+  if (previewImg) {
+    // Pick the smallest resolution that is still at least 320px wide.
+    const res = previewImg.resolutions?.find(r => r.width >= 320)
+      ?? previewImg.resolutions?.at(-1)
+      ?? previewImg.source
+    if (res?.url) return res.url.replace(/&amp;/g, '&')
+  }
+
+  // Reddit low-res thumbnail (reliable fallback, ~70–140px).
+  if (post.postData.thumbnail?.startsWith('http')) {
     return post.postData.thumbnail
   }
-  if ((post.mediaType === 'video' || post.mediaType === 'embed') && post.postData.preview?.images?.[0]?.source?.url) {
-    return post.postData.preview.images[0].source.url.replace(/&amp;/g, '&')
-  }
-  if (post.mediaType === 'album') return post.images[0]
-  if (post.mediaType === 'image') return post.postData.url
+
+  // Album: first pre-processed image URL from media_metadata.
+  if (post.mediaType === 'album' && post.images?.[0]) return post.images[0]
+
+  // Standard image: direct URL (only when no preview is available).
+  if (post.mediaType === 'image' && post.postData.url) return post.postData.url
+
   return ''
 }
 
@@ -160,9 +175,23 @@ onUnmounted(() => window.removeEventListener('scroll', handleScroll))
   width: 100%;
   aspect-ratio: 1;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   background: #2a2a2a;
+  padding: 12px;
+}
+
+.img-error-title {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.4);
+  text-align: center;
+  line-height: 1.3;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin: 0;
 }
 
 .media-badge {
