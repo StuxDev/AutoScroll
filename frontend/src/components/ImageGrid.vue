@@ -245,10 +245,10 @@ onUnmounted(() => window.removeEventListener('scroll', handleScroll))
 
 .overlay-author {
   opacity: 0.6;
-  max-width: 100px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  min-width: 0;
 }
 
 .nsfw-badge {

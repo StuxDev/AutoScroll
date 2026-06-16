@@ -17,7 +17,7 @@
       <v-card-text>
         <div class="d-flex align-center justify-space-between mb-2">
           <span class="text-subtitle-1">Proxy Status:</span>
-          <v-chip :color="statusColor" :prepend-icon="statusIcon" size="small">
+          <v-chip :color="statusColor" :prepend-icon="statusIcon" style="white-space: normal; height: auto; min-height: 24px;">
             {{ statusText }}
           </v-chip>
         </div>
