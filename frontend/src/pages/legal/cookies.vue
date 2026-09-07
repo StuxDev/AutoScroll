@@ -13,10 +13,6 @@
         <span class="info-label"><code>localStorage</code></span>
         <span class="info-value">Remembers your slideshow interval, preferred sort order, and NSFW consent choice, so they persist between visits. Stored only in your browser; never transmitted to any server.</span>
       </div>
-      <div class="info-row">
-        <span class="info-label"><code>sessionStorage</code></span>
-        <span class="info-value">Remembers whether proxy mode is enabled for the current tab. Cleared automatically when you close the tab.</span>
-      </div>
     </div>
 
     <h2>Third-party content</h2>

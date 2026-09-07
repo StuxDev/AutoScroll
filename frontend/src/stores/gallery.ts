@@ -161,20 +161,15 @@ export const useGalleryStore = defineStore('gallery', {
       this.fetchingImages = true;
       this.error = null;
       try {
-        let url;
-        if (settingsStore.useProxy) {
-          const params = new URLSearchParams({
-            subreddit: this.subreddit,
-            sort: this.sortOption,
-            limit: '100',
-          });
-          if (this.after) {
-            params.append('after', this.after);
-          }
-          url = `${PROXY_URL}?${params.toString()}`;
-        } else {
-          url = `https://www.reddit.com/r/${this.subreddit}/${this.sortOption}.json?limit=100${this.after ? `&after=${this.after}` : ''}`;
+        const params = new URLSearchParams({
+          subreddit: this.subreddit,
+          sort: this.sortOption,
+          limit: '100',
+        });
+        if (this.after) {
+          params.append('after', this.after);
         }
+        const url = `${PROXY_URL}?${params.toString()}`;
         const response = await fetch(url, getFetchOptions(url));
         if (!response.ok) {
           throw new Error(`Subreddit r/${this.subreddit} not found.`);
@@ -249,26 +244,16 @@ export const useGalleryStore = defineStore('gallery', {
       } catch (error: any) {
         this.error = error.message;
         console.error('Error fetching data from Reddit:', error);
-        console.log('useProxy:', settingsStore.useProxy);
-        console.log('isProxyPromptOpen before:', this.isProxyPromptOpen);
-        if (!settingsStore.useProxy) {
-          this.isProxyPromptOpen = true;
-          console.log('Setting isProxyPromptOpen to true');
-        } else {
-          console.log('Proxy already enabled, not showing prompt');
-        }
-        console.log('isProxyPromptOpen after:', this.isProxyPromptOpen);
+        this.isProxyPromptOpen = true;
       } finally {
         this.fetchingImages = false;
       }
     },
-    enableProxyAndRetry() {
-      const settingsStore = useSettingsStore();
-      settingsStore.setUseProxy(true);
+    retryFetch() {
       this.isProxyPromptOpen = false;
       this.fetchRedditImages(true);
     },
-    declineProxy() {
+    dismissProxyPrompt() {
       this.isProxyPromptOpen = false;
     },
     async checkProxyStatus() {
@@ -409,13 +394,7 @@ export const useGalleryStore = defineStore('gallery', {
         return [];
       }
       try {
-        const settingsStore = useSettingsStore();
-        let url;
-        if (settingsStore.useProxy) {
-          url = `${SEARCH_PROXY_URL}?query=${encodeURIComponent(query)}`;
-        } else {
-          url = `https://www.reddit.com/api/search_reddit_names.json?query=${encodeURIComponent(query)}&include_over_18=true`;
-        }
+        const url = `${SEARCH_PROXY_URL}?query=${encodeURIComponent(query)}`;
         const response = await fetch(url, getFetchOptions(url));
         if (!response.ok) {
           throw new Error('Network response was not ok');

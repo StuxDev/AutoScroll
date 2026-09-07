@@ -118,7 +118,7 @@ http://localhost:5001/<project-id>/europe-west4/searchSubredditsProxy
 http://localhost:5001/<project-id>/europe-west4/proxyStatus
 ```
 
-To use these from the frontend dev server, set `VITE_LOCALHOST_SECRET` in `frontend/.env.local` to the same value as `LOCALHOST_SECRET` in `backend/.env`, and enable proxy mode in the app's settings.
+To use these from the frontend dev server, set `VITE_LOCALHOST_SECRET` in `frontend/.env.local` to the same value as `LOCALHOST_SECRET` in `backend/.env`.
 
 ---
 
@@ -182,7 +182,7 @@ When `redditProxy` receives a request it:
 6. `reshapeApifyPost()` in `proxy.ts` maps the Apify-only case onto the Reddit JSON API format (`{ data: { children: [...] } }`) so the frontend requires no changes regardless of which tier served the request — Reddit-hosted video and multi-image galleries fall back to a static thumbnail/first image where a direct video URL isn't available
 7. Returns the JSON to the browser
 
-The `searchSubredditsProxy` calls Reddit's public `search_reddit_names.json` endpoint directly — no Apify token needed for search.
+The `searchSubredditsProxy` calls Arctic Shift's `/api/subreddits/search?subreddit_prefix=` endpoint (Reddit's own `search_reddit_names.json` was part of the public API Reddit shut down in May 2026), reshaping the results into the `{names: [...]}` shape the frontend expects — no Apify token needed for search.
 
 ---
 

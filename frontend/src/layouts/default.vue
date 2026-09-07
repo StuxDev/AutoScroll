@@ -142,7 +142,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, computed, watch } from 'vue'
+import { ref, computed, watch, onMounted } from 'vue'
 import SettingsDialog from '@/components/SettingsDialog.vue'
 import LegalDisclaimer from '@/components/LegalDisclaimer.vue'
 import { useGalleryStore } from '@/stores/gallery'
@@ -152,6 +152,10 @@ const appVersion = __APP_VERSION__
 const settingsDialog = ref(false)
 const infoDialog = ref(false)
 const galleryStore = useGalleryStore()
+
+onMounted(() => {
+  galleryStore.checkProxyStatus()
+})
 
 const statusColor = computed(() => {
   switch (galleryStore.proxyStatus) {

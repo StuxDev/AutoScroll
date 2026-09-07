@@ -18,7 +18,6 @@ A clean, auto-scrolling image gallery for Reddit — browse any subreddit's phot
 - **NSFW filtering** — hidden by default with a separate age-gate prompt before any adult content is shown
 - **Sort options** — hot, new, top, rising
 - **Subreddit autocomplete** — search suggestions as you type
-- **Proxy mode** — route requests through the backend when direct Reddit access is restricted
 - **Dark theme** — Reddit-style dark UI out of the box
 
 ---

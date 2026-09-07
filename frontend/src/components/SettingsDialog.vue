@@ -23,21 +23,6 @@
             {{ settingsStore.slideshowInterval }} seconds between slides
           </div>
         </div>
-
-        <v-divider class="my-4" />
-
-        <div class="setting-section">
-          <v-switch
-            v-model="settingsStore.useProxy"
-            label="Use proxy"
-            color="primary"
-            hide-details
-            @update:model-value="settingsStore.setUseProxy"
-          />
-          <div class="text-caption text-medium-emphasis mt-1">
-            Route requests through our server to bypass network restrictions
-          </div>
-        </div>
       </v-card-text>
 
       <v-card-actions>
