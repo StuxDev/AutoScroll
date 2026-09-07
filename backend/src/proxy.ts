@@ -22,6 +22,7 @@ const APIFY_RUN_URL = `https://api.apify.com/v2/acts/${APIFY_ACTOR_ID}/run-sync-
 
 const PULLPUSH_URL = "https://api.pullpush.io/reddit/search/submission/";
 const ARCTIC_SHIFT_URL = "https://arctic-shift.photon-reddit.com/api/posts/search";
+const ARCTIC_SHIFT_SUBREDDITS_URL = "https://arctic-shift.photon-reddit.com/api/subreddits/search";
 
 /**
  * Neither archive can replicate Reddit's live "hot"/"rising" ranking (they're
@@ -392,22 +393,22 @@ export const searchSubredditsProxy = onRequest({region: "europe-west4"}, (reques
           return;
         }
 
-        // Reddit's public search endpoint works without OAuth from server-side
-        const url = `https://www.reddit.com/api/search_reddit_names.json?query=${encodeURIComponent(query)}&include_over_18=true`;
+        // Reddit shut down search_reddit_names.json along with the rest of its
+        // public .json API in May 2026 - Arctic Shift's subreddit-prefix search
+        // is the closest replacement, reshaped to the {names: [...]} shape the
+        // frontend expects back from Reddit's old endpoint.
+        const url = `${ARCTIC_SHIFT_SUBREDDITS_URL}?subreddit_prefix=${encodeURIComponent(query)}&limit=20`;
 
         try {
-          const redditResponse = await axios.get(url, {
-            headers: {"User-Agent": "AutoScroll/1.0"},
-            timeout: 10000,
-          });
-          response.status(200).send(redditResponse.data);
+          const arcticResponse = await axios.get(url, {timeout: 10000});
+          const results: any[] = arcticResponse.data?.data ?? [];
+          const names = results
+            .map((r) => r.display_name)
+            .filter((name: unknown): name is string => typeof name === "string" && name.length > 0);
+          response.status(200).json({names});
         } catch (error) {
-          logger.error("Error fetching subreddit names from Reddit:", error);
-          if (axios.isAxiosError(error) && error.response) {
-            response.status(error.response.status).send(error.response.data);
-          } else {
-            response.status(500).send("Error fetching subreddit names");
-          }
+          logger.error("Error fetching subreddit names from Arctic Shift:", error);
+          response.status(200).json({names: []});
         }
       });
     });
