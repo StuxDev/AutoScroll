@@ -19,7 +19,7 @@ npm run lint         # ESLint
 | Function | Endpoint | Purpose |
 |----------|----------|---------|
 | `redditProxy` | `GET /redditProxy` | Fetches subreddit posts (pullpush.io → Arctic Shift → Apify); reshapes response to Reddit JSON format |
-| `searchSubredditsProxy` | `GET /searchSubredditsProxy` | Proxies Reddit's public subreddit name search |
+| `searchSubredditsProxy` | `GET /searchSubredditsProxy` | Subreddit name search via Arctic Shift |
 | `proxyStatus` | `GET /proxyStatus` | Health check — returns status, backend version, and service availability |
 | `analyticsStatus` | `GET /analyticsStatus` | Returns anonymous aggregated usage statistics |
 | `cleanupRateLimits` | Scheduled (hourly) | Removes expired Firestore rate-limit entries |
@@ -75,4 +75,4 @@ backend/
 5. Falls back to the paid **Apify actor** (`automation-lab~reddit-scraper`) if both archives come up empty. Unlike the two archives, Apify scrapes Reddit's live HTML in the actor's own field format (`imageUrls`, `isNSFW`, `permalink`, `thumbnail`, etc. — Reddit shut down its old public `.json` API in May 2026, so there's no raw-JSON passthrough here). `reshapeApifyPost()` maps those fields onto the same `{ data: { children: [{ kind: "t3", data: {...} }] } }` shape Reddit's own API used to return, so the frontend requires no changes regardless of which tier served the request. Reddit-hosted video and multi-image galleries fall back to a static thumbnail/first image where a direct video URL isn't available — see the comments in `proxy.ts` for the exact mapping and its limits
 6. Returns the JSON to the browser
 
-`searchSubredditsProxy` calls Reddit's public `search_reddit_names.json` endpoint directly (no Apify token needed for search).
+`searchSubredditsProxy` calls Arctic Shift's `/api/subreddits/search?subreddit_prefix=` endpoint (Reddit's own `search_reddit_names.json` was part of the public API Reddit shut down in May 2026), reshaping the results into the `{names: [...]}` shape the frontend expects — no Apify token needed for search.
