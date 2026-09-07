@@ -145,3 +145,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for project conventions, and [CHANGELOG.m
 ## License
 
 [Apache-2.0](LICENSE)
+
+---
+
+*Written by <img src="https://github.com/StuxieDev.png" height="14" alt="StuxieDev" valign="middle"> [StuxieDev](https://github.com/StuxieDev).*
