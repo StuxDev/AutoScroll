@@ -50,7 +50,7 @@
     <p>If this policy changes materially, the "last updated" date above will change with it.</p>
 
     <h2>Contact</h2>
-    <p>Questions about this policy? Reach out at <a href="mailto:contact@stuxie.dev">contact@stuxie.dev</a>.</p>
+    <p>Questions about this policy? Reach out at <a href="mailto:contact@stux.dev">contact@stux.dev</a>.</p>
   </LegalPage>
 </template>
 

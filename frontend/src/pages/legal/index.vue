@@ -18,7 +18,7 @@
       </RouterLink>
     </div>
 
-    <p class="legal-contact">Questions about any of this? Contact <a href="mailto:contact@stuxie.dev">contact@stuxie.dev</a>.</p>
+    <p class="legal-contact">Questions about any of this? Contact <a href="mailto:contact@stux.dev">contact@stux.dev</a>.</p>
   </div>
 </template>
 

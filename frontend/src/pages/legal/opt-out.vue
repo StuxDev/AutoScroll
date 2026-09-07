@@ -23,7 +23,7 @@
     <p>The only usage data AutoScroll collects (in proxy mode) is an aggregated, anonymous per-country request count with no way to trace it back to an individual visitor — see <a href="/legal/privacy">Privacy Policy</a>. Because nothing is tied to you personally, there's no individual record to opt out of or delete.</p>
 
     <h2>Contact</h2>
-    <p>Questions about any of this? Reach out at <a href="mailto:contact@stuxie.dev">contact@stuxie.dev</a>.</p>
+    <p>Questions about any of this? Reach out at <a href="mailto:contact@stux.dev">contact@stux.dev</a>.</p>
   </LegalPage>
 </template>
 
