@@ -25,8 +25,7 @@ halves separately.
 ## Project conventions
 
 - **Monorepo, two independently versioned apps.** `frontend/` (Vue 3 + Vuetify + Pinia,
-  deployed to Netlify) and `backend/` (Firebase Cloud Functions, Node 22). See
-  `CLAUDE.md` for the full architecture rundown.
+  deployed to Netlify) and `backend/` (Firebase Cloud Functions, Node 22).
 - **File-based routing.** Pages live in `frontend/src/pages/`; a new route is a new
   `.vue` file there, no manual router wiring needed (see `frontend/src/pages/README.md`).
 - **Components auto-import.** No manual `import` statements needed for components under
@@ -40,7 +39,7 @@ halves separately.
 
 - `VERSION.md` (repo root) is a bare version string tracking documentation/tooling
   releases — bump it and add a `CHANGELOG.md` entry whenever you cut one
-- `frontend/package.json` and `backend/package.json` track their own, independently
+- `frontend/VERSION.md` and `backend/VERSION.md` track their own, independently
   bumped versions — see the README's [Versioning](README.md#versioning) section
 - Every `CHANGELOG.md` release gets `### Added` / `### Changed` / `### Fixed`
   subsections — never a bare bullet list directly under a version heading
