@@ -33,12 +33,12 @@ cp .env.example .env.local 2>/dev/null || touch frontend/.env.local
 Open `frontend/.env.local` and set:
 
 ```env
-# Optional — only needed for local testing against the Firebase proxy.
-# Leave empty if you don't need proxy access from localhost.
+# Optional — only needed if the backend requires a localhost secret header.
+# Leave empty otherwise.
 VITE_LOCALHOST_SECRET=your_secret_here
 ```
 
-> **Note:** If you are only using the app in direct mode (no Firebase proxy), this file can remain empty.
+The app always talks to Reddit through the Firebase Functions backend (see [install-backend.md](install-backend.md)) — Reddit shut down its public .json API in May 2026, so there's no direct-from-browser mode anymore.
 
 ---
 
@@ -94,16 +94,3 @@ If setting up from scratch, use these Netlify build settings:
 | Publish directory | `frontend/dist` |
 
 Set `VITE_LOCALHOST_SECRET` as a Netlify environment variable if you use the localhost secret feature.
-
----
-
-## Proxy modes
-
-The app can fetch Reddit data in two ways:
-
-| Mode | How it works | When to use |
-|------|-------------|-------------|
-| **Direct** | Browser calls Reddit's public JSON API | Default; works without any backend |
-| **Proxy** | Browser calls your Firebase Function, which calls Apify | Use when direct mode is blocked or restricted |
-
-If direct mode fails, the app will prompt the user to switch to proxy mode automatically.

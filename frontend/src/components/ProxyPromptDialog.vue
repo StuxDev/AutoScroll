@@ -8,8 +8,8 @@
 
       <v-card-text>
         <p>It seems we're having trouble loading content for this subreddit.</p>
-        <p>This can happen due to network restrictions or regional access requirements.</p>
-        <p>Would you like to try again using our proxy? This routes the request through our server to bypass the issue.</p>
+        <p>This can happen if the subreddit doesn't exist, or if the backend is temporarily unavailable.</p>
+        <p>Check the status below and try again.</p>
       </v-card-text>
 
       <v-divider />
@@ -34,7 +34,7 @@
         </div>
 
         <v-alert v-if="galleryStore.proxyStatus === 'degraded'" type="warning" density="compact" class="mt-3">
-          Proxy is partially available. Some features may not work correctly.
+          Backend is partially available. Some features may not work correctly.
         </v-alert>
       </v-card-text>
 
@@ -42,14 +42,14 @@
 
       <v-card-actions>
         <v-spacer />
-        <v-btn color="primary" variant="text" @click="galleryStore.declineProxy">No, Thanks</v-btn>
+        <v-btn color="primary" variant="text" @click="galleryStore.dismissProxyPrompt">Dismiss</v-btn>
         <v-btn
           color="primary"
           variant="flat"
           :disabled="galleryStore.proxyStatus === 'unavailable' || galleryStore.proxyStatus === 'checking'"
-          @click="galleryStore.enableProxyAndRetry"
+          @click="galleryStore.retryFetch"
         >
-          Yes, Try Again
+          Try Again
         </v-btn>
       </v-card-actions>
     </v-card>
