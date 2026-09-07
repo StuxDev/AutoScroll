@@ -56,7 +56,7 @@ set "PROXY_ENV_LINE=set VITE_PROXY_BASE_URL="
 if "%NO_DEV_MODE%"=="1" (
     echo NOT overriding the proxy backend - frontend will hit production Cloud Functions.
 ) else (
-    set "VITE_PROXY_BASE_URL=http://127.0.0.1:5001/!PROJECT_ID!/us-central1"
+    set "VITE_PROXY_BASE_URL=http://127.0.0.1:5001/!PROJECT_ID!/europe-west4"
     set "PROXY_ENV_LINE=set VITE_PROXY_BASE_URL=!VITE_PROXY_BASE_URL!"
     echo Frontend proxy backend forced to the local emulator (!VITE_PROXY_BASE_URL!) - pass --no-dev-mode to use production instead.
 )

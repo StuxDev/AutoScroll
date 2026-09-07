@@ -60,7 +60,7 @@ PIDS+=("$!")
 if [ "$NO_DEV_MODE" = "1" ]; then
     echo "NOT overriding the proxy backend - frontend will hit production Cloud Functions."
 else
-    export VITE_PROXY_BASE_URL="http://127.0.0.1:5001/${PROJECT_ID}/us-central1"
+    export VITE_PROXY_BASE_URL="http://127.0.0.1:5001/${PROJECT_ID}/europe-west4"
     echo "Frontend proxy backend forced to the local emulator ($VITE_PROXY_BASE_URL) - pass --no-dev-mode to use production instead."
 fi
 

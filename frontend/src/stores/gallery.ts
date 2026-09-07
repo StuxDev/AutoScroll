@@ -19,7 +19,7 @@ import {useSettingsStore} from './settings';
 
 // Overridden by dev-server.sh/.bat to point at the local Firebase emulator;
 // defaults to production Cloud Functions otherwise.
-const PROXY_BASE_URL = import.meta.env.VITE_PROXY_BASE_URL || 'https://us-central1-autoscroll-dce73.cloudfunctions.net';
+const PROXY_BASE_URL = import.meta.env.VITE_PROXY_BASE_URL || 'https://europe-west4-autoscroll-dce73.cloudfunctions.net';
 const PROXY_URL = `${PROXY_BASE_URL}/redditProxy`;
 const SEARCH_PROXY_URL = `${PROXY_BASE_URL}/searchSubredditsProxy`;
 const PROXY_STATUS_URL = `${PROXY_BASE_URL}/proxyStatus`;
