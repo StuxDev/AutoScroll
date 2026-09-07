@@ -41,8 +41,8 @@
             </p>
             <p>
               Questions or issues? Reach out at
-              <a href="mailto:contact@stuxie.dev" target="_blank">contact@stuxie.dev</a>
-              or on <a href="https://links.stuxie.dev" target="_blank">social media</a>.
+              <a href="mailto:contact@stux.dev" target="_blank">contact@stux.dev</a>
+              or on <a href="https://links.stux.dev" target="_blank">social media</a>.
             </p>
           </v-card-text>
 

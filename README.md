@@ -148,4 +148,4 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for project conventions, and [CHANGELOG.m
 
 ---
 
-*Written by <img src="https://github.com/StuxieDev.png" height="14" alt="StuxieDev" valign="middle"> [StuxieDev](https://github.com/StuxieDev).*
+*Written by <img src="https://github.com/StuxDev.png" height="14" alt="StuxDev" valign="middle"> [StuxDev](https://github.com/StuxDev). Part of the <img src="https://media.stux.group/global/icon.png" height="14" alt="Stux.Group" valign="middle"> Stux.Group brand of businesses.*

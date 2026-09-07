@@ -4,10 +4,10 @@
 
 # Contributing to AutoScroll
 
-AutoScroll is a personal project by [StuxieDev](https://github.com/StuxieDev), licensed
+AutoScroll is a personal project by [StuxDev](https://github.com/StuxDev), licensed
 under [Apache-2.0](LICENSE) — pull requests, forks, and issues are all welcome.
 
-Questions about contributing: [contact@stuxie.dev](mailto:contact@stuxie.dev).
+Questions about contributing: [contact@stux.dev](mailto:contact@stux.dev).
 
 ## Local setup
 
