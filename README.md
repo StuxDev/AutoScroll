@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="frontend/src/assets/logo.png" width="120" alt="AutoScroll">
+</p>
+
 # AutoScroll
 
 A clean, auto-scrolling image gallery for Reddit — browse any subreddit's photos, videos, and albums in a slideshow view without leaving the page.
@@ -53,7 +57,11 @@ cp .env.example .env   # add your APIFY_TOKEN
 npm run serve          # starts Firebase emulators
 ```
 
-See [`docs/install-frontend.md`](docs/install-frontend.md) and [`docs/install-backend.md`](docs/install-backend.md) for full setup instructions.
+See [`docs/install-frontend.md`](docs/install-frontend.md) and [`docs/install-backend.md`](docs/install-backend.md) for full setup instructions, or run both halves together with one command:
+
+```bash
+./dev-server.sh      # or dev-server.bat on Windows
+```
 
 ---
 
@@ -118,11 +126,19 @@ firebase deploy --only functions
 
 ## Legal
 
+See [Boring Legal Stuff](https://autoscroll.stux.dev/legal) (or `/legal` on any deployment) for the full privacy policy, terms, cookies policy, imprint, disclaimer, and opt-out preferences. In short:
+
 - This project is not affiliated with Reddit Inc. in any way.
-- All content is sourced from Reddit's publicly available data via Apify.
+- All content is sourced from Reddit's publicly available data, directly or via Apify.
 - No personal data, IP addresses, or cookies are stored.
 - Anonymous, country-level analytics are collected for monitoring purposes only.
 - This service is intended for users aged 18 and over.
+
+---
+
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for project conventions, and [CHANGELOG.md](CHANGELOG.md) for release history.
 
 ---
 

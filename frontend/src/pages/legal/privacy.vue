@@ -1,0 +1,59 @@
+<template>
+  <LegalPage
+    title="Privacy Policy"
+    lead="The short version: there's no login, no account, and nothing about you is stored long-term."
+    meta="Last updated: September 2026"
+  >
+    <h2>What we collect</h2>
+    <p>AutoScroll has no accounts and no sign-up — there's nothing to attach a profile to. What little data does pass through the app falls into a few categories:</p>
+
+    <div class="info-card">
+      <div class="info-row">
+        <span class="info-label">Subreddit and sort choices</span>
+        <span class="info-value">Kept only in your browser's <code>localStorage</code> (slideshow interval, sort option, NSFW consent) so your preferences survive a page reload. Never sent anywhere except back to Reddit/the proxy as part of the request you're already making.</span>
+      </div>
+      <div class="info-row">
+        <span class="info-label">Your IP address (proxy mode only)</span>
+        <span class="info-value">Used transiently by the Firebase Functions backend to enforce per-IP rate limits. It's base64-encoded into a short-lived Firestore document, never logged in plain text, and automatically deleted by a scheduled cleanup job once the rate-limit window expires.</span>
+      </div>
+      <div class="info-row">
+        <span class="info-label">Approximate country (proxy mode only)</span>
+        <span class="info-value">Derived from your IP via a local GeoIP lookup on the backend, then discarded — only an aggregated, anonymous per-country request count is kept (see Analytics below). The IP itself is never written to that count.</span>
+      </div>
+      <div class="info-row">
+        <span class="info-label">Cookies</span>
+        <span class="info-value">None. AutoScroll doesn't set or read any cookies.</span>
+      </div>
+    </div>
+
+    <h2>Direct mode vs. proxy mode</h2>
+    <p>AutoScroll can talk to Reddit two ways:</p>
+    <ol>
+      <li><strong>Direct mode</strong> (default): your browser calls Reddit's public JSON API directly. AutoScroll's own servers never see the request at all.</li>
+      <li><strong>Proxy mode</strong> (opt-in, or automatic fallback if direct access is blocked): your browser calls an AutoScroll Firebase Cloud Function instead, which fetches the content on your behalf via the Apify Reddit Scraper and returns it to you. This is where the IP/rate-limiting/analytics handling above applies.</li>
+    </ol>
+    <p>Whether proxy mode is in use for a given session is stored only in <code>sessionStorage</code> — it resets when you close the tab.</p>
+
+    <h2>Analytics</h2>
+    <p>When proxy mode is used, the backend increments an anonymous, aggregated counter for the request's country and endpoint — for example, "France: 42 requests to redditProxy this month." No individual request, IP address, or session is ever recorded — only the running totals. These aggregates are automatically deleted after six months.</p>
+
+    <h2>NSFW content</h2>
+    <p>Adult content is hidden by default. Choosing to view it records a simple yes/no consent flag in your browser's <code>localStorage</code> — nothing about that choice is sent to or stored on any server.</p>
+
+    <h2>Third parties</h2>
+    <p>Requests you make are ultimately served by Reddit (directly, or via the Apify Reddit Scraper acting on AutoScroll's behalf). Those parties handle the request under their own privacy policies once it leaves AutoScroll. AutoScroll does not share any data with advertisers, analytics networks, or other third parties beyond what's described above.</p>
+
+    <h2>Children's privacy</h2>
+    <p>AutoScroll is intended for users aged 18 and over and does not knowingly collect data from children.</p>
+
+    <h2>Changes to this policy</h2>
+    <p>If this policy changes materially, the "last updated" date above will change with it.</p>
+
+    <h2>Contact</h2>
+    <p>Questions about this policy? Reach out at <a href="mailto:contact@stuxie.dev">contact@stuxie.dev</a>.</p>
+  </LegalPage>
+</template>
+
+<script setup lang="ts">
+//
+</script>

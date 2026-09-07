@@ -30,6 +30,55 @@ declare module 'vue-router/auto-routes' {
       Record<never, never>,
       | never
     >,
+    '/legal/': RouteRecordInfo<
+      '/legal/',
+      '/legal',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/legal/cookies': RouteRecordInfo<
+      '/legal/cookies',
+      '/legal/cookies',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/legal/disclaimer': RouteRecordInfo<
+      '/legal/disclaimer',
+      '/legal/disclaimer',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/legal/imprint': RouteRecordInfo<
+      '/legal/imprint',
+      '/legal/imprint',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/legal/opt-out': RouteRecordInfo<
+      '/legal/opt-out',
+      '/legal/opt-out',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/legal/privacy': RouteRecordInfo<
+      '/legal/privacy',
+      '/legal/privacy',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/legal/terms': RouteRecordInfo<
+      '/legal/terms',
+      '/legal/terms',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
   }
 
   /**
@@ -46,6 +95,48 @@ declare module 'vue-router/auto-routes' {
     'src/pages/index.vue': {
       routes:
         | '/'
+      views:
+        | never
+    }
+    'src/pages/legal/index.vue': {
+      routes:
+        | '/legal/'
+      views:
+        | never
+    }
+    'src/pages/legal/cookies.vue': {
+      routes:
+        | '/legal/cookies'
+      views:
+        | never
+    }
+    'src/pages/legal/disclaimer.vue': {
+      routes:
+        | '/legal/disclaimer'
+      views:
+        | never
+    }
+    'src/pages/legal/imprint.vue': {
+      routes:
+        | '/legal/imprint'
+      views:
+        | never
+    }
+    'src/pages/legal/opt-out.vue': {
+      routes:
+        | '/legal/opt-out'
+      views:
+        | never
+    }
+    'src/pages/legal/privacy.vue': {
+      routes:
+        | '/legal/privacy'
+      views:
+        | never
+    }
+    'src/pages/legal/terms.vue': {
+      routes:
+        | '/legal/terms'
       views:
         | never
     }
