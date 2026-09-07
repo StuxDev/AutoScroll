@@ -30,7 +30,7 @@
     <p>AutoScroll can talk to Reddit two ways:</p>
     <ol>
       <li><strong>Direct mode</strong> (default): your browser calls Reddit's public JSON API directly. AutoScroll's own servers never see the request at all.</li>
-      <li><strong>Proxy mode</strong> (opt-in, or automatic fallback if direct access is blocked): your browser calls an AutoScroll Firebase Cloud Function instead, which fetches the content on your behalf via the Apify Reddit Scraper and returns it to you. This is where the IP/rate-limiting/analytics handling above applies.</li>
+      <li><strong>Proxy mode</strong> (opt-in, or automatic fallback if direct access is blocked): your browser calls an AutoScroll Firebase Cloud Function instead, which fetches the content on your behalf — from a free Reddit archive where possible, falling back to the Apify Reddit Scraper otherwise — and returns it to you. This is where the IP/rate-limiting/analytics handling above applies.</li>
     </ol>
     <p>Whether proxy mode is in use for a given session is stored only in <code>sessionStorage</code> — it resets when you close the tab.</p>
 
@@ -41,7 +41,7 @@
     <p>Adult content is hidden by default. Choosing to view it records a simple yes/no consent flag in your browser's <code>localStorage</code> — nothing about that choice is sent to or stored on any server.</p>
 
     <h2>Third parties</h2>
-    <p>Requests you make are ultimately served by Reddit (directly, or via the Apify Reddit Scraper acting on AutoScroll's behalf). Those parties handle the request under their own privacy policies once it leaves AutoScroll. AutoScroll does not share any data with advertisers, analytics networks, or other third parties beyond what's described above.</p>
+    <p>Requests you make are ultimately served by Reddit (directly, or via a Reddit archive or the Apify Reddit Scraper acting on AutoScroll's behalf). Those parties handle the request under their own privacy policies once it leaves AutoScroll. AutoScroll does not share any data with advertisers, analytics networks, or other third parties beyond what's described above.</p>
 
     <h2>Children's privacy</h2>
     <p>AutoScroll is intended for users aged 18 and over and does not knowingly collect data from children.</p>

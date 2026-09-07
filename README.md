@@ -74,7 +74,7 @@ See [`docs/install-frontend.md`](docs/install-frontend.md) and [`docs/install-ba
 | State management | Pinia |
 | Build tool | Vite |
 | Backend | Firebase Cloud Functions (Node.js 22) |
-| Content source | [Apify Reddit Scraper](https://apify.com/spry_wholemeal/reddit-scraper) |
+| Content source | [pullpush.io](https://pullpush.io/) → [Arctic Shift](https://arctic-shift.photon-reddit.com/) → [Apify Reddit Scraper](https://apify.com/automation-lab/reddit-scraper) (fallback chain) |
 | Rate limiting | Firestore-based, per-IP |
 | Frontend hosting | Netlify |
 

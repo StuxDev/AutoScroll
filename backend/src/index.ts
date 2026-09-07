@@ -136,7 +136,7 @@ export const proxyStatus = onRequest({region: "europe-west4"}, async (request, r
         const axios = await import("axios");
         const {getApifyToken} = await import("./config.js");
         const apifyResponse = await axios.default.get(
-          `https://api.apify.com/v2/acts/spry_wholemeal~reddit-scraper?token=${getApifyToken()}`,
+          `https://api.apify.com/v2/acts/automation-lab~reddit-scraper?token=${getApifyToken()}`,
           {timeout: 5000}
         );
         status.services.reddit = apifyResponse.status === 200 ?

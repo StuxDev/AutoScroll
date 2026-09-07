@@ -7,8 +7,157 @@ import {getAllowedOrigins, getLocalhostSecret, getApifyToken} from "./config";
 import {checkMonthlyLimit} from "./monthlyLimit";
 import {initializeGeoIP, getCountryFromIP, trackAnonymousRequest} from "./anonymousAnalytics";
 
-const APIFY_ACTOR_ID = "spry_wholemeal~reddit-scraper";
+// spry_wholemeal/reddit-scraper was pulled from the Apify Store after Reddit
+// shut down its public .json API in May 2026. automation-lab/reddit-scraper
+// scrapes Reddit's HTML directly instead, so it has no "includeRaw" passthrough
+// of the original Reddit post JSON - see reshapeApifyPost() below for how its
+// own fields are mapped onto the shape the frontend expects.
+//
+// redditProxy tries two free Pushshift-style Reddit archives first
+// (pullpush.io, then Arctic Shift) before falling back to the paid Apify
+// actor. Both archives return the real original Reddit submission JSON, so
+// their results need no reshaping at all - unlike Apify's own output.
+const APIFY_ACTOR_ID = "automation-lab~reddit-scraper";
 const APIFY_RUN_URL = `https://api.apify.com/v2/acts/${APIFY_ACTOR_ID}/run-sync-get-dataset-items`;
+
+const PULLPUSH_URL = "https://api.pullpush.io/reddit/search/submission/";
+const ARCTIC_SHIFT_URL = "https://arctic-shift.photon-reddit.com/api/posts/search";
+
+/**
+ * Neither archive can replicate Reddit's live "hot"/"rising" ranking (they're
+ * archives of past submissions, not a live feed) - biasing toward recent-but
+ * -upvoted posts is the closest reasonable approximation for those two.
+ */
+function pullpushSortParams(sort: string): {sortType: string; order: "asc" | "desc"; after?: string} {
+  switch (sort) {
+    case "top":
+      return {sortType: "score", order: "desc"};
+    case "hot":
+    case "rising":
+      return {sortType: "score", order: "desc", after: "2d"};
+    case "new":
+    default:
+      return {sortType: "created_utc", order: "desc"};
+  }
+}
+
+/**
+ * Tier 1: pullpush.io, a free Pushshift-compatible Reddit archive. Returns
+ * the original Reddit submission JSON directly - no reshaping needed.
+ * Returns null (rather than throwing) on any failure/empty result so the
+ * caller can fall through to the next tier.
+ */
+async function fetchFromPullpush(subreddit: string, sort: string, limit: number): Promise<any[] | null> {
+  try {
+    const {sortType, order, after} = pullpushSortParams(sort);
+    const params = new URLSearchParams({
+      subreddit,
+      size: String(limit),
+      sort: order,
+      sort_type: sortType,
+    });
+    if (after) params.set("after", after);
+
+    const res = await axios.get(`${PULLPUSH_URL}?${params.toString()}`, {timeout: 10000});
+    const items = res.data?.data;
+    return Array.isArray(items) && items.length > 0 ? items : null;
+  } catch (error) {
+    logger.warn("pullpush.io fetch failed, falling back:", (error as Error).message);
+    return null;
+  }
+}
+
+/**
+ * Tier 2: Arctic Shift, another free Reddit archive. Also returns the
+ * original Reddit submission JSON directly. It only sorts by created_utc
+ * (no score/hot ranking at all), so this is a best-effort fallback
+ * regardless of the requested sort.
+ */
+async function fetchFromArcticShift(subreddit: string, limit: number): Promise<any[] | null> {
+  try {
+    const params = new URLSearchParams({
+      subreddit,
+      limit: String(limit),
+      sort: "desc",
+    });
+
+    const res = await axios.get(`${ARCTIC_SHIFT_URL}?${params.toString()}`, {timeout: 10000});
+    const items = res.data?.data;
+    return Array.isArray(items) && items.length > 0 ? items : null;
+  } catch (error) {
+    logger.warn("Arctic Shift fetch failed, falling back:", (error as Error).message);
+    return null;
+  }
+}
+
+/**
+ * Turn an Apify actor permalink/url field into a Reddit-relative permalink
+ * (the shape frontend/src/stores/gallery.ts's goToLink() expects).
+ */
+function normalizePermalink(item: any, subreddit: string): string {
+  const raw = item.permalink || item.url;
+  if (typeof raw === "string" && raw.length > 0) {
+    if (raw.startsWith("/")) return raw;
+    try {
+      return new URL(raw).pathname;
+    } catch {
+      // fall through to the synthetic fallback below
+    }
+  }
+  const id = typeof item.id === "string" ? item.id.replace(/^t3_/, "") : "";
+  return `/r/${subreddit}/comments/${id}/`;
+}
+
+/**
+ * Reshape one automation-lab/reddit-scraper post into the same
+ * { kind: "t3", data: {...} } shape Reddit's own API returns, so
+ * frontend/src/stores/gallery.ts's post-processing logic (is_gallery/
+ * media_metadata, post_hint/url, thumbnail, over_18, permalink, etc.)
+ * keeps working unchanged.
+ *
+ * This actor doesn't expose a playable video URL or gallery image arrays
+ * (Reddit's HTML no longer exposes those the way its old public API did),
+ * so Reddit-hosted video and multi-image galleries fall back to a static
+ * thumbnail/first-image where possible, rather than being dropped outright.
+ * Posts with no usable image at all are filtered out.
+ */
+function reshapeApifyPost(item: any, subreddit: string): {kind: string; data: any} | null {
+  const images: string[] = Array.isArray(item.imageUrls) ?
+    item.imageUrls.filter((u: any) => typeof u === "string" && u.length > 0) :
+    [];
+  const thumbnail = typeof item.thumbnail === "string" && item.thumbnail.startsWith("http") ?
+    item.thumbnail :
+    null;
+
+  const base = {
+    id: item.id,
+    title: item.title,
+    author: item.author,
+    score: item.score,
+    num_comments: item.numComments,
+    over_18: !!item.isNSFW,
+    permalink: normalizePermalink(item, subreddit),
+    thumbnail: thumbnail ?? undefined,
+  };
+
+  if (images.length > 1) {
+    const media_metadata: Record<string, {s: {u: string}}> = {};
+    images.forEach((u, i) => {
+      media_metadata[String(i)] = {s: {u}};
+    });
+    return {kind: "t3", data: {...base, is_gallery: true, media_metadata}};
+  }
+
+  if (images.length === 1) {
+    return {kind: "t3", data: {...base, post_hint: "image", is_self: false, url: images[0]}};
+  }
+
+  if (thumbnail) {
+    return {kind: "t3", data: {...base, post_hint: "image", is_self: false, url: thumbnail}};
+  }
+
+  return null;
+}
 
 // CORS handler with origin validation
 const corsHandler = cors({
@@ -154,24 +303,36 @@ export const redditProxy = onRequest({region: "europe-west4", timeoutSeconds: 12
           return;
         }
 
-        const validSorts = ["hot", "new", "top", "rising", "controversial"];
+        // automation-lab/reddit-scraper doesn't support "controversial" - fall
+        // back to "hot" for it same as any other unrecognized value.
+        const validSorts = ["hot", "new", "top", "rising"];
         const resolvedSort = validSorts.includes(sort) ? sort : "hot";
 
+        const requestLimit = Math.min(limit, 100);
+
+        const rawPosts = await fetchFromPullpush(subreddit, resolvedSort, requestLimit) ??
+          await fetchFromArcticShift(subreddit, requestLimit);
+
+        if (rawPosts) {
+          response.status(200).json({
+            data: {
+              children: rawPosts.map((data) => ({kind: "t3", data})),
+              after: null,
+            },
+          });
+          return;
+        }
+
+        // Both free archives failed or had nothing for this subreddit - fall
+        // back to the paid Apify actor, which scrapes Reddit's HTML directly.
         try {
           const apifyResponse = await axios.post(
             `${APIFY_RUN_URL}?token=${getApifyToken()}`,
             {
-              mode: "scrape",
+              urls: [`https://www.reddit.com/r/${subreddit}/`],
               sort: resolvedSort,
-              maxPosts: Math.min(limit, 100),
-              includeRaw: true,
-              includeCommentsMode: "none",
-              includeNsfw: true,
-              listings: [{subreddit}],
-              proxyConfiguration: {
-                useApifyProxy: true,
-                apifyProxyGroups: ["RESIDENTIAL"],
-              },
+              maxPostsPerSource: requestLimit,
+              includeComments: false,
             },
             {
               timeout: 110000,
@@ -181,11 +342,11 @@ export const redditProxy = onRequest({region: "europe-west4", timeoutSeconds: 12
 
           const items: any[] = apifyResponse.data;
 
-          // Reshape Apify output to Reddit JSON API format.
-          // includeRaw: true embeds the original Reddit post object in each item's `raw` field.
+          // Reshape Apify output to Reddit JSON API format - see reshapeApifyPost().
           const children = items
-            .filter((item) => item.raw)
-            .map((item) => ({kind: "t3", data: item.raw}));
+            .filter((item) => item && item.type !== "comment")
+            .map((item) => reshapeApifyPost(item, subreddit))
+            .filter(Boolean);
 
           response.status(200).json({
             data: {
