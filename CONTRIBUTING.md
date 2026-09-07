@@ -38,12 +38,11 @@ halves separately.
 ## Versioning and changelog
 
 - `VERSION.md` (repo root) is a bare version string tracking documentation/tooling
-  releases — bump it and add a root `CHANGELOG.md` entry whenever you cut one
-- `frontend/VERSION.md` and `backend/VERSION.md` track their own, independently
-  bumped versions, each with its own `CHANGELOG.md` — see the README's
-  [Versioning](README.md#versioning) section
-- Every `CHANGELOG.md` release (root or per-app) gets `### Added` / `### Changed` /
-  `### Fixed` subsections — never a bare bullet list directly under a version heading
+  releases — bump it and add a `CHANGELOG.md` entry whenever you cut one
+- `frontend/package.json` and `backend/package.json` track their own, independently
+  bumped versions — see the README's [Versioning](README.md#versioning) section
+- Every `CHANGELOG.md` release gets `### Added` / `### Changed` / `### Fixed`
+  subsections — never a bare bullet list directly under a version heading
 - `commit.sh` (bash) and `commit.bat` (Windows) commit and tag a release using whatever
   is currently in `VERSION.md` — update both together if the tagging logic ever changes
 

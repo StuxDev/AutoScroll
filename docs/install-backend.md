@@ -133,7 +133,7 @@ This runs lint + build before deploying (configured as predeploy hooks in `fireb
 To deploy only functions without other Firebase services:
 
 ```bash
-firebase deploy --only functions
+firebase deploy --only functions:autoscroll_backend
 ```
 
 ---

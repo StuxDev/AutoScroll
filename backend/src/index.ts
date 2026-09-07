@@ -17,10 +17,8 @@ import {redditProxy, searchSubredditsProxy} from "./proxy";
 import {cleanupExpiredRateLimits} from "./rateLimiter";
 import {getAllowedOrigins, getLocalhostSecret} from "./config";
 import {getAnalyticsStats} from "./anonymousAnalytics";
-import {readFileSync} from "fs";
-import {join} from "path";
-
-const BACKEND_VERSION = readFileSync(join(__dirname, "../VERSION.md"), "utf-8").trim();
+// eslint-disable-next-line @typescript-eslint/no-require-imports
+const {version: BACKEND_VERSION} = require("../package.json") as {version: string};
 
 // Initialize Firebase Admin
 initializeApp();
