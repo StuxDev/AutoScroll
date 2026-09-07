@@ -2,7 +2,7 @@
   "functions": [
     {
       "source": "backend",
-      "codebase": "default",
+      "codebase": "autoscroll_backend",
       "ignore": [
         "node_modules",
         ".git",

@@ -6,27 +6,40 @@ first changelog entry — see git history for everything that came before it.
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 the repo-root version in `VERSION.md` follows [Semantic Versioning](https://semver.org/).
 Note this root version tracks the *repository* (docs, scripts, both apps
-together) — it's separate from the independent `frontend/VERSION.md` and
-`backend/VERSION.md` versions described in the README's Versioning section.
+together) — it's separate from the independent `frontend/package.json` and
+`backend/package.json` versions described in the README's Versioning section.
 
 ## [Unreleased]
 
-## [1.2.1] - 2026-09-07
+## [1.2.2] - 2026-09-07
 
-### Added
-- `frontend/CHANGELOG.md` and `backend/CHANGELOG.md` tracking each app's independent version history — see those for frontend/backend-specific changes going forward
+### Changed
+- `frontend/package.json` and `backend/package.json` renamed to `autoscroll_frontend` / `autoscroll_backend`
+- Frontend and backend versions live in `frontend/package.json` / `backend/package.json` again, not a separate `VERSION.md` per app — one root-level versioning scheme, not three
+- Backend's Firebase codebase renamed from `default` to `autoscroll_backend` — deploy commands now use `firebase deploy --only functions:autoscroll_backend` instead of the unscoped `--only functions`
 
 ### Fixed
-- `backend/README.md` still described `searchSubredditsProxy` as calling Reddit's public search endpoint directly — updated to match the Arctic Shift switch
+- `.github/dependabot.yml` pointed at a nonexistent `/app_vue3` directory (the real path is `/frontend`), so Dependabot was never actually scanning frontend dependencies — fixed, and added a `/backend` entry too
+
+## [1.2.1] - 2026-09-07
+
+### Fixed
+- `backend/README.md` still described `searchSubredditsProxy` as calling Reddit's public search endpoint directly — updated to match the Arctic Shift switch (see 1.2.0 below)
 
 ## [1.2.0] - 2026-09-07
 
 ### Added
-- `frontend/VERSION.md` and `backend/VERSION.md`, now the source of truth for each app's displayed version instead of `package.json`
 - `netlify.toml` checking the frontend's Netlify build settings (base directory, build command, publish directory) into the repo so they survive a repo relink
 
 ### Changed
+- The backend proxy is now the only content path — removed the "use proxy" toggle and all direct-from-browser code paths, since Reddit's public `.json` API shutdown (May 2026) meant direct mode never actually worked anymore. The app now checks backend status automatically on load instead of only after a fetch already failed
 - Rebranded `StuxieDev`/`stuxie.dev` references to `StuxDev`/`stux.dev` throughout (README, CONTRIBUTING, legal pages, contact links, GitHub remote)
+- Updated the Privacy Policy, Cookies Policy, and Opt-Out Preferences pages, plus the dev install docs, to reflect there's only one content path now
+
+### Fixed
+- `searchSubredditsProxy` called Reddit's `search_reddit_names.json`, part of the public API Reddit shut down in May 2026, and got back a 403 block page — switched to Arctic Shift's subreddit-prefix search, reshaped to match the frontend's expected `{names: [...]}` response
+- The frontend's default proxy base URL pointed at `us-central1`, but the backend functions are deployed to `europe-west4` — every proxy request silently hit a nonexistent endpoint whenever `VITE_PROXY_BASE_URL` wasn't set, which was always true in production
+- `backend/package.json` was missing an `engines.node` field, which Firebase's deploy now requires to determine the Cloud Functions runtime
 
 ### Removed
 - `CLAUDE.md` and `GEMINI.md` from the repo root

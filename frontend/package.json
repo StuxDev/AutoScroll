@@ -1,6 +1,6 @@
 {
-  "name": "app_vue3",
-  "version": "1.0.0",
+  "name": "autoscroll_frontend",
+  "version": "1.2.1",
   "type": "module",
   "scripts": {
     "dev": "vite",

@@ -90,7 +90,7 @@ async function uploadDatabase() {
 // Run the upload
 uploadDatabase().then(() => {
   console.log('\nNext steps:');
-  console.log('1. Deploy your functions: firebase deploy --only functions');
+  console.log('1. Deploy your functions: firebase deploy --only functions:autoscroll_backend');
   console.log('2. The functions will automatically download and use the database');
   console.log('3. To update the database, download a new version from MaxMind and run this script again');
   process.exit(0);

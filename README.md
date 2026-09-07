@@ -110,15 +110,15 @@ See [`docs/install-frontend.md`](docs/install-frontend.md) and [`docs/install-ba
 **Backend** — deploy Firebase Functions:
 
 ```bash
-firebase deploy --only functions
+firebase deploy --only functions:autoscroll_backend
 ```
 
 ---
 
 ## Versioning
 
-- Frontend version is set in `frontend/VERSION.md` and baked into the build at compile time.
-- Backend version is set in `backend/VERSION.md` and returned by the `/proxyStatus` endpoint.
+- Frontend version is set in `frontend/package.json` and baked into the build at compile time.
+- Backend version is set in `backend/package.json` and returned by the `/proxyStatus` endpoint.
 - Both versions are displayed in the app footer and the About dialog.
 
 ---
