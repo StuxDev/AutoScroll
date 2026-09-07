@@ -6,6 +6,8 @@
         <span class="sep">·</span>
         <span class="nowrap">For users 18+</span>
         <span class="sep">·</span>
+        <span class="nowrap"><RouterLink to="/legal">Boring Legal Stuff</RouterLink></span>
+        <span class="sep">·</span>
         <span class="nowrap">
           &copy; 2024–{{ new Date().getFullYear() }}
           <a href="https://labs.stux.dev" target="_blank" rel="noopener noreferrer">Stux.Dev Labs</a>

@@ -17,9 +17,12 @@
 import {defineStore} from 'pinia';
 import {useSettingsStore} from './settings';
 
-const PROXY_URL = 'https://us-central1-autoscroll-dce73.cloudfunctions.net/redditProxy';
-const SEARCH_PROXY_URL = 'https://us-central1-autoscroll-dce73.cloudfunctions.net/searchSubredditsProxy';
-const PROXY_STATUS_URL = 'https://us-central1-autoscroll-dce73.cloudfunctions.net/proxyStatus';
+// Overridden by dev-server.sh/.bat to point at the local Firebase emulator;
+// defaults to production Cloud Functions otherwise.
+const PROXY_BASE_URL = import.meta.env.VITE_PROXY_BASE_URL || 'https://us-central1-autoscroll-dce73.cloudfunctions.net';
+const PROXY_URL = `${PROXY_BASE_URL}/redditProxy`;
+const SEARCH_PROXY_URL = `${PROXY_BASE_URL}/searchSubredditsProxy`;
+const PROXY_STATUS_URL = `${PROXY_BASE_URL}/proxyStatus`;
 
 // Set this to your localhost secret for local testing (optional)
 // In production, leave as empty string
@@ -39,7 +42,7 @@ function getFetchOptions(url: string): RequestInit {
   let isProxyRequest = false;
   try {
     const urlObj = new URL(url, window.location.origin);
-    isProxyRequest = urlObj.hostname === 'autoscroll-dce73.cloudfunctions.net';
+    isProxyRequest = urlObj.origin === new URL(PROXY_BASE_URL).origin;
   } catch (e) {
     // If parsing fails, treat as non-proxy request
     isProxyRequest = false;
