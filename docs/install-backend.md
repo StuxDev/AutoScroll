@@ -1,6 +1,6 @@
 # Backend Install Guide
 
-The backend is a set of Firebase Cloud Functions (Node.js 22) that proxy Reddit content through the [Apify Reddit Scraper](https://apify.com/spry_wholemeal/reddit-scraper) actor.
+The backend is a set of Firebase Cloud Functions (Node.js 22) that proxy Reddit content through the [Reddit Scraper](https://apify.com/automation-lab/reddit-scraper) Apify actor.
 
 ---
 
@@ -160,7 +160,7 @@ Firestore collections are created automatically on first use:
 
 | Function | Trigger | Purpose |
 |----------|---------|---------|
-| `redditProxy` | HTTP GET | Fetches subreddit posts via Apify |
+| `redditProxy` | HTTP GET | Fetches subreddit posts (pullpush.io → Arctic Shift → Apify fallback chain) |
 | `searchSubredditsProxy` | HTTP GET | Searches subreddit names |
 | `proxyStatus` | HTTP GET | Health check endpoint |
 | `analyticsStatus` | HTTP GET | Returns anonymous usage stats |
@@ -170,15 +170,17 @@ All HTTP functions are deployed to region **europe-west4**.
 
 ---
 
-## How the Apify integration works
+## How the content-source fallback chain works
 
 When `redditProxy` receives a request it:
 
 1. Validates the `subreddit` name and `sort` parameter
 2. Checks per-IP rate limits (5 requests/minute) and the monthly invocation cap
-3. POSTs to the Apify actor `spry_wholemeal~reddit-scraper` with `includeRaw: true`, which returns the original Reddit post objects embedded in each result item
-4. Reshapes the response into the Reddit JSON API format (`{ data: { children: [...] } }`) so the frontend requires no changes
-5. Returns the reshaped JSON to the browser
+3. Tries **[pullpush.io](https://pullpush.io/)** first — a free Pushshift-compatible Reddit archive that returns the *original* Reddit submission JSON directly, so no reshaping is needed. It has no live "hot"/"rising" ranking (it's an archive, not a live feed), so those sorts are approximated as score-sorted posts from the last 2 days
+4. Falls back to **[Arctic Shift](https://arctic-shift.photon-reddit.com/)** if pullpush errors or returns nothing — also free, also returns real Reddit submission JSON, but only sorts by `created_utc` (no score-based sort at all), so it's a best-effort fallback regardless of the requested sort
+5. Falls back to the paid Apify actor `automation-lab~reddit-scraper` if both archives come up empty — this actor scrapes Reddit's HTML rather than the old public `.json` API (which Reddit shut down in May 2026), so its output uses its own field names (`imageUrls`, `isNSFW`, `permalink`, `thumbnail`, etc.) rather than a raw passthrough of the original Reddit post JSON
+6. `reshapeApifyPost()` in `proxy.ts` maps the Apify-only case onto the Reddit JSON API format (`{ data: { children: [...] } }`) so the frontend requires no changes regardless of which tier served the request — Reddit-hosted video and multi-image galleries fall back to a static thumbnail/first image where a direct video URL isn't available
+7. Returns the JSON to the browser
 
 The `searchSubredditsProxy` calls Reddit's public `search_reddit_names.json` endpoint directly — no Apify token needed for search.
 

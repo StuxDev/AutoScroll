@@ -8,7 +8,7 @@
     <p>AutoScroll is an independent, unofficial client for Reddit's publicly available content. It is <strong>not affiliated with, endorsed by, or sponsored by Reddit, Inc.</strong> in any way. "Reddit" and its logos are trademarks of Reddit, Inc.</p>
 
     <h2>Copyright</h2>
-    <p>AutoScroll does not host, own, or claim any rights over the media it displays — it renders publicly available Reddit posts, sourced either directly from Reddit's API or via the Apify Reddit Scraper. Copyright in that content belongs to its original creators. See <a href="/legal/terms">Terms and Ethics</a> for the full policy on acceptable use.</p>
+    <p>AutoScroll does not host, own, or claim any rights over the media it displays — it renders publicly available Reddit posts, sourced either directly from Reddit's API, from a free Reddit archive, or via the Apify Reddit Scraper. Copyright in that content belongs to its original creators. See <a href="/legal/terms">Terms and Ethics</a> for the full policy on acceptable use.</p>
 
     <h2>Accuracy</h2>
     <p>AutoScroll is provided "as is," without warranty of any kind. Because it depends on Reddit's public API and a third-party scraping service, availability, formatting, and content can change without notice when those upstream systems change.</p>
