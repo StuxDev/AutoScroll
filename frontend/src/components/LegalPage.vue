@@ -23,13 +23,14 @@ const props = withDefaults(defineProps<{
   eyebrow?: string
   eyebrowTo?: string
   titleSuffix?: string
+  titleOverride?: string
 }>(), {
   eyebrow: 'Legal',
   eyebrowTo: '/legal',
   titleSuffix: 'Legal',
 })
 
-useTitle(`${props.title} | ${props.titleSuffix} - AutoScroll`)
+useTitle(props.titleOverride ?? `${props.title} | ${props.titleSuffix} - AutoScroll`)
 </script>
 
 <style>

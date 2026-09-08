@@ -1,11 +1,13 @@
 <template>
-  <div class="legal-page legal-hub">
-    <div class="legal-header">
-      <div class="legal-eyebrow">Legal</div>
-      <h1>Boring Legal Stuff</h1>
-      <p class="legal-lead">The stuff nobody reads but everybody needs. All of it, in one place, in plain English.</p>
-    </div>
-
+  <LegalPage
+    class="legal-hub"
+    title="Boring Legal Stuff"
+    lead="The stuff nobody reads but everybody needs. All of it, in one place, in plain English."
+    eyebrow="Legal"
+    eyebrow-to="/legal"
+    title-suffix="Legal"
+    title-override="Legal - AutoScroll"
+  >
     <div class="legal-grid">
       <RouterLink v-for="d in docs" :key="d.slug" :to="`/legal/${d.slug}`" class="legal-card">
         <div class="legal-card-icon">
@@ -19,13 +21,11 @@
     </div>
 
     <p class="legal-contact">Questions about any of this? Contact <a href="mailto:legal@stux.dev">legal@stux.dev</a>.</p>
-  </div>
+  </LegalPage>
 </template>
 
 <script setup lang="ts">
-import { useTitle } from '@vueuse/core'
-
-useTitle('Legal - AutoScroll')
+import LegalPage from '@/components/LegalPage.vue'
 
 const docs = [
   { slug: 'privacy', icon: 'mdi-shield-lock-outline', name: 'Privacy Policy', desc: 'What little we collect, and how the proxy actually works.' },
