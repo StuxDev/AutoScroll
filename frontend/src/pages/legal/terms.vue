@@ -25,7 +25,7 @@
     <p>If these terms change materially, the "last updated" date above will change with them. Continued use after an update means you accept the revised terms.</p>
 
     <h2>Contact</h2>
-    <p>Questions about these terms? Reach out at <a href="mailto:contact@stux.dev">contact@stux.dev</a>.</p>
+    <p>Questions about these terms? Reach out at <a href="mailto:legal@stux.dev">legal@stux.dev</a>.</p>
   </LegalPage>
 </template>
 

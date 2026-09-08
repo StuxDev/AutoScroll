@@ -11,7 +11,7 @@
     <p>The frontend is hosted on <strong>Netlify</strong>. The backend runs on <strong>Google Cloud Functions</strong>, via Firebase.</p>
 
     <h2>Contact</h2>
-    <p>For any inquiry — legal, privacy, or otherwise: <a href="mailto:contact@stux.dev">contact@stux.dev</a></p>
+    <p>For any inquiry — legal, privacy, or otherwise: <a href="mailto:legal@stux.dev">legal@stux.dev</a></p>
 
     <h2>Responsibility for content</h2>
     <p>AutoScroll displays publicly available media posts sourced from Reddit — it does not host, store, or curate any of that media itself, and does not review it before display. See the <a href="/legal/disclaimer">Disclaimer</a> and <a href="/legal/terms">Terms and Ethics</a> for how responsibility is allocated.</p>

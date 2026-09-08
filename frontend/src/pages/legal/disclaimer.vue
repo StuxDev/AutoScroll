@@ -17,7 +17,7 @@
     <p>AutoScroll is intended for users aged 18 and over. NSFW content is hidden by default behind a separate age-gate prompt, but no automated age verification is performed — the gate relies on the user's own honesty.</p>
 
     <h2>Security</h2>
-    <p>Found a security issue? Please report it responsibly to <a href="mailto:contact@stux.dev">contact@stux.dev</a> before disclosing it publicly, so there's a chance to fix it first.</p>
+    <p>Found a security issue? Please report it responsibly to <a href="mailto:legal@stux.dev">legal@stux.dev</a> before disclosing it publicly, so there's a chance to fix it first.</p>
 
     <h2>Third-party links</h2>
     <p>AutoScroll links out to Reddit and, for some posts, embeds third-party players (YouTube, etc.). It isn't responsible for the content, policies, or practices of any third-party site it links to or embeds content from.</p>

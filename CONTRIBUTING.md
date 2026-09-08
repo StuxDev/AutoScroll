@@ -11,7 +11,7 @@
 AutoScroll is a personal project by [Stux.Dev](https://github.com/StuxDev), licensed
 under [Apache-2.0](LICENSE.md) — pull requests, forks, and issues are all welcome.
 
-Questions about contributing: [contact@stux.dev](mailto:contact@stux.dev).
+Questions about contributing: [hello@stux.dev](mailto:hello@stux.dev).
 
 ## Local setup
 

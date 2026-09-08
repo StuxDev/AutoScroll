@@ -19,7 +19,7 @@
     <p>Some posts embed third-party players (for example, YouTube). If you interact with an embedded player, that third party may set its own cookies under its own policy — AutoScroll has no control over that and doesn't share any data with them beyond what your browser sends directly.</p>
 
     <h2>Contact</h2>
-    <p>Questions about this policy? Reach out at <a href="mailto:contact@stux.dev">contact@stux.dev</a>.</p>
+    <p>Questions about this policy? Reach out at <a href="mailto:legal@stux.dev">legal@stux.dev</a>.</p>
   </LegalPage>
 </template>
 
