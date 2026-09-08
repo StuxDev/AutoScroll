@@ -34,9 +34,8 @@
 
           <v-card-text>
             <p class="mb-3">
-              A side project inspired by <a href="http://www.imagoid.com/" target="_blank">Imagoid</a> —
-              a clean auto-scrolling gallery for Reddit image posts. Enter any subreddit to browse
-              its media in a slideshow.
+              A clean, auto-scrolling image gallery for Reddit — browse any subreddit's photos,
+              videos, and albums in a slideshow view without leaving the page.
             </p>
             <p>
               Questions or issues? Reach out at

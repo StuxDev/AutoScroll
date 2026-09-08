@@ -11,6 +11,12 @@ together) — it's separate from the independent `frontend/package.json` and
 
 ## [Unreleased]
 
+## [2.0.1] - 2026-09-08
+
+### Changed
+- About dialog's description no longer credits Imagoid as inspiration — replaced with the same tagline used in the README
+- Frontend version bumped to 2.0.1 (`frontend/package.json`)
+
 ## [2.0.0] - 2026-09-08
 
 A full visual redesign — the app no longer looks like a stock Vuetify scaffold.
