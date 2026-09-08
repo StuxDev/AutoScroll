@@ -149,7 +149,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for project conventions, and [CHANGELOG.m
 
 ## License
 
-[Apache-2.0](LICENSE)
+[Apache-2.0](LICENSE.md)
 
 ---
 
