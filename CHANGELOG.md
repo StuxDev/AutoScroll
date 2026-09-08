@@ -11,6 +11,11 @@ together) — it's separate from the independent `frontend/package.json` and
 
 ## [Unreleased]
 
+## [1.2.6] - 2026-09-08
+
+### Changed
+- `logo.png` and `logo-white.png`'s "AutoScroll" wordmark recolored from black/white to the site's brand orange (`#FF4500`), matching the icon circle and the app's primary color
+
 ## [1.2.5] - 2026-09-08
 
 ### Added
