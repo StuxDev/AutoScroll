@@ -11,6 +11,14 @@ together) — it's separate from the independent `frontend/package.json` and
 
 ## [Unreleased]
 
+## [1.2.4] - 2026-09-08
+
+### Fixed
+- `favicon-16x16.png` (both the standalone file and the 16×16 frame baked into `favicon.ico`/`icon.ico`) was a stale single-chevron design left over from before the eye-and-double-chevron rebrand, while every other size was already correct — regenerated all of them from the same master `icon.png` so every size matches
+
+### Changed
+- Frontend version bumped to 1.2.2 (`frontend/package.json`)
+
 ## [1.2.3] - 2026-09-08
 
 ### Added
