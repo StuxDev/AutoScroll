@@ -11,6 +11,16 @@ together) — it's separate from the independent `frontend/package.json` and
 
 ## [Unreleased]
 
+## [2.0.2] - 2026-09-08
+
+### Added
+- `CONTRIBUTING.md` header logo now uses the same light/dark `<picture>` swap as the README (it was still the old single-image version)
+
+### Changed
+- `LICENSE` renamed to `LICENSE.md`, with references in `README.md`/`CONTRIBUTING.md` updated to match
+- "Stux.Dev" is now used consistently as the visible/prose name everywhere — "StuxDev" (no dot) only appears where it's the literal `github.com/StuxDev` URL itself, not as link text (`CONTRIBUTING.md`, `imprint.vue`)
+- Frontend version bumped to 2.0.2 (`frontend/package.json`)
+
 ## [2.0.1] - 2026-09-08
 
 ### Changed

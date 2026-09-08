@@ -1,11 +1,15 @@
 <p align="center">
-  <img src="frontend/src/assets/logo.png" width="300" alt="AutoScroll">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" width="300" srcset="frontend/src/assets/logo-white.png">
+    <source media="(prefers-color-scheme: light)" width="300" srcset="frontend/src/assets/logo.png">
+    <img src="frontend/src/assets/logo.png" width="300" alt="AutoScroll">
+  </picture>
 </p>
 
 # Contributing to AutoScroll
 
-AutoScroll is a personal project by [StuxDev](https://github.com/StuxDev), licensed
-under [Apache-2.0](LICENSE) — pull requests, forks, and issues are all welcome.
+AutoScroll is a personal project by [Stux.Dev](https://github.com/StuxDev), licensed
+under [Apache-2.0](LICENSE.md) — pull requests, forks, and issues are all welcome.
 
 Questions about contributing: [contact@stux.dev](mailto:contact@stux.dev).
 
