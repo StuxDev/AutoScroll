@@ -1,5 +1,9 @@
 <p align="center">
-  <img src="frontend/src/assets/logo.png" width="300" alt="AutoScroll">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="frontend/src/assets/logo-white.png">
+    <source media="(prefers-color-scheme: light)" srcset="frontend/src/assets/logo.png">
+    <img src="frontend/src/assets/logo.png" width="120" alt="AutoScroll">
+  </picture>
 </p>
 
 # AutoScroll
