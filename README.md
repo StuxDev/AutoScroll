@@ -1,10 +1,12 @@
 <p align="center">
-  <img src="frontend/src/assets/logo.png" width="120" alt="AutoScroll">
+  <img src="frontend/src/assets/logo.png" width="300" alt="AutoScroll">
 </p>
 
 # AutoScroll
 
-A clean, auto-scrolling image gallery for Reddit — browse any subreddit's photos, videos, and albums in a slideshow view without leaving the page.
+**A clean, auto-scrolling image gallery for Reddit.**
+
+[AutoScroll](https://autoscroll.stux.dev) is a clean, auto-scrolling image gallery for Reddit — browse any subreddit's photos, videos, and albums in a slideshow view without leaving the page. Built and maintained by [Stux.Dev](https://stux.dev), hosted by [Netlify](https://netlify.com).
 
 > **Not affiliated with Reddit Inc.** Content is sourced from Reddit's public data. For users 18 and over.
 
@@ -147,4 +149,5 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for project conventions, and [CHANGELOG.m
 
 ---
 
-*Written by <img src="https://github.com/StuxDev.png" height="14" alt="StuxDev" valign="middle"> [StuxDev](https://github.com/StuxDev). Part of the <img src="https://media.stux.group/global/icon.png" height="14" alt="Stux.Group" valign="middle"> Stux.Group brand of businesses.*
+*Built & Maintained by <img src="https://github.com/StuxDev.png" height="14" alt="StuxDev" valign="middle"> [StuxDev](https://github.com/StuxDev), Hosted by <img src="https://github.com/netlify.png" height="14" alt="Netlify" valign="middle"> [Netlify](https://netlify.com).    
+Stux.Dev is a part of the <img src="https://media.stux.group/global/icon.png" height="14" alt="Stux.Group" valign="middle"> Stux.Group brand of businesses.*
