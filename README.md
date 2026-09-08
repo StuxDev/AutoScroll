@@ -153,5 +153,5 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for project conventions, and [CHANGELOG.m
 
 ---
 
-*Built & Maintained by <img src="https://github.com/StuxDev.png" height="14" alt="StuxDev" valign="middle"> [StuxDev](https://github.com/StuxDev), Hosted by <img src="https://github.com/netlify.png" height="14" alt="Netlify" valign="middle"> [Netlify](https://netlify.com).    
+*Built & Maintained by <img src="https://github.com/StuxDev.png" height="14" alt="Stux.Dev" valign="middle"> [Stux.Dev](https://stux.dev), Hosted by <img src="https://github.com/netlify.png" height="14" alt="Netlify" valign="middle"> [Netlify](https://netlify.com).    
 Stux.Dev is a part of the <img src="https://media.stux.group/global/icon.png" height="14" alt="Stux.Group" valign="middle"> Stux.Group brand of businesses.*
