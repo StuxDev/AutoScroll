@@ -11,6 +11,11 @@ together) — it's separate from the independent `frontend/package.json` and
 
 ## [Unreleased]
 
+## [1.2.7] - 2026-09-08
+
+### Removed
+- `logo-white.png` and the README's dark/light `<picture>` swap — now that the wordmark is orange instead of black/white, `logo.png` alone reads fine in both GitHub themes, so the separate variant and swap logic were redundant
+
 ## [1.2.6] - 2026-09-08
 
 ### Changed
