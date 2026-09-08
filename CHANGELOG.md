@@ -11,6 +11,19 @@ together) — it's separate from the independent `frontend/package.json` and
 
 ## [Unreleased]
 
+## [1.2.5] - 2026-09-08
+
+### Added
+- README logo now swaps between light/dark variants (`logo.png` / `logo-white.png`) via `<picture>` + `prefers-color-scheme`, so it stays legible in both GitHub themes (made directly on github.com)
+
+### Changed
+- README intro rewritten with a bolded one-line summary, a live link to the app, and a "Built and maintained by Stux.Dev, hosted by Netlify" credit (made directly on github.com)
+- README credit line at the bottom expanded to "Built & Maintained by StuxDev, Hosted by Netlify" with a Netlify icon/link, and the Stux.Group line split onto its own line (made directly on github.com)
+- Logo width in the README bumped from 120px to 300px for better legibility (made directly on github.com)
+
+### Fixed
+- `logo.png` and `logo-white.png` had the eye graphic pasted 40px too high inside the icon circle (the circle itself was centered, but the eye inside it wasn't) — re-composited both from the already-correct master `icon.png` so the eye is centered in the circle
+
 ## [1.2.4] - 2026-09-08
 
 ### Fixed
