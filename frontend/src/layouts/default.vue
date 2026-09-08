@@ -6,10 +6,14 @@
           <img
             alt="AutoScroll for Reddit"
             class="brand-logo"
-            src="@/assets/logo-white.png"
+            :src="brandLogoSrc"
           >
         </div>
       </v-app-bar-title>
+
+      <v-btn icon @click="toggleTheme" :title="isDark ? 'Switch to light mode' : 'Switch to dark mode'">
+        <v-icon>{{ isDark ? 'mdi-weather-night' : 'mdi-weather-sunny' }}</v-icon>
+      </v-btn>
 
       <v-btn icon @click="settingsDialog = true" title="Settings">
         <v-icon>mdi-cog-outline</v-icon>
@@ -138,15 +142,31 @@
 
 <script lang="ts" setup>
 import { ref, computed, watch, onMounted } from 'vue'
+import { useTheme } from 'vuetify'
 import SettingsDialog from '@/components/SettingsDialog.vue'
 import LegalDisclaimer from '@/components/LegalDisclaimer.vue'
 import { useGalleryStore } from '@/stores/gallery'
+import { useSettingsStore } from '@/stores/settings'
+import { useAppTheme } from '@/composables/useAppTheme'
+import logoLight from '@/assets/logo.png'
+import logoDark from '@/assets/logo-white.png'
 
 const appVersion = __APP_VERSION__
 
 const settingsDialog = ref(false)
 const infoDialog = ref(false)
 const galleryStore = useGalleryStore()
+const settingsStore = useSettingsStore()
+const theme = useTheme()
+
+useAppTheme()
+
+const isDark = computed(() => theme.global.current.value.dark)
+const brandLogoSrc = computed(() => isDark.value ? logoDark : logoLight)
+
+function toggleTheme() {
+  settingsStore.setThemeMode(isDark.value ? 'light' : 'dark')
+}
 
 onMounted(() => {
   galleryStore.checkProxyStatus()
@@ -203,6 +223,35 @@ watch(infoDialog, (isOpen) => {
   white-space: nowrap;
   justify-content: flex-start !important;
 }
+
+/* Shared header style for every dialog in the app - SettingsDialog,
+   NSFWAlert, ProxyPromptDialog, LegalDisclaimer, and the About dialog
+   below all use this instead of duplicating it. */
+.dialog-header {
+  background-color: rgb(var(--v-theme-primary));
+  color: white;
+  padding: 16px 24px;
+  font-size: 16px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+}
+
+/* Theme-aware scrollbar (WebKit only - Chromium/Safari) */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: rgb(var(--v-theme-background));
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(var(--v-theme-on-surface), 0.2);
+  border-radius: 6px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(var(--v-theme-on-surface), 0.35);
+}
 </style>
 
 <style scoped>
@@ -218,16 +267,6 @@ watch(infoDialog, (isOpen) => {
   height: 68px;
   width: auto;
   display: block;
-}
-
-.dialog-header {
-  background-color: rgb(var(--v-theme-primary));
-  color: white;
-  padding: 16px 24px;
-  font-size: 16px;
-  font-weight: 600;
-  display: flex;
-  align-items: center;
 }
 
 .version-row {

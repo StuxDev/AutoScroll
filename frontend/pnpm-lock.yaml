@@ -20,9 +20,6 @@ importers:
       lodash:
         specifier: 4.17.21
         version: 4.17.21
-      roboto-fontface:
-        specifier: 0.10.0
-        version: 0.10.0
       vue:
         specifier: 3.5.25
         version: 3.5.25(typescript@5.9.3)
@@ -1887,9 +1884,6 @@ packages:
 
   rfdc@1.4.1:
     resolution: {integrity: sha512-q1b3N5QkRUWUl7iyylaaj3kOpIT0N2i9MqIEQXP73GVsN9cw3fdx8X63cEmWhJGi2PPCF23Ijp7ktmd39rawIA==}
-
-  roboto-fontface@0.10.0:
-    resolution: {integrity: sha512-OlwfYEgA2RdboZohpldlvJ1xngOins5d7ejqnIBWr9KaMxsnBqotpptRXTyfNRLnFpqzX6sTDt+X+a+6udnU8g==}
 
   rollup@4.59.0:
     resolution: {integrity: sha512-2oMpl67a3zCH9H79LeMcbDhXW/UmWG/y2zuqnF2jQq5uq9TbM9TVyXvA4+t+ne2IIkBdrLpAaRQAvo7YI/Yyeg==}
@@ -4049,8 +4043,6 @@ snapshots:
   reusify@1.1.0: {}
 
   rfdc@1.4.1: {}
-
-  roboto-fontface@0.10.0: {}
 
   rollup@4.59.0:
     dependencies:

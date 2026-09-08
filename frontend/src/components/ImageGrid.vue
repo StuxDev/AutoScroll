@@ -5,7 +5,12 @@
         v-for="post in postsWithIndex"
         :key="post.postData.id"
         class="grid-card"
+        tabindex="0"
+        role="button"
+        :aria-label="post.postData.title"
         @click="$emit('selectImage', post.originalIndex)"
+        @keydown.enter="$emit('selectImage', post.originalIndex)"
+        @keydown.space.prevent="$emit('selectImage', post.originalIndex)"
       >
         <v-img
           :aspect-ratio="1"
@@ -151,10 +156,21 @@ onUnmounted(() => window.removeEventListener('scroll', handleScroll))
 
 .grid-card {
   position: relative;
-  border-radius: 8px;
+  border-radius: 12px;
   overflow: hidden;
   cursor: pointer;
-  background: #1e1e1e;
+  background: rgb(var(--v-theme-surface-variant));
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.grid-card:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  transform: translateY(-2px);
+}
+
+.grid-card:focus-visible {
+  outline: 2px solid rgb(var(--v-theme-primary));
+  outline-offset: 2px;
 }
 
 .grid-card:hover .card-overlay {
@@ -178,7 +194,7 @@ onUnmounted(() => window.removeEventListener('scroll', handleScroll))
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: #2a2a2a;
+  background: rgb(var(--v-theme-surface));
   padding: 12px;
 }
 
@@ -192,7 +208,7 @@ onUnmounted(() => window.removeEventListener('scroll', handleScroll))
 
 .img-error-title {
   font-size: 11px;
-  color: rgba(255, 255, 255, 0.4);
+  color: rgba(var(--v-theme-on-surface), 0.4);
   text-align: center;
   line-height: 1.3;
   display: -webkit-box;
@@ -263,7 +279,7 @@ onUnmounted(() => window.removeEventListener('scroll', handleScroll))
   position: absolute;
   top: 8px;
   left: 8px;
-  background: #FF4500;
+  background: rgb(var(--v-theme-primary));
   border-radius: 4px;
   padding: 2px 6px;
   font-size: 10px;

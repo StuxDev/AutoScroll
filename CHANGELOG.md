@@ -11,6 +11,30 @@ together) — it's separate from the independent `frontend/package.json` and
 
 ## [Unreleased]
 
+## [2.0.0] - 2026-09-08
+
+A full visual redesign — the app no longer looks like a stock Vuetify scaffold.
+
+### Added
+- Full light/dark theme support (`redditLight` alongside the existing `redditDark`), defaulting to the OS/browser's `prefers-color-scheme` with a manual sun/moon toggle in the header that overrides it. The choice persists and is also exposed as a System/Light/Dark control in Settings
+- `frontend/src/composables/useAppTheme.ts` applies the resolved theme and keeps it in sync with OS-level changes while in "system" mode
+- Rounded corners and shadow-lift hover/focus states on the image grid tiles, plus proper keyboard accessibility (tiles are now focusable with visible focus rings and respond to Enter/Space)
+- A theme-aware custom scrollbar
+
+### Changed
+- Replaced Roboto with Plus Jakarta Sans everywhere, including Vuetify's own component typography (via a `settings.scss` SASS override, previously inert)
+- Increased the app-wide corner radius (`$border-radius-root`) for a softer, less "default Material" look
+- Consolidated five duplicated `.dialog-header` styles (SettingsDialog, NSFWAlert, ProxyPromptDialog, LegalDisclaimer, the About dialog) into one shared global style
+- Frontend version bumped to 2.0.0 (`frontend/package.json`) — a major version to match the scope of this redesign
+
+### Fixed
+- `NSFWAlert.vue`'s dialog header was hardcoded to the literal `#FF4500` instead of the theme's primary color token — same bug pattern already fixed in this app's NSFW badge, now fixed at the source and never reintroduced thanks to the shared dialog-header style
+- `ImageGrid.vue`'s resting-state card background and broken-image fallback were hardcoded dark colors that would have been unreadable under a light theme — now theme-aware (the hover scrim over photos intentionally stays dark-on-image in both themes, matching the media lightbox, which also intentionally stays black-always)
+- The brand logo in the app header now swaps between `logo.png`/`logo-white.png` to match the active theme, instead of always showing the dark-theme variant
+
+### Removed
+- The unused `roboto-fontface` dependency
+
 ## [1.2.9] - 2026-09-08
 
 ### Changed

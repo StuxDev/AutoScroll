@@ -50,8 +50,8 @@ export default defineConfig({
     Fonts({
       google: {
         families: [{
-          name: 'Roboto',
-          styles: 'wght@100;300;400;500;700;900',
+          name: 'Plus Jakarta Sans',
+          styles: 'wght@300;400;500;600;700;800',
         }],
       },
     }),

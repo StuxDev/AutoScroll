@@ -60,15 +60,3 @@ const decline = () => {
   emit('decline')
 }
 </script>
-
-<style scoped>
-.dialog-header {
-  background-color: #FF4500;
-  color: white;
-  padding: 16px 24px;
-  font-size: 16px;
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-}
-</style>

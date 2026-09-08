@@ -23,6 +23,25 @@
             {{ settingsStore.slideshowInterval }} seconds between slides
           </div>
         </div>
+
+        <v-divider class="my-4" />
+
+        <div class="setting-section">
+          <div class="setting-label">Theme</div>
+          <v-btn-toggle
+            :model-value="settingsStore.themeMode"
+            @update:model-value="settingsStore.setThemeMode"
+            color="primary"
+            variant="outlined"
+            density="comfortable"
+            divided
+            mandatory
+          >
+            <v-btn value="system" prepend-icon="mdi-theme-light-dark">System</v-btn>
+            <v-btn value="light" prepend-icon="mdi-weather-sunny">Light</v-btn>
+            <v-btn value="dark" prepend-icon="mdi-weather-night">Dark</v-btn>
+          </v-btn-toggle>
+        </div>
       </v-card-text>
 
       <v-card-actions>
@@ -48,16 +67,6 @@ watch(dialog, (v) => emit('update:modelValue', v))
 </script>
 
 <style scoped>
-.dialog-header {
-  background-color: rgb(var(--v-theme-primary));
-  color: white;
-  padding: 16px 24px;
-  font-size: 16px;
-  font-weight: 500;
-  display: flex;
-  align-items: center;
-}
-
 .setting-section {
   padding: 4px 0;
 }
