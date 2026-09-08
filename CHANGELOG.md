@@ -11,6 +11,11 @@ together) — it's separate from the independent `frontend/package.json` and
 
 ## [Unreleased]
 
+## [1.2.8] - 2026-09-08
+
+### Added
+- "for Reddit" subtitle under the "AutoScroll" wordmark in the README logo, matching the app header's own brand/subtitle layout — reintroduces `logo-white.png` and the `<picture>` dark/light swap, since the subtitle (unlike the now-orange wordmark) still needs a different color per theme to stay legible
+
 ## [1.2.7] - 2026-09-08
 
 ### Removed
