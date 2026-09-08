@@ -1,18 +1,13 @@
 <template>
   <v-app>
-    <v-app-bar :elevation="0" class="reddit-bar" border="b">
+    <v-app-bar :elevation="0" class="reddit-bar" border="b" height="80">
       <v-app-bar-title>
         <div class="d-flex align-center brand">
-          <v-img
-            alt="AutoScroll"
-            class="shrink mr-2"
-            cover
-            max-width="32"
-            src="@/assets/icon.png"
-            transition="scale-transition"
-          />
-          <span class="brand-name">AutoScroll</span>
-          <span class="brand-sub d-none d-sm-inline">for Reddit</span>
+          <img
+            alt="AutoScroll for Reddit"
+            class="brand-logo"
+            src="@/assets/logo-white.png"
+          >
         </div>
       </v-app-bar-title>
 
@@ -201,10 +196,12 @@ watch(infoDialog, (isOpen) => {
   text-decoration: underline;
 }
 
-/* Prevent Vuetify app bar title from clipping brand text */
+/* Prevent Vuetify app bar title from clipping brand text, and keep it
+   left-aligned instead of the default centered title layout */
 .v-app-bar-title__content {
   overflow: visible !important;
   white-space: nowrap;
+  justify-content: flex-start !important;
 }
 </style>
 
@@ -217,19 +214,10 @@ watch(infoDialog, (isOpen) => {
   gap: 4px;
 }
 
-.brand-name {
-  font-size: 18px;
-  font-weight: 700;
-  color: rgb(var(--v-theme-primary));
-  letter-spacing: -0.3px;
-}
-
-.brand-sub {
-  font-size: 13px;
-  color: rgba(var(--v-theme-on-surface), 0.45);
-  margin-left: 6px;
-  margin-top: 2px;
-  white-space: nowrap;
+.brand-logo {
+  height: 68px;
+  width: auto;
+  display: block;
 }
 
 .dialog-header {
