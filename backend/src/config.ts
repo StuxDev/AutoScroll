@@ -18,6 +18,11 @@ const apifyTokenParam = defineString("APIFY_TOKEN", {
   description: "Apify API token for the Reddit scraper actor",
 });
 
+const adminUploadSecretParam = defineString("ADMIN_UPLOAD_SECRET", {
+  description: "Shared secret required to use the admin database-upload endpoint",
+  default: "",
+});
+
 /**
  * Get allowed origins from environment configuration
  * Returns array of allowed origin URLs
@@ -48,4 +53,11 @@ export function getLocalhostSecret(): string | undefined {
  */
 export function getApifyToken(): string {
   return apifyTokenParam.value();
+}
+
+/**
+ * Get the shared secret required to use the admin database-upload endpoint
+ */
+export function getAdminUploadSecret(): string {
+  return adminUploadSecretParam.value();
 }

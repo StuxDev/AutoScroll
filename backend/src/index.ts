@@ -14,6 +14,7 @@ import {onRequest} from "firebase-functions/v2/https";
 import * as logger from "firebase-functions/logger";
 import cors from "cors";
 import {redditProxy, searchSubredditsProxy} from "./proxy";
+import {uploadGeoIPDatabase} from "./admin";
 import {cleanupExpiredRateLimits} from "./rateLimiter";
 import {getAllowedOrigins, getLocalhostSecret} from "./config";
 import {getAnalyticsStats} from "./anonymousAnalytics";
@@ -25,7 +26,7 @@ initializeApp();
 
 setGlobalOptions({maxInstances: 10});
 
-export {redditProxy, searchSubredditsProxy};
+export {redditProxy, searchSubredditsProxy, uploadGeoIPDatabase};
 
 
 // CORS handler for proxyStatus endpoint
