@@ -13,7 +13,7 @@
           <a href="https://labs.stux.dev" target="_blank" rel="noopener noreferrer">Stux.Dev Labs</a>
         </span>
         <span class="sep">·</span>
-        <span class="nowrap version-tag">v{{ appVersion }}</span>
+        <span class="nowrap version-tag"><RouterLink to="/changelog">v{{ appVersion }}</RouterLink></span>
       </div>
     </div>
   </v-footer>

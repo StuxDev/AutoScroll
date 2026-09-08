@@ -39,7 +39,7 @@
             </p>
             <p>
               Questions or issues? Reach out at
-              <a href="mailto:contact@stux.dev" target="_blank">contact@stux.dev</a>
+              <a href="mailto:hello@stux.dev" target="_blank">hello@stux.dev</a>
               or on <a href="https://links.stux.dev" target="_blank">social media</a>.
             </p>
           </v-card-text>

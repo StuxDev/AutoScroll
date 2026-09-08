@@ -1,7 +1,7 @@
 <template>
   <div class="legal-page">
     <div class="legal-header">
-      <div class="legal-eyebrow"><RouterLink to="/legal">Legal</RouterLink></div>
+      <div class="legal-eyebrow"><RouterLink :to="eyebrowTo">{{ eyebrow }}</RouterLink></div>
       <h1>{{ title }}</h1>
       <p class="legal-lead">{{ lead }}</p>
       <div v-if="meta" class="legal-meta">{{ meta }}</div>
@@ -16,13 +16,20 @@
 <script setup lang="ts">
 import { useTitle } from '@vueuse/core'
 
-const props = defineProps<{
+const props = withDefaults(defineProps<{
   title: string
   lead: string
   meta?: string
-}>()
+  eyebrow?: string
+  eyebrowTo?: string
+  titleSuffix?: string
+}>(), {
+  eyebrow: 'Legal',
+  eyebrowTo: '/legal',
+  titleSuffix: 'Legal',
+})
 
-useTitle(`${props.title} | Legal - AutoScroll`)
+useTitle(`${props.title} | ${props.titleSuffix} - AutoScroll`)
 </script>
 
 <style>
@@ -73,8 +80,21 @@ useTitle(`${props.title} | Legal - AutoScroll`)
 .legal-body h2 {
   font-size: 1.2rem;
   font-weight: 700;
-  margin: 32px 0 12px;
+  margin: 40px 0 16px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(var(--v-theme-on-surface), 0.1);
   color: rgb(var(--v-theme-on-surface));
+}
+
+.legal-body > h2:first-child {
+  margin-top: 0;
+}
+
+.legal-body h3 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin: 20px 0 8px;
+  color: rgba(var(--v-theme-on-surface), 0.9);
 }
 
 .legal-body p,
@@ -84,9 +104,22 @@ useTitle(`${props.title} | Legal - AutoScroll`)
   color: rgba(var(--v-theme-on-surface), 0.8);
 }
 
+.legal-body p {
+  margin: 0 0 14px;
+}
+
 .legal-body ol,
 .legal-body ul {
   padding-left: 1.3em;
+  margin: 0 0 14px;
+}
+
+.legal-body li {
+  margin-bottom: 6px;
+}
+
+.legal-body li::marker {
+  color: rgb(var(--v-theme-primary));
 }
 
 .legal-body a {
@@ -96,6 +129,37 @@ useTitle(`${props.title} | Legal - AutoScroll`)
 
 .legal-body a:hover {
   text-decoration: underline;
+}
+
+.legal-body hr {
+  border: none;
+  border-top: 1px solid rgba(var(--v-theme-on-surface), 0.1);
+  margin: 32px 0;
+}
+
+.legal-body code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.85em;
+  background: rgba(var(--v-theme-on-surface), 0.08);
+  border-radius: 4px;
+  padding: 2px 6px;
+}
+
+.legal-body pre {
+  background: rgba(var(--v-theme-on-surface), 0.06);
+  border-radius: 8px;
+  padding: 14px 16px;
+  overflow-x: auto;
+  margin: 0 0 14px;
+}
+
+.legal-body pre code {
+  background: none;
+  padding: 0;
+}
+
+.legal-body strong {
+  color: rgb(var(--v-theme-on-surface));
 }
 
 .legal-body .info-card {

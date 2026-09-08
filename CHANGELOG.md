@@ -11,6 +11,17 @@ together) — it's separate from the independent `frontend/package.json` and
 
 ## [Unreleased]
 
+## [2.1.0] - 2026-09-08
+
+### Added
+- A `/changelog` page rendering this file, styled to match the legal pages — linked from the footer's version tag
+- `LegalPage.vue` now supports a configurable eyebrow label/link and page-title suffix (previously hardcoded to "Legal"), so the changelog page can reuse the same header/body chrome as the legal pages
+
+### Changed
+- Legal page formatting improved: section headings now have a bottom divider and more breathing room, list bullets are colored with the theme's primary color, and inline `code`/`pre` blocks are now styled (previously unstyled, needed for the changelog's Markdown content)
+- Contact emails split by purpose: all seven legal pages now point to `legal@stux.dev`, while general inquiries (`CONTRIBUTING.md`, the About dialog) point to `hello@stux.dev` — previously everything used `contact@stux.dev`
+- Frontend version bumped to 2.1.0 (`frontend/package.json`)
+
 ## [2.0.2] - 2026-09-08
 
 ### Added
