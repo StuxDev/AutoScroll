@@ -78,16 +78,6 @@ const decline = () => {
 </script>
 
 <style scoped>
-.dialog-header {
-  background-color: rgb(var(--v-theme-primary));
-  color: white;
-  padding: 16px 24px;
-  font-size: 16px;
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-}
-
 .disclaimer-list {
   display: flex;
   flex-direction: column;
