@@ -11,6 +11,17 @@ together) — it's separate from the independent `frontend/package.json` and
 
 ## [Unreleased]
 
+## [2.1.1] - 2026-09-08
+
+### Fixed
+- `/legal` (the legal hub page) had no padding and rendered flush against the viewport edge — it built its own template instead of using the shared `LegalPage.vue` wrapper every other legal page uses, so Vite's per-component CSS chunking never bundled `LegalPage`'s `.legal-page` container styles (max-width, centering, padding) into that route. Now uses `<LegalPage>` like its siblings, passing the grid and contact line as its slot content.
+
+### Added
+- `LegalPage.vue` gained an optional `titleOverride` prop, so a page can set its own exact `document.title` instead of the default `${title} | ${titleSuffix} - AutoScroll` template — used by the legal hub so its tab title stays `Legal - AutoScroll` (matching its pre-fix title) instead of becoming `Boring Legal Stuff | Legal - AutoScroll`
+
+### Changed
+- Frontend version bumped to 2.1.1 (`frontend/package.json`)
+
 ## [2.1.0] - 2026-09-08
 
 ### Added
