@@ -11,6 +11,16 @@ together) — it's separate from the independent `frontend/package.json` and
 
 ## [Unreleased]
 
+## [1.2.9] - 2026-09-08
+
+### Changed
+- App header now uses the full `logo-white.png` lockup (icon + "AutoScroll" + "for Reddit") instead of a small icon plus separate CSS text spans, matching the README branding. The app bar grew from the Vuetify default height to 80px so the subtitle stays legible — a single raster image can't scale the wordmark and subtitle independently the way separate text elements could
+- README logo's "for Reddit" subtitle enlarged again — still too small at the README's display width in the previous pass
+- Frontend version bumped to 1.2.3 (`frontend/package.json`)
+
+### Fixed
+- The header logo briefly rendered centered instead of left-aligned after switching to a `v-img`, because Vuetify's `v-img` wrapper stretches to fill available width and centers its content inside that box regardless of the `width` prop — switched to a plain `<img>` with explicit CSS height, which sizes predictably
+
 ## [1.2.8] - 2026-09-08
 
 ### Added
