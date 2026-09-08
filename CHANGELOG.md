@@ -11,6 +11,20 @@ together) — it's separate from the independent `frontend/package.json` and
 
 ## [Unreleased]
 
+## [1.2.3] - 2026-09-08
+
+### Added
+- `uploadGeoIPDatabase` admin endpoint (secret-protected via `ADMIN_UPLOAD_SECRET`) to (re)upload the MaxMind GeoLite2 country database to Firebase Storage — see the GeoIP database setup section in `docs/install-backend.md`
+
+### Changed
+- Backend version bumped to 1.2.2 (`backend/package.json`)
+
+### Fixed
+- Country-level analytics were silently falling back to `XX` for every request — the default Firebase Storage bucket had never actually been provisioned for this project (a one-time manual step in the Firebase Console), so the GeoLite2 database could never be uploaded or downloaded. Storage is now enabled and the database uploaded
+
+### Removed
+- `backend/scripts/upload-geolite2.js` — never actually worked (empty `storageBucket` config, and required a service account key that was never set up); replaced by the `uploadGeoIPDatabase` endpoint, which needs no local Google Cloud credentials
+
 ## [1.2.2] - 2026-09-07
 
 ### Changed

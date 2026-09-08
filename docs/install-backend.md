@@ -164,9 +164,40 @@ Firestore collections are created automatically on first use:
 | `searchSubredditsProxy` | HTTP GET | Searches subreddit names |
 | `proxyStatus` | HTTP GET | Health check endpoint |
 | `analyticsStatus` | HTTP GET | Returns anonymous usage stats |
+| `uploadGeoIPDatabase` | HTTP POST | Admin-only: (re)uploads the GeoLite2 country database — see below |
 | `cleanupRateLimits` | Scheduled (hourly) | Removes expired rate limit entries |
 
-All HTTP functions are deployed to region **europe-west4**.
+All HTTP functions are deployed to region **europe-west4** except `cleanupRateLimits`, a scheduled function in **europe-west1** (the closest valid Cloud Scheduler region).
+
+---
+
+## GeoIP database setup
+
+Country-level analytics use MaxMind's free GeoLite2-Country database, stored in Firebase Storage at
+`geolite2/GeoLite2-Country.mmdb` (downloaded into each function instance's `/tmp` on first use). If it's
+missing, analytics silently fall back to tagging every request as country `XX` — nothing breaks, but
+country breakdowns are unavailable.
+
+To upload or refresh the database:
+
+1. Get a free MaxMind account and license key: https://www.maxmind.com/en/geolite2/signup, then
+   **Account → Manage License Keys**
+2. Download it:
+   ```bash
+   curl -sL -u "<account_id>:<license_key>" \
+     "https://download.maxmind.com/geoip/databases/GeoLite2-Country/download?suffix=tar.gz" \
+     -o GeoLite2-Country.tar.gz
+   tar -xzf GeoLite2-Country.tar.gz
+   ```
+3. Set `ADMIN_UPLOAD_SECRET` in `backend/.env` to a random value (`node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"`) and deploy
+4. Upload it through the admin endpoint (never needs local Google Cloud credentials — the function uses its own service account):
+   ```bash
+   curl -X POST -H "X-Admin-Secret: <ADMIN_UPLOAD_SECRET>" \
+     --data-binary @GeoLite2-Country_*/GeoLite2-Country.mmdb \
+     https://europe-west4-<project-id>.cloudfunctions.net/uploadGeoIPDatabase
+   ```
+
+MaxMind updates GeoLite2 databases roughly weekly — re-run steps 2 and 4 periodically to keep it current.
 
 ---
 
