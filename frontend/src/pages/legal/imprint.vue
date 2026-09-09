@@ -8,7 +8,7 @@
     <p>AutoScroll is built and maintained by <strong><a href="https://labs.stux.dev" target="_blank" rel="noopener">Stux.Dev Labs</a></strong>, a personal project of <strong><a href="https://github.com/StuxDev" target="_blank" rel="noopener">Stux.Dev</a></strong>. Part of the <img src="https://media.stux.group/global/icon.png" height="14" alt="Stux.Group" style="vertical-align: middle;"> <strong>Stux.Group</strong> brand of businesses.</p>
 
     <h2>Hosting</h2>
-    <p>The frontend is hosted on <strong>Netlify</strong>. The backend runs on <strong>Google Cloud Functions</strong>, via Firebase.</p>
+    <p>The frontend is hosted on <strong>Stuxedo</strong>. The backend runs on <strong>Google Cloud Functions</strong>, via Firebase.</p>
 
     <h2>Contact</h2>
     <p>For any inquiry — legal, privacy, or otherwise: <a href="mailto:legal@stux.dev">legal@stux.dev</a></p>
