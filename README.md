@@ -154,4 +154,4 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for project conventions, and [CHANGELOG.m
 ---
 
 *Built & Maintained by <img src="https://github.com/StuxDev.png" height="14" alt="Stux.Dev" valign="middle"> [Stux.Dev](https://stux.dev), Hosted by <img src="https://global.media.stuxedo.com/icon.png" height="14" alt="Stuxedo" valign="middle"> [Stuxedo](https://stuxedo.com).    
-Stux.Dev is a part of the <img src="https://media.stux.group/global/icon.png" height="14" alt="Stux.Group" valign="middle"> Stux.Group brand of businesses.*
+Stux.Dev is a part of the <img src="https://global.media.stux.group/global/icon.png" height="14" alt="Stux.Group" valign="middle"> Stux.Group brand of businesses.*
