@@ -11,6 +11,11 @@ together) — it's separate from the independent `frontend/package.json` and
 
 ## [Unreleased]
 
+## [2.1.2] - 2026-09-09
+
+### Fixed
+- `codeql-analysis.yml` used `actions/checkout@v2` and `github/codeql-action/init@v1`/`autobuild@v1`/`analyze@v1` (years past end of support, now failing outright on the current runner image) and targeted `branches: [master]` when the repo's default branch is `main`. Bumped to `actions/checkout@v4` and `codeql-action@v3`, added the `security-events: write` permission it now requires, and fixed the branch name.
+
 ## [2.1.1] - 2026-09-08
 
 ### Fixed
