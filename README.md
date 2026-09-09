@@ -10,7 +10,7 @@
 
 **A clean, auto-scrolling image gallery for Reddit.**
 
-[AutoScroll](https://autoscroll.stux.dev) is a clean, auto-scrolling image gallery for Reddit — browse any subreddit's photos, videos, and albums in a slideshow view without leaving the page. Built and maintained by [Stux.Dev](https://stux.dev), hosted by [Netlify](https://netlify.com).
+[AutoScroll](https://autoscroll.stux.dev) is a clean, auto-scrolling image gallery for Reddit — browse any subreddit's photos, videos, and albums in a slideshow view without leaving the page. Built and maintained by [Stux.Dev](https://stux.dev), hosted by [Stuxedo](https://stuxedo.com).
 
 > **Not affiliated with Reddit Inc.** Content is sourced from Reddit's public data. For users 18 and over.
 
@@ -153,5 +153,5 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for project conventions, and [CHANGELOG.m
 
 ---
 
-*Built & Maintained by <img src="https://github.com/StuxDev.png" height="14" alt="Stux.Dev" valign="middle"> [Stux.Dev](https://stux.dev), Hosted by <img src="https://github.com/netlify.png" height="14" alt="Netlify" valign="middle"> [Netlify](https://netlify.com).    
+*Built & Maintained by <img src="https://github.com/StuxDev.png" height="14" alt="Stux.Dev" valign="middle"> [Stux.Dev](https://stux.dev), Hosted by <img src="https://global.media.stuxedo.com/icon.png" height="14" alt="Stuxedo" valign="middle"> [Stuxedo](https://stuxedo.com).    
 Stux.Dev is a part of the <img src="https://media.stux.group/global/icon.png" height="14" alt="Stux.Group" valign="middle"> Stux.Group brand of businesses.*
