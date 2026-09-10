@@ -11,6 +11,14 @@ together) — it's separate from the independent `frontend/package.json` and
 
 ## [Unreleased]
 
+## [2.2.0] - 2026-09-10
+
+### Added
+- The changelog page's `### Added`/`### Changed`/`### Fixed`/`### Removed`/`### Deprecated`/`### Security` headings now render as colored pill badges instead of plain bold text — `changelog.vue` overrides `marked`'s heading renderer and colors each category via the app's own Vuetify theme tokens (success/info/warning/error/secondary), matching the badge treatment on TIGHC's changelog page. Version headers (`## [x.y.z] - date`) now render in monospace to match.
+
+### Changed
+- Frontend version bumped to 2.2.0 (`frontend/package.json`)
+
 ## [2.1.2] - 2026-09-09
 
 ### Fixed
