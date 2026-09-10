@@ -28,12 +28,12 @@
 import LegalPage from '@/components/LegalPage.vue'
 
 const docs = [
-  { slug: 'privacy', icon: 'mdi-shield-lock-outline', name: 'Privacy Policy', desc: 'What little we collect, and how the proxy actually works.' },
-  { slug: 'terms', icon: 'mdi-file-document-outline', name: 'Terms and Ethics', desc: "Use it responsibly, and respect Reddit's own rules." },
-  { slug: 'cookies', icon: 'mdi-cookie-outline', name: 'Cookies Policy', desc: 'localStorage only — no tracking cookies, ever.' },
-  { slug: 'imprint', icon: 'mdi-domain', name: 'Imprint', desc: 'Who operates AutoScroll and how to reach them.' },
-  { slug: 'disclaimer', icon: 'mdi-information-outline', name: 'Disclaimer', desc: 'Copyright, accuracy, and the Reddit affiliation question.' },
-  { slug: 'opt-out', icon: 'mdi-account-cancel-outline', name: 'Opt-Out Preferences', desc: "There's nothing to sell, so nothing to opt out of." },
+  { slug: 'privacy', icon: 'fa-solid fa-user-shield', name: 'Privacy Policy', desc: 'What little we collect, and how the proxy actually works.' },
+  { slug: 'terms', icon: 'fa-regular fa-file-lines', name: 'Terms and Ethics', desc: "Use it responsibly, and respect Reddit's own rules." },
+  { slug: 'cookies', icon: 'fa-solid fa-cookie', name: 'Cookies Policy', desc: 'localStorage only — no tracking cookies, ever.' },
+  { slug: 'imprint', icon: 'fa-regular fa-building', name: 'Imprint', desc: 'Who operates AutoScroll and how to reach them.' },
+  { slug: 'disclaimer', icon: 'fa-solid fa-circle-info', name: 'Disclaimer', desc: 'Copyright, accuracy, and the Reddit affiliation question.' },
+  { slug: 'opt-out', icon: 'fa-solid fa-user-xmark', name: 'Opt-Out Preferences', desc: "There's nothing to sell, so nothing to opt out of." },
 ]
 </script>
 

@@ -1,6 +1,6 @@
 <template>
   <div class="empty-state">
-    <v-icon size="80" color="primary" class="mb-6">mdi-image-search</v-icon>
+    <v-icon size="80" color="primary" class="mb-6">fa-solid fa-magnifying-glass</v-icon>
     <h2 class="text-h5 font-weight-bold mb-3">Browse Reddit Media</h2>
     <p class="text-body-2 text-medium-emphasis mb-8">
       Enter a subreddit name above to browse images, videos, and galleries in a clean slideshow.

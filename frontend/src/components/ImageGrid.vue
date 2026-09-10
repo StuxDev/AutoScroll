@@ -31,14 +31,14 @@
 
         <!-- Media type badge (top-right) -->
         <div v-if="post.mediaType === 'album'" class="media-badge">
-          <v-icon size="12" color="white">mdi-image-multiple</v-icon>
+          <v-icon size="12" color="white">fa-solid fa-images</v-icon>
           <span>{{ post.images.length }}</span>
         </div>
         <div v-else-if="post.mediaType === 'video'" class="media-badge">
-          <v-icon size="12" color="white">mdi-play</v-icon>
+          <v-icon size="12" color="white">fa-solid fa-play</v-icon>
         </div>
         <div v-else-if="post.mediaType === 'embed'" class="media-badge">
-          <v-icon size="12" color="white">mdi-youtube</v-icon>
+          <v-icon size="12" color="white">fa-brands fa-youtube</v-icon>
         </div>
 
         <!-- Hover overlay -->
@@ -46,11 +46,11 @@
           <p class="overlay-title">{{ post.postData.title }}</p>
           <div class="overlay-meta">
             <span>
-              <v-icon size="12">mdi-arrow-up</v-icon>
+              <v-icon size="12">fa-solid fa-arrow-up</v-icon>
               {{ formatScore(post.postData.score) }}
             </span>
             <span class="ms-2">
-              <v-icon size="12">mdi-comment-outline</v-icon>
+              <v-icon size="12">fa-regular fa-comment</v-icon>
               {{ formatScore(post.postData.num_comments) }}
             </span>
             <span v-if="post.postData.author" class="ms-2 overlay-author">
@@ -68,7 +68,7 @@
 
     <v-fab
       v-if="showBackToTop"
-      icon="mdi-arrow-up"
+      icon="fa-solid fa-arrow-up"
       class="ma-4 mb-12"
       location="bottom end"
       fixed

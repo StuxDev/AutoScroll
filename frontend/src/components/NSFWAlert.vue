@@ -2,7 +2,7 @@
   <v-dialog v-model="isOpen" max-width="480px" persistent>
     <v-card>
       <div class="dialog-header">
-        <v-icon class="me-2">mdi-alert-octagon</v-icon>
+        <v-icon class="me-2">fa-solid fa-triangle-exclamation</v-icon>
         NSFW Content Detected
       </div>
 
@@ -23,12 +23,12 @@
 
       <v-card-actions class="pa-4">
         <v-btn variant="outlined" color="error" @click="decline">
-          <v-icon start>mdi-cancel</v-icon>
+          <v-icon start>fa-solid fa-ban</v-icon>
           Keep Hidden
         </v-btn>
         <v-spacer />
         <v-btn variant="flat" color="primary" @click="accept">
-          <v-icon start>mdi-check</v-icon>
+          <v-icon start>fa-solid fa-check</v-icon>
           I'm 18+ — Show All
         </v-btn>
       </v-card-actions>

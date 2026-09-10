@@ -11,6 +11,15 @@ together) — it's separate from the independent `frontend/package.json` and
 
 ## [Unreleased]
 
+## [2.3.0] - 2026-09-10
+
+### Changed
+- Replaced Material Design Icons (`@mdi/font`) with self-hosted Font Awesome 6.7.2 as the app's icon set: `plugins/vuetify.ts` now imports `src/assets/fontawesome/` (solid, regular, and brands styles vendored locally, not a CDN) and configures Vuetify's built-in `fa` iconset/aliases as the default icon set instead of `mdi`. All 50 `mdi-*` icon references across 10 components/pages were remapped to their closest Font Awesome equivalent (e.g. `mdi-weather-sunny` → `fa-solid fa-sun`, `mdi-comment-outline` → `fa-regular fa-comment`, `mdi-youtube` → `fa-brands fa-youtube`)
+- Frontend version bumped to 2.3.0 (`frontend/package.json`)
+
+### Removed
+- `@mdi/font` dependency, no longer used by anything in the frontend
+
 ## [2.2.0] - 2026-09-10
 
 ### Added

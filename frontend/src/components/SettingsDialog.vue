@@ -2,7 +2,7 @@
   <v-dialog v-model="dialog" max-width="480px">
     <v-card>
       <div class="dialog-header">
-        <v-icon class="me-2">mdi-cog</v-icon>
+        <v-icon class="me-2">fa-solid fa-gear</v-icon>
         Settings
       </div>
 
@@ -37,9 +37,9 @@
             divided
             mandatory
           >
-            <v-btn value="system" prepend-icon="mdi-theme-light-dark">System</v-btn>
-            <v-btn value="light" prepend-icon="mdi-weather-sunny">Light</v-btn>
-            <v-btn value="dark" prepend-icon="mdi-weather-night">Dark</v-btn>
+            <v-btn value="system" prepend-icon="fa-solid fa-circle-half-stroke">System</v-btn>
+            <v-btn value="light" prepend-icon="fa-solid fa-sun">Light</v-btn>
+            <v-btn value="dark" prepend-icon="fa-solid fa-moon">Dark</v-btn>
           </v-btn-toggle>
         </div>
       </v-card-text>
