@@ -12,23 +12,23 @@
       </v-app-bar-title>
 
       <v-btn icon @click="toggleTheme" :title="isDark ? 'Switch to light mode' : 'Switch to dark mode'">
-        <v-icon>{{ isDark ? 'mdi-weather-night' : 'mdi-weather-sunny' }}</v-icon>
+        <v-icon>{{ isDark ? 'fa-solid fa-moon' : 'fa-solid fa-sun' }}</v-icon>
       </v-btn>
 
       <v-btn icon @click="settingsDialog = true" title="Settings">
-        <v-icon>mdi-cog-outline</v-icon>
+        <v-icon>fa-solid fa-gear</v-icon>
       </v-btn>
 
       <v-dialog v-model="infoDialog" max-width="520">
         <template #activator="{ props: activatorProps }">
           <v-btn icon v-bind="activatorProps" title="About">
-            <v-icon>mdi-information-outline</v-icon>
+            <v-icon>fa-solid fa-circle-info</v-icon>
           </v-btn>
         </template>
 
         <v-card>
           <div class="dialog-header">
-            <v-icon class="me-2">mdi-information</v-icon>
+            <v-icon class="me-2">fa-solid fa-circle-info</v-icon>
             About AutoScroll
           </div>
 
@@ -106,11 +106,11 @@
           <v-card-text class="py-3">
             <div class="version-row">
               <span class="version-item">
-                <v-icon size="14" class="me-1">mdi-monitor</v-icon>
+                <v-icon size="14" class="me-1">fa-solid fa-display</v-icon>
                 Frontend <code>v{{ appVersion }}</code>
               </span>
               <span class="version-item">
-                <v-icon size="14" class="me-1">mdi-server</v-icon>
+                <v-icon size="14" class="me-1">fa-solid fa-server</v-icon>
                 Backend
                 <code v-if="galleryStore.backendVersion">v{{ galleryStore.backendVersion }}</code>
                 <span v-else class="text-disabled">—</span>
@@ -183,11 +183,11 @@ const statusColor = computed(() => {
 
 const statusIcon = computed(() => {
   switch (galleryStore.proxyStatus) {
-    case 'operational': return 'mdi-check-circle'
-    case 'degraded': return 'mdi-alert-circle'
-    case 'unavailable': return 'mdi-close-circle'
-    case 'checking': return 'mdi-loading mdi-spin'
-    default: return 'mdi-help-circle'
+    case 'operational': return 'fa-solid fa-circle-check'
+    case 'degraded': return 'fa-solid fa-circle-exclamation'
+    case 'unavailable': return 'fa-solid fa-circle-xmark'
+    case 'checking': return 'fa-solid fa-spinner fa-spin'
+    default: return 'fa-solid fa-circle-question'
   }
 })
 

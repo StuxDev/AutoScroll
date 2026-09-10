@@ -5,11 +5,15 @@
  */
 
 // Styles
-import '@mdi/font/css/materialdesignicons.css'
+import '@/assets/fontawesome/css/fontawesome.min.css'
+import '@/assets/fontawesome/css/solid.min.css'
+import '@/assets/fontawesome/css/regular.min.css'
+import '@/assets/fontawesome/css/brands.min.css'
 import 'vuetify/styles'
 
 // Composables
 import { createVuetify } from 'vuetify'
+import { aliases, fa } from 'vuetify/iconsets/fa'
 
 // Resolves the theme to render on first paint, before Pinia/the settings
 // store exist - reads localStorage directly (same key useAppTheme.ts writes)
@@ -24,6 +28,11 @@ function resolveInitialTheme(): 'redditDark' | 'redditLight' {
 
 export default createVuetify({
   ssr: true,
+  icons: {
+    defaultSet: 'fa',
+    aliases,
+    sets: { fa },
+  },
   theme: {
     defaultTheme: resolveInitialTheme(),
     themes: {

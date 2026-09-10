@@ -2,7 +2,7 @@
   <v-dialog :model-value="galleryStore.isProxyPromptOpen" max-width="500px" persistent>
     <v-card>
       <div class="dialog-header">
-        <v-icon class="me-2">mdi-server-network</v-icon>
+        <v-icon class="me-2">fa-solid fa-network-wired</v-icon>
         Having Trouble Fetching Content?
       </div>
 
@@ -78,11 +78,11 @@ const statusColor = computed(() => {
 
 const statusIcon = computed(() => {
   switch (galleryStore.proxyStatus) {
-    case 'operational': return 'mdi-check-circle'
-    case 'degraded': return 'mdi-alert-circle'
-    case 'unavailable': return 'mdi-close-circle'
-    case 'checking': return 'mdi-loading mdi-spin'
-    default: return 'mdi-help-circle'
+    case 'operational': return 'fa-solid fa-circle-check'
+    case 'degraded': return 'fa-solid fa-circle-exclamation'
+    case 'unavailable': return 'fa-solid fa-circle-xmark'
+    case 'checking': return 'fa-solid fa-spinner fa-spin'
+    default: return 'fa-solid fa-circle-question'
   }
 })
 

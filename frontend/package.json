@@ -1,6 +1,6 @@
 {
   "name": "autoscroll_frontend",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -9,7 +9,6 @@
     "lint": "eslint . --fix"
   },
   "dependencies": {
-    "@mdi/font": "7.4.47",
     "@vueuse/core": "14.1.0",
     "core-js": "3.47.0",
     "lodash": "4.17.21",

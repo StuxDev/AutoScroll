@@ -14,15 +14,15 @@
           <p class="post-title">{{ currentPost.postData?.title }}</p>
           <div class="post-meta">
             <span>
-              <v-icon size="13">mdi-arrow-up</v-icon>
+              <v-icon size="13">fa-solid fa-arrow-up</v-icon>
               {{ formatScore(currentPost.postData?.score) }}
             </span>
             <span class="ms-3">
-              <v-icon size="13">mdi-comment-outline</v-icon>
+              <v-icon size="13">fa-regular fa-comment</v-icon>
               {{ formatScore(currentPost.postData?.num_comments) }}
             </span>
             <span v-if="currentPost.isAlbum" class="ms-3">
-              <v-icon size="13">mdi-image-multiple</v-icon>
+              <v-icon size="13">fa-solid fa-images</v-icon>
               {{ currentImageIndex + 1 }} / {{ currentPost.images.length }}
             </span>
           </div>
@@ -35,7 +35,7 @@
           title="View on Reddit"
           @click="$emit('goToLink')"
         >
-          <v-icon>mdi-open-in-new</v-icon>
+          <v-icon>fa-solid fa-arrow-up-right-from-square</v-icon>
         </v-btn>
       </div>
 
@@ -48,7 +48,7 @@
         size="small"
         @click="close"
       >
-        <v-icon>mdi-close</v-icon>
+        <v-icon>fa-solid fa-xmark</v-icon>
       </v-btn>
 
       <!-- Media area -->
@@ -104,7 +104,7 @@
           title="Previous (←)"
           @click="$emit('prevImage')"
         >
-          <v-icon>mdi-arrow-left</v-icon>
+          <v-icon>fa-solid fa-arrow-left</v-icon>
         </v-btn>
 
         <v-btn
@@ -115,7 +115,7 @@
           title="Toggle slideshow (Space)"
           @click="$emit('toggleSlideshow')"
         >
-          <v-icon>{{ isPlaying ? 'mdi-pause' : 'mdi-play' }}</v-icon>
+          <v-icon>{{ isPlaying ? 'fa-solid fa-pause' : 'fa-solid fa-play' }}</v-icon>
         </v-btn>
 
         <v-btn
@@ -126,7 +126,7 @@
           title="Skip post"
           @click="$emit('skipPost')"
         >
-          <v-icon>mdi-skip-next</v-icon>
+          <v-icon>fa-solid fa-forward-step</v-icon>
         </v-btn>
 
         <v-btn
@@ -138,7 +138,7 @@
           title="Next (→)"
           @click="$emit('nextImage')"
         >
-          <v-icon>mdi-arrow-right</v-icon>
+          <v-icon>fa-solid fa-arrow-right</v-icon>
         </v-btn>
       </div>
     </v-card>
