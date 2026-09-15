@@ -11,6 +11,11 @@ together) — it's separate from the independent `frontend/package.json` and
 
 ## [Unreleased]
 
+## [2.3.1] - 2026-09-15
+
+### Fixed
+- `README.md` and `frontend/src/pages/legal/imprint.vue`'s Stux.Group brand icon URL had a leftover duplicated `/global/` path segment (`global.media.stux.group/global/icon.png`) — corrected to `https://global.media.stux.group/icon.png`
+
 ## [2.3.0] - 2026-09-10
 
 ### Changed
