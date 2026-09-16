@@ -8,9 +8,10 @@
         <span class="sep">·</span>
         <span class="nowrap"><RouterLink to="/legal">Boring Legal Stuff</RouterLink></span>
         <span class="sep">·</span>
+        <span class="nowrap">&copy; 2024–{{ new Date().getFullYear() }} Stux.Dev</span>
+        <span class="sep">·</span>
         <span class="nowrap">
-          &copy; 2024–{{ new Date().getFullYear() }}
-          <a href="https://labs.stux.dev" target="_blank" rel="noopener noreferrer">Stux.Dev Labs</a>
+          <a href="https://labs.stux.dev" target="_blank" rel="noopener noreferrer">A Stux.Dev Labs Project</a>
         </span>
         <span class="sep">·</span>
         <span class="nowrap version-tag"><RouterLink to="/changelog">v{{ appVersion }}</RouterLink></span>

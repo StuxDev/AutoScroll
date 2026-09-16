@@ -11,6 +11,13 @@ together) — it's separate from the independent `frontend/package.json` and
 
 ## [Unreleased]
 
+## [2.3.2] - 2026-09-16
+
+### Fixed
+- The Imprint page's Operator section had a muddled ownership chain ("built and maintained by Stux.Dev Labs, a personal project of Stux.Dev... part of the Stux.Group brand") — corrected to the same clean chain used across the other Stux.Dev products: AutoScroll is operated by Stux.Dev, which is operated by Stux Group Ltd (company no. 13160574).
+- The Imprint's Contact section only listed `legal@stux.dev` for every inquiry type — split into `legal@stux.dev` (legal/privacy/copyright) and `hello@stux.dev` (general), matching the address already used for general contact in `layouts/default.vue`.
+- The app footer's copyright line credited "Stux.Dev Labs" directly (`components/AppFooter.vue`) — split into `&copy; ... Stux.Dev` and a separate "A Stux.Dev Labs Project" link to `https://labs.stux.dev`.
+
 ## [2.3.1] - 2026-09-15
 
 ### Fixed
