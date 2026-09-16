@@ -8,7 +8,7 @@
 
 # AutoScroll
 
-**A clean, auto-scrolling image gallery for Reddit.**
+### *A clean, auto-scrolling image gallery for Reddit.*
 
 [AutoScroll](https://autoscroll.stux.dev) is a clean, auto-scrolling image gallery for Reddit — browse any subreddit's photos, videos, and albums in a slideshow view without leaving the page. Built and maintained by [Stux.Dev](https://stux.dev), hosted by [Stuxedo](https://stuxedo.com).
 
