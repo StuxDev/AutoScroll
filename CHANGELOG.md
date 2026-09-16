@@ -11,6 +11,11 @@ together) — it's separate from the independent `frontend/package.json` and
 
 ## [Unreleased]
 
+## [2.3.3] - 2026-09-16
+
+### Changed
+- `README.md`'s tagline was wrapped in `**bold**` — changed to the `### *italic*` heading style used for taglines elsewhere in the family.
+
 ## [2.3.2] - 2026-09-16
 
 ### Fixed
