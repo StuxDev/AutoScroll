@@ -12,6 +12,18 @@ updates:
     # Match frontend/.npmrc's minimum-release-age (7 days): pnpm refuses newer releases
     cooldown:
       default-days: 7
+    # ESLint plugins/configs share peer deps (e.g. vue-eslint-parser), so they
+    # only install under strict-peer-dependencies when updated together
+    groups:
+      eslint:
+        patterns:
+          - "eslint"
+          - "eslint-*"
+          - "@eslint/*"
+          - "@vue/eslint-config-*"
+          - "vue-eslint-parser"
+          - "typescript-eslint"
+          - "@typescript-eslint/*"
   - package-ecosystem: "npm"
     directory: "/backend"
     schedule:
