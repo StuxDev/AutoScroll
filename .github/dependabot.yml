@@ -24,6 +24,11 @@ updates:
           - "vue-eslint-parser"
           - "typescript-eslint"
           - "@typescript-eslint/*"
+    ignore:
+      # Several ESLint plugins still peer-depend on eslint ^8 || ^9; revisit
+      # (and drop this) once they support ESLint 10
+      - dependency-name: "eslint"
+        update-types: ["version-update:semver-major"]
   - package-ecosystem: "npm"
     directory: "/backend"
     schedule:

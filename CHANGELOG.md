@@ -11,6 +11,11 @@ together) — it's separate from the independent `frontend/package.json` and
 
 ## [Unreleased]
 
+## [2.3.7] - 2026-09-26
+
+### Fixed
+- The grouped `/frontend` ESLint update tried to take ESLint itself to v10, which several plugins don't support yet (they peer-depend on `eslint ^8 || ^9`), so that part still failed. Dependabot now skips ESLint major versions for `/frontend` until the plugins catch up; minor and patch updates still come through
+
 ## [2.3.6] - 2026-09-26
 
 ### Fixed
