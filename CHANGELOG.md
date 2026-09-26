@@ -11,6 +11,14 @@ together) — it's separate from the independent `frontend/package.json` and
 
 ## [Unreleased]
 
+## [2.3.4] - 2026-09-26
+
+### Changed
+- The in-app changelog page (`frontend/src/pages/changelog.vue`) now sorts each release's `###` sections into a fixed order — Added, Changed, Fixed, Removed, Security, Deprecated — at render time, rather than trusting the order `CHANGELOG.md` lists them in; unknown section types go last
+- Changelog type badges now use the fixed family palette — Added `#2ecc71`, Changed `#3ba7ff`, Fixed `#ffa64d`, Removed `#ff4d4d`, Security `#b06bff`, Deprecated `#8a8a94` — as tinted badges (coloured text on a light tint of the same hue), with darker variants of each for the light (`redditLight`) theme
+- CHANGELOG sections reordered to Added, Changed, Fixed, Removed, Security, Deprecated
+- Frontend version bumped to 2.3.1 (`frontend/package.json`)
+
 ## [2.3.3] - 2026-09-16
 
 ### Changed
@@ -52,14 +60,14 @@ together) — it's separate from the independent `frontend/package.json` and
 
 ## [2.1.1] - 2026-09-08
 
-### Fixed
-- `/legal` (the legal hub page) had no padding and rendered flush against the viewport edge — it built its own template instead of using the shared `LegalPage.vue` wrapper every other legal page uses, so Vite's per-component CSS chunking never bundled `LegalPage`'s `.legal-page` container styles (max-width, centering, padding) into that route. Now uses `<LegalPage>` like its siblings, passing the grid and contact line as its slot content.
-
 ### Added
 - `LegalPage.vue` gained an optional `titleOverride` prop, so a page can set its own exact `document.title` instead of the default `${title} | ${titleSuffix} - AutoScroll` template — used by the legal hub so its tab title stays `Legal - AutoScroll` (matching its pre-fix title) instead of becoming `Boring Legal Stuff | Legal - AutoScroll`
 
 ### Changed
 - Frontend version bumped to 2.1.1 (`frontend/package.json`)
+
+### Fixed
+- `/legal` (the legal hub page) had no padding and rendered flush against the viewport edge — it built its own template instead of using the shared `LegalPage.vue` wrapper every other legal page uses, so Vite's per-component CSS chunking never bundled `LegalPage`'s `.legal-page` container styles (max-width, centering, padding) into that route. Now uses `<LegalPage>` like its siblings, passing the grid and contact line as its slot content.
 
 ## [2.1.0] - 2026-09-08
 
@@ -152,11 +160,11 @@ A full visual redesign — the app no longer looks like a stock Vuetify scaffold
 
 ## [1.2.4] - 2026-09-08
 
-### Fixed
-- `favicon-16x16.png` (both the standalone file and the 16×16 frame baked into `favicon.ico`/`icon.ico`) was a stale single-chevron design left over from before the eye-and-double-chevron rebrand, while every other size was already correct — regenerated all of them from the same master `icon.png` so every size matches
-
 ### Changed
 - Frontend version bumped to 1.2.2 (`frontend/package.json`)
+
+### Fixed
+- `favicon-16x16.png` (both the standalone file and the 16×16 frame baked into `favicon.ico`/`icon.ico`) was a stale single-chevron design left over from before the eye-and-double-chevron rebrand, while every other size was already correct — regenerated all of them from the same master `icon.png` so every size matches
 
 ## [1.2.3] - 2026-09-08
 
