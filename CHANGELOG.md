@@ -11,6 +11,17 @@ together) — it's separate from the independent `frontend/package.json` and
 
 ## [Unreleased]
 
+## [2.3.5] - 2026-09-26
+
+### Changed
+- `vite-plugin-vue-layouts` (0.11.0, which only supports Vite 4–5) replaced with its maintained drop-in fork `vite-plugin-vue-layouts-next` (3.0.0, Vite 7 support), updated in `vite.config.mts`, `tsconfig.json` and the layouts README
+- Frontend version bumped to 2.3.2 (`frontend/package.json`)
+
+### Fixed
+- Dependabot's weekly `/frontend` updates had failed every week since 7 September:
+  - `frontend/.npmrc` enforces `strict-peer-dependencies`, but the lockfile already had unmet peers from the unused `eslint-config-standard` (an ESLint 8 config; the project's flat config on ESLint 9 never loaded it) and the layouts plugin above. `eslint-config-standard` is removed
+  - Dependabot proposed releases younger than `.npmrc`'s 7-day `minimum-release-age`, which pnpm refuses to install. `/frontend` now has a matching 7-day Dependabot `cooldown`
+
 ## [2.3.4] - 2026-09-26
 
 ### Changed

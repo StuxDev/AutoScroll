@@ -9,6 +9,9 @@ updates:
     directory: "/frontend" # Location of package manifests
     schedule:
       interval: "weekly"
+    # Match frontend/.npmrc's minimum-release-age (7 days): pnpm refuses newer releases
+    cooldown:
+      default-days: 7
   - package-ecosystem: "npm"
     directory: "/backend"
     schedule:
