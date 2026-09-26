@@ -9,7 +9,7 @@
     "lint": "eslint . --fix"
   },
   "dependencies": {
-    "@vueuse/core": "14.1.0",
+    "@vueuse/core": "15.0.0",
     "core-js": "3.47.0",
     "lodash": "4.17.21",
     "marked": "18.0.11",
