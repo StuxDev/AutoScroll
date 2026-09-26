@@ -11,6 +11,11 @@ together) — it's separate from the independent `frontend/package.json` and
 
 ## [Unreleased]
 
+## [2.3.6] - 2026-09-26
+
+### Fixed
+- One `/frontend` Dependabot update still failed: bumping `eslint-plugin-vuetify` alone pulled in an `eslint-plugin-vue` needing a newer `vue-eslint-parser` than the rest of the ESLint tooling allowed, which `strict-peer-dependencies` rejects. `/frontend` ESLint packages (`eslint*`, `@eslint/*`, `@vue/eslint-config-*`, `vue-eslint-parser`, `typescript-eslint`, `@typescript-eslint/*`) are now grouped so Dependabot updates them together in one PR
+
 ## [2.3.5] - 2026-09-26
 
 ### Changed
