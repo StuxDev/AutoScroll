@@ -9,6 +9,12 @@ Note this root version tracks the *repository* (docs, scripts, both apps
 together) — it's separate from the independent `frontend/package.json` and
 `backend/package.json` versions described in the README's Versioning section.
 
+## [2.3.8] - 2026-10-09
+
+### Changed
+
+- The logos and icons in the Markdown docs (README and the like) follow GitHub's light or dark theme, using each brand's `logo-light`/`logo-dark` and `icon-light`/`icon-dark` files
+
 ## [Unreleased]
 
 ## [2.3.7] - 2026-09-26
