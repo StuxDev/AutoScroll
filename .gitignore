@@ -13,3 +13,7 @@ backend/node_modules/*
 
 # Local Netlify folder
 .netlify
+
+# Local assistant instructions - kept out of the repo
+CLAUDE.md
+.claude/
