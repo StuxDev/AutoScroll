@@ -123,11 +123,7 @@ firebase deploy --only functions:autoscroll_backend
 
 ## Versioning
 
-- Frontend version is set in `frontend/package.json` and baked into the build at compile time.
-- Backend version is set in `backend/package.json` and returned by the `/proxyStatus` endpoint.
-- Both versions are displayed in the app footer and the About dialog.
-
----
+This project uses [Date Versioning](https://datevers.ing): each release is numbered by its UTC release date as `YY.MM.DD` (for example `26.10.23`), with `-1`, `-2`… for later releases the same day. See [CHANGELOG.md](CHANGELOG.md) for what changed in each release.
 
 ## Legal
 

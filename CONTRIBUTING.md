@@ -39,16 +39,14 @@ halves separately.
 - Both apps enforce lint via `pnpm lint` / `npm run lint`, and the backend's Firebase
   predeploy hooks run lint + build automatically before every deploy.
 
-## Versioning and changelog
+## Versioning
 
-- `VERSION.md` (repo root) is a bare version string tracking documentation/tooling
-  releases — bump it and add a `CHANGELOG.md` entry whenever you cut one
-- `frontend/package.json` and `backend/package.json` track their own, independently
-  bumped versions — see the README's [Versioning](README.md#versioning) section
-- Every `CHANGELOG.md` release gets `### Added` / `### Changed` / `### Fixed`
-  subsections — never a bare bullet list directly under a version heading
-- `commit.sh` (bash) and `commit.bat` (Windows) commit and tag a release using whatever
-  is currently in `VERSION.md` — update both together if the tagging logic ever changes
+This project uses [Date Versioning](https://datevers.ing). To release:
+
+1. Add a `## vYY.MM.DD` entry at the top of `CHANGELOG.md`, with its sections in this order: Added, Changed, Fixed, Removed, Security, Deprecated.
+2. Set `VERSION.md` to the same bare version (no `v`): today's **UTC** date as `YY.MM.DD`, or `YY.MM.DD-1`, `-2`… for later releases the same UTC day. Never a future date. Use UTC, not local time: just after midnight in the UK it is still the previous day in UTC.
+3. Run `bash tests/version.sh`.
+4. Run `./commit.sh` (or `commit.bat` on Windows). It checks the version, commits and tags `vYY.MM.DD`, and never pushes.
 
 ## Before committing
 

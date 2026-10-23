@@ -12,7 +12,8 @@ import { defineConfig } from 'vite'
 import { fileURLToPath, URL } from 'node:url'
 import { readFileSync } from 'node:fs'
 
-const pkg = JSON.parse(readFileSync(new URL('./package.json', import.meta.url), 'utf-8'))
+// The app shows the repo's Date Version (VERSION.md), not the frontend package's own version
+const appVersion = readFileSync(new URL('../VERSION.md', import.meta.url), 'utf-8').trim()
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -58,7 +59,7 @@ export default defineConfig({
   ],
   define: {
     'process.env': {},
-    __APP_VERSION__: JSON.stringify(pkg.version),
+    __APP_VERSION__: JSON.stringify(appVersion),
   },
   resolve: {
     alias: {

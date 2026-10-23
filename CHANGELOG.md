@@ -4,10 +4,28 @@ All notable changes to AutoScroll are documented here. This is the project's
 first changelog entry — see git history for everything that came before it.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
-the repo-root version in `VERSION.md` follows [Semantic Versioning](https://semver.org/).
+the repo-root version in `VERSION.md` follows [Date Versioning](https://datevers.ing) (earlier releases used Semantic Versioning).
 Note this root version tracks the *repository* (docs, scripts, both apps
 together) — it's separate from the independent `frontend/package.json` and
 `backend/package.json` versions described in the README's Versioning section.
+
+Since v26.10.23 this project uses [Date Versioning](https://datevers.ing) (`YY.MM.DD`, the UTC release date, with `-1`, `-2`… for later releases the same day); earlier releases used Semantic Versioning.
+
+## v26.10.23
+
+### Added
+
+- A Discord component embed (`discord:component-embed` JSON in the page head) so links to AutoScroll show a rich preview in Discord, plus `tests/discord-embed.mjs` to validate it
+- A full favicon set: `favicon.ico`, `apple-touch-icon.png`, `site.webmanifest` (192, 512 and maskable 512 icons), linked from `index.html`, and served as `application/manifest+json` on Netlify
+- `tests/version.sh`, which checks that `VERSION.md` is a valid Date Version, a real calendar date not in the future, and the same as the newest entry in this changelog
+
+### Changed
+
+- Switched from Semantic Versioning to [Date Versioning](https://datevers.ing): releases are numbered by their UTC release date as `YY.MM.DD`, with `-1`, `-2`… for later releases the same day. This release follows v2.3.9
+- The footer and side-panel version now read the repo-root `VERSION.md` instead of `frontend/package.json`
+- Replaced the unused `manifest.json` with `site.webmanifest`
+- `commit.sh` and `commit.bat` refuse a `VERSION.md` that isn't a valid Date Version or is dated in the future (UTC), and warn when it's dated before today
+- `README.md` and `CONTRIBUTING.md` describe Date Versioning and the release steps
 
 ## [2.3.9] - 2026-10-09
 
