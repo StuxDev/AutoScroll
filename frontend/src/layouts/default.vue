@@ -86,7 +86,7 @@
               </div>
               <div class="mb-1">
                 <span class="font-weight-medium">Privacy:</span>
-                No personal data or cookies are collected or stored.
+                No cookies or accounts. Your IP address is kept only briefly, for rate limiting.
               </div>
               <div class="mb-1">
                 <span class="font-weight-medium">Content:</span>

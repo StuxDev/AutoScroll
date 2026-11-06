@@ -1,0 +1,20 @@
+name: CI
+
+on:
+  push:
+    branches: [main, test]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: bash tests/version.sh
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: node tests/discord-embed.mjs
