@@ -10,6 +10,15 @@ together) — it's separate from the independent `frontend/package.json` and
 
 Since v26.10.23 this project uses [Date Versioning](https://datevers.ing) (`YY.MM.DD`, the UTC release date, with `-1`, `-2`… for later releases the same day); earlier releases used Semantic Versioning.
 
+## v26.11.06-1
+
+### Fixed
+
+- The footer said no personal data is collected or stored, and the README said no IP addresses are stored. Both now say
+  what actually happens: your IP address is kept briefly, base64-encoded, to enforce per-IP rate limits, and an hourly
+  cleanup deletes it. The Privacy Policy already said so; it now also says base64 is an encoding, not encryption, and is
+  dated November 2026.
+
 ## v26.11.06
 
 ### Changed

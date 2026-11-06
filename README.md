@@ -137,7 +137,7 @@ See [Boring Legal Stuff](https://autoscroll.stux.dev/legal) (or `/legal` on any 
 
 - This project is not affiliated with Reddit Inc. in any way.
 - All content is sourced from Reddit's publicly available data, directly or via Apify.
-- No personal data, IP addresses, or cookies are stored.
+- Your IP address is kept briefly, base64-encoded, to enforce per-IP rate limits, and an hourly cleanup deletes it once the rate-limit window expires. No other personal data, and no cookies, are stored.
 - Anonymous, country-level analytics are collected for monitoring purposes only.
 - This service is intended for users aged 18 and over.
 

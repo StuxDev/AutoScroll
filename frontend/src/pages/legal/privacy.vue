@@ -2,7 +2,7 @@
   <LegalPage
     title="Privacy Policy"
     lead="The short version: there's no login, no account, and nothing about you is stored long-term."
-    meta="Last updated: September 2026"
+    meta="Last updated: November 2026"
   >
     <h2>What we collect</h2>
     <p>AutoScroll has no accounts and no sign-up — there's nothing to attach a profile to. What little data does pass through the app falls into a few categories:</p>
@@ -14,7 +14,7 @@
       </div>
       <div class="info-row">
         <span class="info-label">Your IP address</span>
-        <span class="info-value">Used transiently by the Firebase Functions backend to enforce per-IP rate limits. It's base64-encoded into a short-lived Firestore document, never logged in plain text, and automatically deleted by a scheduled cleanup job once the rate-limit window expires.</span>
+        <span class="info-value">Used transiently by the Firebase Functions backend to enforce per-IP rate limits. It's stored base64-encoded (an encoding, not encryption) as the ID of a short-lived Firestore document, isn't written to any log, and is deleted by an hourly cleanup job once the rate-limit window expires.</span>
       </div>
       <div class="info-row">
         <span class="info-label">Approximate country</span>
