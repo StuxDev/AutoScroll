@@ -129,6 +129,8 @@ firebase deploy --only functions:autoscroll_backend
 
 This project uses [Date Versioning](https://datevers.ing): each release is numbered by its UTC release date as `YY.MM.DD` (for example `26.10.23`), with `-1`, `-2`… for later releases the same day. See [CHANGELOG.md](CHANGELOG.md) for what changed in each release. That version is the repository's; `frontend/package.json` and `backend/package.json` keep their own, separate app versions.
 
+Work happens on the `test` branch, and changes reach `main` only through a pull request from `test`. Release commits and tags are made on `test` (`git push origin test --tags`) and go live when that pull request is merged.
+
 Before a release, run `bash tests/version.sh` and `node tests/discord-embed.mjs`.
 
 ## Legal
