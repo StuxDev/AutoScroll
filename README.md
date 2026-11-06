@@ -37,6 +37,8 @@ AutoScroll/
 ├── docs/              # Setup guides
 │   ├── install-frontend.md
 │   └── install-backend.md
+├── tests/             # version.sh (VERSION.md) and discord-embed.mjs (the link preview)
+├── dev-server.sh/.bat # Runs the frontend and the Functions emulator together
 ├── firebase.json
 └── firestore.rules
 ```
@@ -92,6 +94,7 @@ See [`docs/install-frontend.md`](docs/install-frontend.md) and [`docs/install-ba
 | Variable | Required | Description |
 |----------|----------|-------------|
 | `VITE_LOCALHOST_SECRET` | No | Matches `LOCALHOST_SECRET` on the backend for local proxy testing |
+| `VITE_PROXY_BASE_URL` | No | Where the Cloud Functions live; defaults to the production `europe-west4` URL (`dev-server` points it at the local emulator) |
 
 ### Backend (`backend/.env`)
 
@@ -100,6 +103,7 @@ See [`docs/install-frontend.md`](docs/install-frontend.md) and [`docs/install-ba
 | `APIFY_TOKEN` | Yes | API token from [console.apify.com](https://console.apify.com/account/integrations) |
 | `ALLOWED_ORIGINS` | Yes | Comma-separated list of allowed CORS origins |
 | `LOCALHOST_SECRET` | No | Optional secret header for localhost requests |
+| `ADMIN_UPLOAD_SECRET` | No | Shared secret for the admin GeoIP database upload endpoint (see [`docs/install-backend.md`](docs/install-backend.md)) |
 
 ---
 
@@ -123,7 +127,9 @@ firebase deploy --only functions:autoscroll_backend
 
 ## Versioning
 
-This project uses [Date Versioning](https://datevers.ing): each release is numbered by its UTC release date as `YY.MM.DD` (for example `26.10.23`), with `-1`, `-2`… for later releases the same day. See [CHANGELOG.md](CHANGELOG.md) for what changed in each release.
+This project uses [Date Versioning](https://datevers.ing): each release is numbered by its UTC release date as `YY.MM.DD` (for example `26.10.23`), with `-1`, `-2`… for later releases the same day. See [CHANGELOG.md](CHANGELOG.md) for what changed in each release. That version is the repository's; `frontend/package.json` and `backend/package.json` keep their own, separate app versions.
+
+Before a release, run `bash tests/version.sh` and `node tests/discord-embed.mjs`.
 
 ## Legal
 
@@ -149,5 +155,5 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for project conventions, and [CHANGELOG.m
 
 ---
 
-*Built & Maintained by <img src="https://github.com/StuxDev.png" height="14" alt="Stux.Dev" valign="middle"> [Stux.Dev](https://stux.dev), Hosted by <picture><source media="(prefers-color-scheme: dark)" srcset="https://global.media.stuxedo.com/icon-light.png"><source media="(prefers-color-scheme: light)" srcset="https://global.media.stuxedo.com/icon-dark.png"><img src="https://global.media.stuxedo.com/icon-dark.png" height="14" alt="Stuxedo" valign="middle"></picture> [Stuxedo](https://stuxedo.com).    
+*Built & Maintained by <picture><source media="(prefers-color-scheme: dark)" srcset="https://global.media.stux.dev/icon-light.png"><source media="(prefers-color-scheme: light)" srcset="https://global.media.stux.dev/icon-dark.png"><img src="https://global.media.stux.dev/icon-dark.png" height="14" alt="Stux.Dev" valign="middle"></picture> [Stux.Dev](https://stux.dev), Hosted by <picture><source media="(prefers-color-scheme: dark)" srcset="https://global.media.stuxedo.com/icon-light.png"><source media="(prefers-color-scheme: light)" srcset="https://global.media.stuxedo.com/icon-dark.png"><img src="https://global.media.stuxedo.com/icon-dark.png" height="14" alt="Stuxedo" valign="middle"></picture> [Stuxedo](https://stuxedo.com).    
 Stux.Dev is a part of the <picture><source media="(prefers-color-scheme: dark)" srcset="https://global.media.stux.group/icon-light.png"><source media="(prefers-color-scheme: light)" srcset="https://global.media.stux.group/icon-dark.png"><img src="https://global.media.stux.group/icon-dark.png" height="14" alt="Stux.Group" valign="middle"></picture> Stux.Group brand of businesses.*

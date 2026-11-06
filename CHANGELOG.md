@@ -1,15 +1,31 @@
 # Changelog
 
-All notable changes to AutoScroll are documented here. This is the project's
-first changelog entry — see git history for everything that came before it.
+All notable changes to AutoScroll are documented here. Each release's sections come in this order: Added, Changed,
+Fixed, Removed, Security, Deprecated.
 
-Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
-the repo-root version in `VERSION.md` follows [Date Versioning](https://datevers.ing) (earlier releases used Semantic Versioning).
+The repo-root version in `VERSION.md` follows [Date Versioning](https://datevers.ing) (earlier releases used Semantic Versioning).
 Note this root version tracks the *repository* (docs, scripts, both apps
 together) — it's separate from the independent `frontend/package.json` and
 `backend/package.json` versions described in the README's Versioning section.
 
 Since v26.10.23 this project uses [Date Versioning](https://datevers.ing) (`YY.MM.DD`, the UTC release date, with `-1`, `-2`… for later releases the same day); earlier releases used Semantic Versioning.
+
+## v26.11.06
+
+### Changed
+
+- The README documents `VITE_PROXY_BASE_URL` and `ADMIN_UPLOAD_SECRET`, lists `tests/` and the dev server in the project
+  structure, says the root version is separate from the two apps' `package.json` versions, and gives the pre-release
+  tests. Its footer's Stux.Dev icon follows GitHub's light or dark theme instead of using the GitHub avatar.
+- CONTRIBUTING's release steps run `tests/discord-embed.mjs` too, and it no longer says there are no automated tests.
+- `docs/install-frontend.md` asks for Node.js 20.19+ or 22.12+ (Vite 7's minimum; it said 18+), creates `.env.local`
+  without copying a `.env.example` that doesn't exist, and documents `VITE_PROXY_BASE_URL`.
+- This changelog's intro gives the house section order instead of citing Keep a Changelog, and no longer calls itself the
+  project's first entry. An empty `[Unreleased]` heading left between old releases is gone.
+
+### Removed
+
+- A macOS `.DS_Store` file that had been committed by mistake. `.gitignore` now keeps it out.
 
 ## v26.10.23
 
@@ -38,8 +54,6 @@ Since v26.10.23 this project uses [Date Versioning](https://datevers.ing) (`YY.M
 ### Changed
 
 - The logos and icons in the Markdown docs (README and the like) follow GitHub's light or dark theme, using each brand's `logo-light`/`logo-dark` and `icon-light`/`icon-dark` files
-
-## [Unreleased]
 
 ## [2.3.7] - 2026-09-26
 
