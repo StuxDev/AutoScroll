@@ -67,7 +67,6 @@
             :key="currentPost.images[currentImageIndex]"
             class="full-size-media"
             :src="currentPost.images[currentImageIndex]"
-            contain
             @load="mediaLoading = false"
           />
           <video
