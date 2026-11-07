@@ -57,7 +57,8 @@ This project uses [Date Versioning](https://datevers.ing). To release:
 
 ## Before committing
 
-- `pnpm --dir frontend lint` and `npm --prefix backend run lint`
+- `pnpm --dir frontend lint` and `npm --prefix backend run lint` (CI runs the frontend's ESLint, without `--fix`, and
+  its build on every push and pull request; errors fail it, warnings don't)
 - `pnpm --dir frontend build` and `npm --prefix backend run build` to make sure both
   sides still type-check and compile
 - Manually smoke-test the pages you touched: the only automated tests are `tests/version.sh` and

@@ -11,8 +11,8 @@ export default tseslint.config(
   eslint.configs.recommended,
   ...tseslint.configs.recommended,
   ...pluginVue.configs['flat/recommended'],
+  // Global ignores: an ignores-only block applies to every config, so the build output in dist/ isn't linted.
   {
-    files: ['**/*.vue', '**/*.ts', '**/*.js'],
     ignores: [
       'dist/**',
       'node_modules/**',
@@ -21,15 +21,22 @@ export default tseslint.config(
       'public/**',
       '.eslintrc.js',
       '.eslintrc-auto-import.json',
+      'eslint.config.js',
     ],
+  },
+  {
+    files: ['**/*.vue', '**/*.ts', '**/*.js'],
     plugins: {
       vuetify,
     },
     languageOptions: {
       globals: {
         ...globals.browser,
+        __APP_VERSION__: 'readonly', // injected by Vite's define (vite.config.mts)
       },
       parserOptions: {
+        parser: tseslint.parser, // TypeScript inside .vue <script lang="ts"> blocks
+        extraFileExtensions: ['.vue'],
         project: true,
         tsconfigRootDir: import.meta.dirname,
       },

@@ -10,6 +10,25 @@ together) — it's separate from the independent `frontend/package.json` and
 
 Since v26.10.23 this project uses [Date Versioning](https://datevers.ing) (`YY.MM.DD`, the UTC release date, with `-1`, `-2`… for later releases the same day); earlier releases used Semantic Versioning.
 
+## v26.11.07
+
+### Added
+
+- A `frontend` CI job that installs from the lockfile, runs ESLint (without `--fix`) and builds the frontend, so lint
+  can't quietly break again.
+
+### Fixed
+
+- The frontend's ESLint couldn't start: `eslint.config.js` imports `@eslint/js` and `globals`, which weren't in
+  `frontend/package.json`. Both are now dev dependencies (at the versions already in the tree).
+- With it running, ESLint was also linting the build output in `dist/` (its `ignores` sat in a block with `files`,
+  so they didn't apply globally), couldn't parse TypeScript in `.vue` files, and didn't know Vite's `__APP_VERSION__`.
+  The config now has a global ignores block, the TypeScript parser for `.vue` scripts, and that global.
+- The lint errors that left in the source: an unused catch variable and an untyped catch in `stores/gallery.ts`, a
+  ternary used as a statement, and the `contain` prop on the media overlay's image, which Vuetify 3 no longer has
+  (it already shows the whole image by default). The three places that describe Reddit's raw, untyped JSON keep `any`,
+  each with a one-line ESLint exception saying why. Lint now reports no errors; 176 formatting warnings remain.
+
 ## v26.11.06-2
 
 ### Added

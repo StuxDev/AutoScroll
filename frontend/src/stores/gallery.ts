@@ -43,7 +43,7 @@ function getFetchOptions(url: string): RequestInit {
   try {
     const urlObj = new URL(url, window.location.origin);
     isProxyRequest = urlObj.origin === new URL(PROXY_BASE_URL).origin;
-  } catch (e) {
+  } catch {
     // If parsing fails, treat as non-proxy request
     isProxyRequest = false;
   }
@@ -61,6 +61,7 @@ function getFetchOptions(url: string): RequestInit {
 interface PostData {
   over_18: boolean;
   permalink: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- the rest of Reddit's post JSON is untyped
   [key: string]: any;
 }
 
@@ -183,6 +184,7 @@ export const useGalleryStore = defineStore('gallery', {
         }
 
         const processedPosts = data.data.children
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any -- Reddit's listing JSON is untyped
           .map((post: any) => {
             const { data } = post
             // Album / Gallery
@@ -193,6 +195,7 @@ export const useGalleryStore = defineStore('gallery', {
                   if (!media) return null
 
                   // Find best quality image, with fallbacks
+                  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- Reddit's media_metadata JSON is untyped
                   const bestQuality = media.p?.find((q: any) => q.x > 1000) || media.s
                   if (!bestQuality || !bestQuality.u) return null
 
@@ -241,8 +244,8 @@ export const useGalleryStore = defineStore('gallery', {
         if (!this.agreedToNSFW && this.posts.some(p => p.postData.over_18)) {
           this.isNSFWDialogOpen = true;
         }
-      } catch (error: any) {
-        this.error = error.message;
+      } catch (error) {
+        this.error = error instanceof Error ? error.message : String(error);
         console.error('Error fetching data from Reddit:', error);
         this.isProxyPromptOpen = true;
       } finally {
@@ -312,7 +315,8 @@ export const useGalleryStore = defineStore('gallery', {
       this.isPlaying = false;
     },
     toggleSlideshow() {
-      this.isPlaying ? this.stopSlideshow() : this.startSlideshow();
+      if (this.isPlaying) this.stopSlideshow();
+      else this.startSlideshow();
     },
     slideshowNext() {
       const currentPost = this.visiblePosts[this.currentIndex];
