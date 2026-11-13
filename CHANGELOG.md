@@ -10,6 +10,13 @@ together) — it's separate from the independent `frontend/package.json` and
 
 Since v26.10.23 this project uses [Date Versioning](https://datevers.ing) (`YY.MM.DD`, the UTC release date, with `-1`, `-2`… for later releases the same day); earlier releases used Semantic Versioning.
 
+## v26.11.13-1
+
+### Fixed
+
+- `commit.sh` and `commit.bat` now end by suggesting a push to the `test` branch and a pull request into `main`, instead
+  of a push straight to `main`, which skipped the review flow.
+
 ## v26.11.13
 
 ### Changed
