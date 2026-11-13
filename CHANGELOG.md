@@ -10,6 +10,13 @@ together) — it's separate from the independent `frontend/package.json` and
 
 Since v26.10.23 this project uses [Date Versioning](https://datevers.ing) (`YY.MM.DD`, the UTC release date, with `-1`, `-2`… for later releases the same day); earlier releases used Semantic Versioning.
 
+## v26.11.13
+
+### Changed
+
+- The Imprint page gives Stux Group Ltd's new registered office: 124 City Road, London, EC1V 2NX, England, United Kingdom (the company
+  number and registration are unchanged), and its "Last updated" date is now November 2026.
+
 ## v26.11.07
 
 ### Added
