@@ -40,11 +40,12 @@ halves separately.
 - Both apps enforce lint via `pnpm lint` / `npm run lint`, and the backend's Firebase
   predeploy hooks run lint + build automatically before every deploy.
 
-## Branches
+## Branches and going live
 
-- Work on `test`, or on a feature branch off it. Never push to `main`
-- Changes reach `main` only through a pull request from `test` into `main`, which needs CI to pass and is reviewed and merged by Leo
-- Merging into `main` deploys the frontend (Netlify builds `main`); the backend is deployed by hand with `firebase deploy`. Release commits and tags are made on `test` (`git push origin test --tags`) and go live when the pull request is merged
+- **`main` is what's live.** Nothing is pushed to it directly: it only changes when a pull request from `staging` is merged. Merging into `main` deploys the frontend (Netlify builds `main`); the backend is deployed by hand with `firebase deploy`.
+- **`staging` is the last check before live.** It only changes when a pull request from `test` is merged. CI runs on it, and nothing deploys from it.
+- **Work happens on `test`**, or on a feature branch off `test` that's merged back into it. Releases are made on `test` too; `commit.sh` / `commit.bat` refuse to run on `staging` or `main`.
+- **Going live:** push `test` with its tag (`git push origin test --tags`), open a pull request into staging (`gh pr create --base staging --head test`), check staging once it's merged, then open one from staging into main (`gh pr create --base main --head staging`). Both need CI to pass and are reviewed and merged by Leo.
 
 ## Versioning
 
@@ -54,7 +55,7 @@ This project uses [Date Versioning](https://datevers.ing). To release:
 2. Set `VERSION.md` to the same bare version (no `v`): today's **UTC** date as `YY.MM.DD`, or `YY.MM.DD-1`, `-2`… for later releases the same UTC day. Never a future date. Use UTC, not local time: just after midnight in the UK it is still the previous day in UTC.
 3. Run `bash tests/version.sh` and `node tests/discord-embed.mjs`.
 4. Run `./commit.sh` (or `commit.bat` on Windows). It checks the version, commits and tags `vYY.MM.DD`, and never pushes.
-5. Push `test` with its tags (`git push origin test --tags`) and open a pull request from `test` into `main`.
+5. Push `test` with its tags (`git push origin test --tags`) and open a pull request into staging (`gh pr create --base staging --head test`). Once it's merged and staging is checked, open one from staging into main (`gh pr create --base main --head staging`).
 
 ## Before committing
 
