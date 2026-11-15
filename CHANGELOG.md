@@ -10,6 +10,12 @@ together) — it's separate from the independent `frontend/package.json` and
 
 Since v26.10.23 this project uses [Date Versioning](https://datevers.ing) (`YY.MM.DD`, the UTC release date, with `-1`, `-2`… for later releases the same day); earlier releases used Semantic Versioning.
 
+## v26.11.15-2
+
+### Changed
+
+- Dependabot's update pull requests (frontend and backend) now target `test` instead of `main`, so dependency updates go `test` → `staging` → `main` like any other change. Dependabot reads this from `main`, so it takes effect once this release is live.
+
 ## v26.11.15-1
 
 ### Changed
