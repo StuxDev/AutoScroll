@@ -7,6 +7,8 @@ version: 2
 updates:
   - package-ecosystem: "npm" # See documentation for possible values
     directory: "/frontend" # Location of package manifests
+    # Updates go through test -> staging -> main like any other change
+    target-branch: "test"
     schedule:
       interval: "weekly"
     # Match frontend/.npmrc's minimum-release-age (7 days): pnpm refuses newer releases
@@ -31,5 +33,6 @@ updates:
         update-types: ["version-update:semver-major"]
   - package-ecosystem: "npm"
     directory: "/backend"
+    target-branch: "test"
     schedule:
       interval: "weekly"
