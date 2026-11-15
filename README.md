@@ -68,7 +68,10 @@ See [`docs/install-frontend.md`](docs/install-frontend.md) and [`docs/install-ba
 
 ```bash
 ./dev-server.sh      # or dev-server.bat on Windows
+./dev-server.sh --lan   # also open the frontend from a phone on your network
 ```
+
+Add `--lan` to open it from a phone or another device on your local network: it listens on all interfaces instead of `127.0.0.1` only, and prints the addresses to open (usually the `192.168.x.x` one; allow Node through the firewall if asked). With `--lan`, the frontend calls the emulator through Vite (`/__emulator/...`), so the emulator itself stays on `127.0.0.1`.
 
 ---
 
@@ -129,7 +132,7 @@ firebase deploy --only functions:autoscroll_backend
 
 This project uses [Date Versioning](https://datevers.ing): each release is numbered by its UTC release date as `YY.MM.DD` (for example `26.10.23`), with `-1`, `-2`… for later releases the same day. See [CHANGELOG.md](CHANGELOG.md) for what changed in each release. That version is the repository's; `frontend/package.json` and `backend/package.json` keep their own, separate app versions.
 
-Work happens on the `test` branch, and changes reach `main` only through a pull request from `test`. Release commits and tags are made on `test` (`git push origin test --tags`) and go live when that pull request is merged.
+Work and releases happen on the `test` branch. Changes reach `staging` and then `main` (live) only through pull requests: `test` → `staging` → `main`. Release commits and tags are made on `test` (`git push origin test --tags`) and go live when the `staging` → `main` pull request is merged.
 
 Before a release, run `bash tests/version.sh` and `node tests/discord-embed.mjs`.
 
