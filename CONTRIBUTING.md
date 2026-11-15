@@ -17,6 +17,7 @@ Questions about contributing: [hello@stux.dev](mailto:hello@stux.dev).
 
 ```bash
 ./dev-server.sh      # or dev-server.bat on Windows
+./dev-server.sh --lan   # also open the frontend from a phone on your network
 ```
 
 This starts the Vite dev server (`frontend/`, http://localhost:3000) and the Firebase

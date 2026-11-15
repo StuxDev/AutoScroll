@@ -11,9 +11,16 @@ import Vuetify, { transformAssetUrls } from 'vite-plugin-vuetify'
 import { defineConfig } from 'vite'
 import { fileURLToPath, URL } from 'node:url'
 import { readFileSync } from 'node:fs'
+import process from 'node:process'
 
 // The app shows the repo's Date Version (VERSION.md), not the frontend package's own version
 const appVersion = readFileSync(new URL('../VERSION.md', import.meta.url), 'utf-8').trim()
+
+// dev-server.sh/.bat --lan sets this to the local Firebase emulator (http://127.0.0.1:5001). The
+// frontend then calls /__emulator/... on its own address, and Vite forwards those calls to the
+// emulator, so a phone on the network only needs to reach Vite. The forwarded calls carry a
+// localhost Origin, which the backend allows in development.
+const emulatorProxy = process.env.AUTOSCROLL_EMULATOR_PROXY
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -77,5 +84,16 @@ export default defineConfig({
   },
   server: {
     port: 3000,
+    ...(emulatorProxy
+      ? {
+          proxy: {
+            '/__emulator': {
+              target: emulatorProxy,
+              rewrite: (path: string) => path.replace(/^\/__emulator/, ''),
+              headers: { origin: 'http://127.0.0.1:3000' },
+            },
+          },
+        }
+      : {}),
   },
 })

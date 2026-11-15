@@ -68,7 +68,10 @@ See [`docs/install-frontend.md`](docs/install-frontend.md) and [`docs/install-ba
 
 ```bash
 ./dev-server.sh      # or dev-server.bat on Windows
+./dev-server.sh --lan   # also open the frontend from a phone on your network
 ```
+
+Add `--lan` to open it from a phone or another device on your local network: it listens on all interfaces instead of `127.0.0.1` only, and prints the addresses to open (usually the `192.168.x.x` one; allow Node through the firewall if asked). With `--lan`, the frontend calls the emulator through Vite (`/__emulator/...`), so the emulator itself stays on `127.0.0.1`.
 
 ---
 
